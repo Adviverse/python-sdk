@@ -1,0 +1,20 @@
+docs/**
+test/**
+tests/**
+.github/**
+.gitlab-ci.yml
+.travis.yml
+git_push.sh
+tox.ini
+README.md
+src/test/**
+src/*.Test/**
+spec/**
+api/openapi.yaml
+appveyor.yml
+
+# hand-maintained packaging (facade + generated client)
+setup.py
+pyproject.toml
+adviverse/**
+tests/test_facade.py
