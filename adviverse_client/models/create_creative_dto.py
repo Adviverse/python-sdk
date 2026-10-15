@@ -19,7 +19,9 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from adviverse_client.models.carousel_item_dto import CarouselItemDto
+from adviverse_client.models.companion_dto import CompanionDto
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -42,7 +44,12 @@ class CreateCreativeDto(BaseModel):
     height: Optional[Union[StrictFloat, StrictInt]] = None
     weight: Optional[Union[StrictFloat, StrictInt]] = None
     carousel_items: Optional[List[CarouselItemDto]] = Field(default=None, alias="carouselItems")
-    __properties: ClassVar[List[str]] = ["campaignId", "type", "assetUrl", "landingUrl", "title", "description", "iconUrl", "mainImageUrl", "cta", "brandName", "starRating", "width", "height", "weight", "carouselItems"]
+    duration: Optional[Union[Annotated[float, Field(le=600, strict=True, ge=1)], Annotated[int, Field(le=600, strict=True, ge=1)]]] = None
+    skip_offset_sec: Optional[Union[Annotated[float, Field(le=600, strict=True, ge=0)], Annotated[int, Field(le=600, strict=True, ge=0)]]] = Field(default=None, description=">0 makes the linear ad skippable after N seconds (VAST skipoffset).", alias="skipOffsetSec")
+    vpaid_url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Interactive VPAID (application/javascript) creative file, https.", alias="vpaidUrl")
+    companions: Optional[Annotated[List[CompanionDto], Field(max_length=5)]] = Field(default=None, description="Companion banners (VAST CompanionAds), max 5.")
+    vast_tag_url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Third-party VAST tag (the advertiser's own ad server), https. Only valid for type video/audio. Makes assetUrl optional: with no assetUrl the engine serves a VAST <Wrapper> pointing at this tag; when both are set the inline asset wins.", alias="vastTagUrl")
+    __properties: ClassVar[List[str]] = ["campaignId", "type", "assetUrl", "landingUrl", "title", "description", "iconUrl", "mainImageUrl", "cta", "brandName", "starRating", "width", "height", "weight", "carouselItems", "duration", "skipOffsetSec", "vpaidUrl", "companions", "vastTagUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,6 +97,13 @@ class CreateCreativeDto(BaseModel):
                 if _item_carousel_items:
                     _items.append(_item_carousel_items.to_dict())
             _dict['carouselItems'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in companions (list)
+        _items = []
+        if self.companions:
+            for _item_companions in self.companions:
+                if _item_companions:
+                    _items.append(_item_companions.to_dict())
+            _dict['companions'] = _items
         return _dict
 
     @classmethod
@@ -116,7 +130,12 @@ class CreateCreativeDto(BaseModel):
             "width": obj.get("width"),
             "height": obj.get("height"),
             "weight": obj.get("weight"),
-            "carouselItems": [CarouselItemDto.from_dict(_item) for _item in obj["carouselItems"]] if obj.get("carouselItems") is not None else None
+            "carouselItems": [CarouselItemDto.from_dict(_item) for _item in obj["carouselItems"]] if obj.get("carouselItems") is not None else None,
+            "duration": obj.get("duration"),
+            "skipOffsetSec": obj.get("skipOffsetSec"),
+            "vpaidUrl": obj.get("vpaidUrl"),
+            "companions": [CompanionDto.from_dict(_item) for _item in obj["companions"]] if obj.get("companions") is not None else None,
+            "vastTagUrl": obj.get("vastTagUrl")
         })
         return _obj
 

@@ -86,6 +86,7 @@ from adviverse_client.models.claim_screen_dto import ClaimScreenDto
 from adviverse_client.models.claim_surface_dto import ClaimSurfaceDto
 from adviverse_client.models.client_ping_dto import ClientPingDto
 from adviverse_client.models.combo_unit_dto import ComboUnitDto
+from adviverse_client.models.companion_dto import CompanionDto
 from adviverse_client.models.consent_config_dto import ConsentConfigDto
 from adviverse_client.models.consent_dto import ConsentDto
 from adviverse_client.models.create_app_dto import CreateAppDto
@@ -99,6 +100,7 @@ from adviverse_client.models.create_destination_dto import CreateDestinationDto
 from adviverse_client.models.create_feed_dto import CreateFeedDto
 from adviverse_client.models.create_guide_dto import CreateGuideDto
 from adviverse_client.models.create_key_dto import CreateKeyDto
+from adviverse_client.models.create_onchain_pool_dto import CreateOnchainPoolDto
 from adviverse_client.models.create_placement_dto import CreatePlacementDto
 from adviverse_client.models.create_portal_config_dto import CreatePortalConfigDto
 from adviverse_client.models.create_post_dto import CreatePostDto
