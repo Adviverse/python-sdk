@@ -18,6 +18,11 @@ from typing_extensions import Annotated
 
 from pydantic import StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
+from adviverse_client.models.insights_controller_bid_simulator200_response import InsightsControllerBidSimulator200Response
+from adviverse_client.models.insights_controller_competitiveness200_response import InsightsControllerCompetitiveness200Response
+from adviverse_client.models.insights_controller_creative_performance200_response import InsightsControllerCreativePerformance200Response
+from adviverse_client.models.insights_controller_pacing200_response import InsightsControllerPacing200Response
+from adviverse_client.models.insights_controller_shading_savings200_response import InsightsControllerShadingSavings200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -55,9 +60,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """insights_controller_bid_simulator
+    ) -> InsightsControllerBidSimulator200Response:
+        """Simulate win rate, reach and spend across bids
 
+        For the required `format` and optional `geo`, takes about 10 candidate bids spanning the advertiser's recent clearing-price range, plus the caller's own `bid` if given. Each bid gets an estimated win rate from the empirical CDF of the advertiser's last-30-day clearing prices, and projected impressions and spend per day. Prices are per impression (CPM = price x 1000). With no auction history for the slice, `points` is empty and `note` explains why.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -98,7 +104,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerBidSimulator200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -129,9 +135,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """insights_controller_bid_simulator
+    ) -> ApiResponse[InsightsControllerBidSimulator200Response]:
+        """Simulate win rate, reach and spend across bids
 
+        For the required `format` and optional `geo`, takes about 10 candidate bids spanning the advertiser's recent clearing-price range, plus the caller's own `bid` if given. Each bid gets an estimated win rate from the empirical CDF of the advertiser's last-30-day clearing prices, and projected impressions and spend per day. Prices are per impression (CPM = price x 1000). With no auction history for the slice, `points` is empty and `note` explains why.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -172,7 +179,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerBidSimulator200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -204,8 +211,9 @@ class AdvertiserInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """insights_controller_bid_simulator
+        """Simulate win rate, reach and spend across bids
 
+        For the required `format` and optional `geo`, takes about 10 candidate bids spanning the advertiser's recent clearing-price range, plus the caller's own `bid` if given. Each bid gets an estimated win rate from the empirical CDF of the advertiser's last-30-day clearing prices, and projected impressions and spend per day. Prices are per impression (CPM = price x 1000). With no auction history for the slice, `points` is empty and `note` explains why.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -246,7 +254,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerBidSimulator200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -299,10 +307,19 @@ class AdvertiserInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -340,9 +357,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """insights_controller_competitiveness
+    ) -> InsightsControllerCompetitiveness200Response:
+        """Score how competitive a targeting slice is
 
+        Reads the market-wide clearing-price distribution over the last 30 days for `format` (required) and optional `geo`, and returns p50, p90, the sample size and a low/moderate/high score based on the price spread. The score is \"low\" when there is no data. Uses market data only, not the caller's own history.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -380,7 +398,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerCompetitiveness200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -410,9 +428,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """insights_controller_competitiveness
+    ) -> ApiResponse[InsightsControllerCompetitiveness200Response]:
+        """Score how competitive a targeting slice is
 
+        Reads the market-wide clearing-price distribution over the last 30 days for `format` (required) and optional `geo`, and returns p50, p90, the sample size and a low/moderate/high score based on the price spread. The score is \"low\" when there is no data. Uses market data only, not the caller's own history.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -450,7 +469,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerCompetitiveness200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -481,8 +500,9 @@ class AdvertiserInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """insights_controller_competitiveness
+        """Score how competitive a targeting slice is
 
+        Reads the market-wide clearing-price distribution over the last 30 days for `format` (required) and optional `geo`, and returns p50, p90, the sample size and a low/moderate/high score based on the price spread. The score is \"low\" when there is no data. Uses market data only, not the caller's own history.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -520,7 +540,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerCompetitiveness200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -568,10 +588,19 @@ class AdvertiserInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -608,9 +637,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """insights_controller_creative_performance
+    ) -> InsightsControllerCreativePerformance200Response:
+        """Per-creative performance for a campaign
 
+        Rolls up the last 30 days of valid impressions and spend, clicks and click-attributed conversions by creative for `campaignId` (required). Creative names come from Postgres. Rows include CTR and CVR as percentages and eCPM, sorted by spend. A campaign the advertiser does not own returns an empty list, not an error.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -645,7 +675,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerCreativePerformance200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -674,9 +704,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """insights_controller_creative_performance
+    ) -> ApiResponse[InsightsControllerCreativePerformance200Response]:
+        """Per-creative performance for a campaign
 
+        Rolls up the last 30 days of valid impressions and spend, clicks and click-attributed conversions by creative for `campaignId` (required). Creative names come from Postgres. Rows include CTR and CVR as percentages and eCPM, sorted by spend. A campaign the advertiser does not own returns an empty list, not an error.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -711,7 +742,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerCreativePerformance200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -741,8 +772,9 @@ class AdvertiserInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """insights_controller_creative_performance
+        """Per-creative performance for a campaign
 
+        Rolls up the last 30 days of valid impressions and spend, clicks and click-attributed conversions by creative for `campaignId` (required). Creative names come from Postgres. Rows include CTR and CVR as percentages and eCPM, sorted by spend. A campaign the advertiser does not own returns an empty list, not an error.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -777,7 +809,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerCreativePerformance200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -820,10 +852,19 @@ class AdvertiserInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -859,9 +900,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """insights_controller_pacing
+    ) -> InsightsControllerPacing200Response:
+        """Delivery pacing per campaign
 
+        For each of the advertiser's campaigns, compares the percentage of the delivery goal reached with the percentage of the flight that has elapsed, and flags whether the campaign is on pace. Reuses the billing-reports pacing calculation.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -893,7 +935,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerPacing200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -921,9 +963,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """insights_controller_pacing
+    ) -> ApiResponse[InsightsControllerPacing200Response]:
+        """Delivery pacing per campaign
 
+        For each of the advertiser's campaigns, compares the percentage of the delivery goal reached with the percentage of the flight that has elapsed, and flags whether the campaign is on pace. Reuses the billing-reports pacing calculation.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -955,7 +998,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerPacing200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -984,8 +1027,9 @@ class AdvertiserInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """insights_controller_pacing
+        """Delivery pacing per campaign
 
+        For each of the advertiser's campaigns, compares the percentage of the delivery goal reached with the percentage of the flight that has elapsed, and flags whether the campaign is on pace. Reuses the billing-reports pacing calculation.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1017,7 +1061,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerPacing200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1055,10 +1099,19 @@ class AdvertiserInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1095,9 +1148,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """insights_controller_shading_savings
+    ) -> InsightsControllerShadingSavings200Response:
+        """Estimate savings from bid shading
 
+        Combines the bid-shading factors the engine publishes for this advertiser with its last-30-day spend (optionally only `campaignId`) to estimate overpay avoided: roughly spend x (1/avgFactor - 1), with the factor floored at 0.5. If shading is not active for the advertiser yet, all values are zero and a note says so. The figures are directional estimates.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id:
         :type campaign_id: str
@@ -1132,7 +1186,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerShadingSavings200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1161,9 +1215,10 @@ class AdvertiserInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """insights_controller_shading_savings
+    ) -> ApiResponse[InsightsControllerShadingSavings200Response]:
+        """Estimate savings from bid shading
 
+        Combines the bid-shading factors the engine publishes for this advertiser with its last-30-day spend (optionally only `campaignId`) to estimate overpay avoided: roughly spend x (1/avgFactor - 1), with the factor floored at 0.5. If shading is not active for the advertiser yet, all values are zero and a note says so. The figures are directional estimates.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id:
         :type campaign_id: str
@@ -1198,7 +1253,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerShadingSavings200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1228,8 +1283,9 @@ class AdvertiserInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """insights_controller_shading_savings
+        """Estimate savings from bid shading
 
+        Combines the bid-shading factors the engine publishes for this advertiser with its last-30-day spend (optionally only `campaignId`) to estimate overpay avoided: roughly spend x (1/avgFactor - 1), with the factor floored at 0.5. If shading is not active for the advertiser yet, all values are zero and a note says so. The figures are directional estimates.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id:
         :type campaign_id: str
@@ -1264,7 +1320,7 @@ class AdvertiserInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "InsightsControllerShadingSavings200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1307,10 +1363,19 @@ class AdvertiserInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

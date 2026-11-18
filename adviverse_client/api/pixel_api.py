@@ -17,6 +17,20 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.audience_pixel import AudiencePixel
+from adviverse_client.models.pixel_controller_attribution200_response import PixelControllerAttribution200Response
+from adviverse_client.models.pixel_controller_cli_link_code201_response import PixelControllerCliLinkCode201Response
+from adviverse_client.models.pixel_controller_cli_link_exchange201_response import PixelControllerCliLinkExchange201Response
+from adviverse_client.models.pixel_controller_delete_pixel200_response import PixelControllerDeletePixel200Response
+from adviverse_client.models.pixel_controller_events200_response_inner import PixelControllerEvents200ResponseInner
+from adviverse_client.models.pixel_controller_insights200_response import PixelControllerInsights200Response
+from adviverse_client.models.pixel_controller_products200_response_inner import PixelControllerProducts200ResponseInner
+from adviverse_client.models.pixel_controller_set_realtime201_response import PixelControllerSetRealtime201Response
+from adviverse_client.models.pixel_controller_track201_response import PixelControllerTrack201Response
+from adviverse_client.models.pixel_controller_track_coding201_response import PixelControllerTrackCoding201Response
+from adviverse_client.models.pixel_controller_trait201_response import PixelControllerTrait201Response
+from adviverse_client.models.pixel_controller_trait_lookup200_response import PixelControllerTraitLookup200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -53,9 +67,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_attribution
+    ) -> PixelControllerAttribution200Response:
+        """Closed-loop attribution by traffic source
 
+        Breaks the funnel down by last-touch source (UTM source, else the referring host, else \"direct\"), medium and campaign over the last `days` (default 30, max 180): visitors, checkouts, purchases, abandoned checkouts, lost deals, revenue and lost value. Also returns account totals, lost-deal reasons and a first-touch source breakdown. Self-referrals are folded into \"direct\".  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -93,7 +108,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerAttribution200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -123,9 +138,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_attribution
+    ) -> ApiResponse[PixelControllerAttribution200Response]:
+        """Closed-loop attribution by traffic source
 
+        Breaks the funnel down by last-touch source (UTM source, else the referring host, else \"direct\"), medium and campaign over the last `days` (default 30, max 180): visitors, checkouts, purchases, abandoned checkouts, lost deals, revenue and lost value. Also returns account totals, lost-deal reasons and a first-touch source breakdown. Self-referrals are folded into \"direct\".  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -163,7 +179,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerAttribution200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -194,8 +210,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_attribution
+        """Closed-loop attribution by traffic source
 
+        Breaks the funnel down by last-touch source (UTM source, else the referring host, else \"direct\"), medium and campaign over the last `days` (default 30, max 180): visitors, checkouts, purchases, abandoned checkouts, lost deals, revenue and lost value. Also returns account totals, lost-deal reasons and a first-touch source breakdown. Self-referrals are folded into \"direct\".  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -233,7 +250,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerAttribution200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -281,10 +298,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -320,9 +346,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_cli_link_code
+    ) -> PixelControllerCliLinkCode201Response:
+        """Generate a one-time CLI link code
 
+        Creates a single-use code, valid for 10 minutes, that a terminal client exchanges at /v1/track/link for the SHA-256 hash of the account email. This links CLI ad requests to the account identity without the raw email ever leaving the server. Returns 404 if the account has no email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -354,7 +381,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerCliLinkCode201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -382,9 +409,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_cli_link_code
+    ) -> ApiResponse[PixelControllerCliLinkCode201Response]:
+        """Generate a one-time CLI link code
 
+        Creates a single-use code, valid for 10 minutes, that a terminal client exchanges at /v1/track/link for the SHA-256 hash of the account email. This links CLI ad requests to the account identity without the raw email ever leaving the server. Returns 404 if the account has no email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -416,7 +444,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerCliLinkCode201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -445,8 +473,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_cli_link_code
+        """Generate a one-time CLI link code
 
+        Creates a single-use code, valid for 10 minutes, that a terminal client exchanges at /v1/track/link for the SHA-256 hash of the account email. This links CLI ad requests to the account identity without the raw email ever leaving the server. Returns 404 if the account has no email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -478,7 +507,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerCliLinkCode201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -516,10 +545,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -555,9 +593,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_cli_link_exchange
+    ) -> PixelControllerCliLinkExchange201Response:
+        """Exchange a CLI link code for an email hash
 
+        Public. Trades the `code` issued by /v1/advertiser/cli-link-code for the account's email hash (`em`), which the CLI then sends on ad requests. Codes are single-use and deleted on exchange; unknown or expired codes return `{ok:false}`.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -589,7 +628,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerCliLinkExchange201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -617,9 +656,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_cli_link_exchange
+    ) -> ApiResponse[PixelControllerCliLinkExchange201Response]:
+        """Exchange a CLI link code for an email hash
 
+        Public. Trades the `code` issued by /v1/advertiser/cli-link-code for the account's email hash (`em`), which the CLI then sends on ad requests. Codes are single-use and deleted on exchange; unknown or expired codes return `{ok:false}`.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -651,7 +691,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerCliLinkExchange201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -680,8 +720,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_cli_link_exchange
+        """Exchange a CLI link code for an email hash
 
+        Public. Trades the `code` issued by /v1/advertiser/cli-link-code for the account's email hash (`em`), which the CLI then sends on ad requests. Codes are single-use and deleted on exchange; unknown or expired codes return `{ok:false}`.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -713,7 +754,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerCliLinkExchange201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -751,6 +792,13 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -790,9 +838,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_create_pixel
+    ) -> AudiencePixel:
+        """Create a pixel
 
+        Creates an additional pixel under the account (agencies typically run one per client). Optional body field `name` (trimmed, max 80 chars, defaults to \"Default pixel\"). Returns the new pixel with its install snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -824,7 +873,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -852,9 +901,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_create_pixel
+    ) -> ApiResponse[AudiencePixel]:
+        """Create a pixel
 
+        Creates an additional pixel under the account (agencies typically run one per client). Optional body field `name` (trimmed, max 80 chars, defaults to \"Default pixel\"). Returns the new pixel with its install snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -886,7 +936,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -915,8 +965,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_create_pixel
+        """Create a pixel
 
+        Creates an additional pixel under the account (agencies typically run one per client). Optional body field `name` (trimmed, max 80 chars, defaults to \"Default pixel\"). Returns the new pixel with its install snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -948,7 +999,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -986,10 +1037,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1026,9 +1086,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_delete_pixel
+    ) -> PixelControllerDeletePixel200Response:
+        """Delete a pixel
 
+        Deletes the pixel `id` if it belongs to the account. An account always keeps at least one pixel, so deleting the last one fails with 400. Deleting an id the account does not own is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1063,7 +1124,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1092,9 +1153,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_delete_pixel
+    ) -> ApiResponse[PixelControllerDeletePixel200Response]:
+        """Delete a pixel
 
+        Deletes the pixel `id` if it belongs to the account. An account always keeps at least one pixel, so deleting the last one fails with 400. Deleting an id the account does not own is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1129,7 +1191,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1159,8 +1221,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_delete_pixel
+        """Delete a pixel
 
+        Deletes the pixel `id` if it belongs to the account. An account always keeps at least one pixel, so deleting the last one fails with 400. Deleting an id the account does not own is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1195,7 +1258,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1236,10 +1299,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1277,9 +1349,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_events
+    ) -> List[PixelControllerEvents200ResponseInner]:
+        """Per-event activity totals
 
+        Aggregates pixel events from ClickHouse over the last `days` (default 30, clamped to 1-180), optionally filtered to `pixelId`. Returns one row per event name with event count, unique users and summed value, ordered by count.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -1317,7 +1390,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PixelControllerEvents200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1347,9 +1420,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_events
+    ) -> ApiResponse[List[PixelControllerEvents200ResponseInner]]:
+        """Per-event activity totals
 
+        Aggregates pixel events from ClickHouse over the last `days` (default 30, clamped to 1-180), optionally filtered to `pixelId`. Returns one row per event name with event count, unique users and summed value, ordered by count.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -1387,7 +1461,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PixelControllerEvents200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1418,8 +1492,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_events
+        """Per-event activity totals
 
+        Aggregates pixel events from ClickHouse over the last `days` (default 30, clamped to 1-180), optionally filtered to `pixelId`. Returns one row per event name with event count, unique users and summed value, ordered by count.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -1457,7 +1532,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PixelControllerEvents200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1505,10 +1580,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1545,9 +1629,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_get_pixel
+    ) -> AudiencePixel:
+        """Get one pixel and its install snippet
 
+        Returns the pixel named by the `pixelId` query param, or the account's primary pixel when omitted (created if the account has none). The response includes the pixel.js library URL, the base snippet to paste sitewide and the list of standard event names. Returns 404 when `pixelId` is not owned by the account.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param pixel_id: (required)
         :type pixel_id: str
@@ -1582,7 +1667,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1611,9 +1696,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_get_pixel
+    ) -> ApiResponse[AudiencePixel]:
+        """Get one pixel and its install snippet
 
+        Returns the pixel named by the `pixelId` query param, or the account's primary pixel when omitted (created if the account has none). The response includes the pixel.js library URL, the base snippet to paste sitewide and the list of standard event names. Returns 404 when `pixelId` is not owned by the account.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param pixel_id: (required)
         :type pixel_id: str
@@ -1648,7 +1734,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1678,8 +1764,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_get_pixel
+        """Get one pixel and its install snippet
 
+        Returns the pixel named by the `pixelId` query param, or the account's primary pixel when omitted (created if the account has none). The response includes the pixel.js library URL, the base snippet to paste sitewide and the list of standard event names. Returns 404 when `pixelId` is not owned by the account.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param pixel_id: (required)
         :type pixel_id: str
@@ -1714,7 +1801,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1757,10 +1844,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1798,9 +1894,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_insights
+    ) -> PixelControllerInsights200Response:
+        """Pixel funnel, ROAS summary and daily trend
 
+        Builds the Pixel dashboard view over the last `days` (default 30, max 180), optionally scoped to `pixelId`: unique users per funnel stage, a summary of events, attributed conversions, revenue, ad spend and ROAS, and a daily events/conversions/revenue series. ROAS is 0 when there is no spend.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -1838,7 +1935,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerInsights200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1868,9 +1965,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_insights
+    ) -> ApiResponse[PixelControllerInsights200Response]:
+        """Pixel funnel, ROAS summary and daily trend
 
+        Builds the Pixel dashboard view over the last `days` (default 30, max 180), optionally scoped to `pixelId`: unique users per funnel stage, a summary of events, attributed conversions, revenue, ad spend and ROAS, and a daily events/conversions/revenue series. ROAS is 0 when there is no spend.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -1908,7 +2006,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerInsights200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1939,8 +2037,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_insights
+        """Pixel funnel, ROAS summary and daily trend
 
+        Builds the Pixel dashboard view over the last `days` (default 30, max 180), optionally scoped to `pixelId`: unique users per funnel stage, a summary of events, attributed conversions, revenue, ad spend and ROAS, and a daily events/conversions/revenue series. ROAS is 0 when there is no spend.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -1978,7 +2077,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerInsights200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2026,10 +2125,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2066,8 +2174,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """pixel_controller_library
+        """Serve the pixel JavaScript library
 
+        Returns the pixel.js library that the base snippet loads asynchronously; it drains the `adq(...)` command queue and posts events to /v1/track/event. Served as JavaScript with a one-hour public cache.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2128,8 +2237,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """pixel_controller_library
+        """Serve the pixel JavaScript library
 
+        Returns the pixel.js library that the base snippet loads asynchronously; it drains the `adq(...)` command queue and posts events to /v1/track/event. Served as JavaScript with a one-hour public cache.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2190,8 +2300,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_library
+        """Serve the pixel JavaScript library
 
+        Returns the pixel.js library that the base snippet loads asynchronously; it drains the `adq(...)` command queue and posts events to /v1/track/event. Served as JavaScript with a one-hour public cache.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2300,9 +2411,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_list_pixels
+    ) -> List[AudiencePixel]:
+        """List the account's pixels
 
+        Returns every pixel owned by the account, oldest first so the primary pixel stays on top. If the account has no pixel yet, a default one is created and returned. Team members scoped to specific pixels only see the pixels assigned to them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2334,7 +2446,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudiencePixel]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2362,9 +2474,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_list_pixels
+    ) -> ApiResponse[List[AudiencePixel]]:
+        """List the account's pixels
 
+        Returns every pixel owned by the account, oldest first so the primary pixel stays on top. If the account has no pixel yet, a default one is created and returned. Team members scoped to specific pixels only see the pixels assigned to them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2396,7 +2509,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudiencePixel]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2425,8 +2538,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_list_pixels
+        """List the account's pixels
 
+        Returns every pixel owned by the account, oldest first so the primary pixel stays on top. If the account has no pixel yet, a default one is created and returned. Team members scoped to specific pixels only see the pixels assigned to them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2458,7 +2572,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudiencePixel]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2496,10 +2610,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2537,9 +2660,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_products
+    ) -> List[PixelControllerProducts200ResponseInner]:
+        """Product-level analytics
 
+        Explodes the `content_ids` carried on pixel events and returns, per product id, unique users who viewed, added to cart, purchased or were lost, plus purchase revenue and lost value. Window is the last `days` (default 30, max 180), optional `pixelId` filter, limited to 200 products.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -2577,7 +2701,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PixelControllerProducts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2607,9 +2731,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_products
+    ) -> ApiResponse[List[PixelControllerProducts200ResponseInner]]:
+        """Product-level analytics
 
+        Explodes the `content_ids` carried on pixel events and returns, per product id, unique users who viewed, added to cart, purchased or were lost, plus purchase revenue and lost value. Window is the last `days` (default 30, max 180), optional `pixelId` filter, limited to 200 products.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -2647,7 +2772,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PixelControllerProducts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2678,8 +2803,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_products
+        """Product-level analytics
 
+        Explodes the `content_ids` carried on pixel events and returns, per product id, unique users who viewed, added to cart, purchased or were lost, plus purchase revenue and lost value. Window is the last `days` (default 30, max 180), optional `pixelId` filter, limited to 200 products.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param days: (required)
         :type days: str
@@ -2717,7 +2843,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PixelControllerProducts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2765,10 +2891,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2804,9 +2939,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_set_realtime
+    ) -> PixelControllerSetRealtime201Response:
+        """Toggle real-time audiences for a pixel
 
+        Turns real-time, action-based audience membership on or off (`enabled`) for `pixelId` (or the primary pixel). When on, each consented event and trait update is evaluated against the account's rule audiences by a background worker right after ingestion. Returns 404 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2838,7 +2974,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerSetRealtime201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2866,9 +3002,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_set_realtime
+    ) -> ApiResponse[PixelControllerSetRealtime201Response]:
+        """Toggle real-time audiences for a pixel
 
+        Turns real-time, action-based audience membership on or off (`enabled`) for `pixelId` (or the primary pixel). When on, each consented event and trait update is evaluated against the account's rule audiences by a background worker right after ingestion. Returns 404 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2900,7 +3037,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerSetRealtime201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2929,8 +3066,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_set_realtime
+        """Toggle real-time audiences for a pixel
 
+        Turns real-time, action-based audience membership on or off (`enabled`) for `pixelId` (or the primary pixel). When on, each consented event and trait update is evaluated against the account's rule audiences by a background worker right after ingestion. Returns 404 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2962,7 +3100,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerSetRealtime201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3000,10 +3138,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3039,9 +3186,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_track
+    ) -> PixelControllerTrack201Response:
+        """Ingest a pixel event
 
+        Called by pixel.js. Body carries `pixelId`, `event` (default PageView), optional `eventId` (deduplicated per account for 7 days), `url`, `referrer`, `params` (value, currency, content_ids, order_id...), UTM touch data, hashed `am` identifiers and consent flags. Events from hosts outside the pixel's allowed domains are rejected; without consent (GPC or consent:false) the event is stored for aggregate analytics only, with no identity linkage. Conversion events carrying an `adclid` are attributed to the clicked ad. Never throws: failures return `{status:\"error\"}` and the request sets the first-party uid cookie.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3073,7 +3221,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrack201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3101,9 +3249,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_track
+    ) -> ApiResponse[PixelControllerTrack201Response]:
+        """Ingest a pixel event
 
+        Called by pixel.js. Body carries `pixelId`, `event` (default PageView), optional `eventId` (deduplicated per account for 7 days), `url`, `referrer`, `params` (value, currency, content_ids, order_id...), UTM touch data, hashed `am` identifiers and consent flags. Events from hosts outside the pixel's allowed domains are rejected; without consent (GPC or consent:false) the event is stored for aggregate analytics only, with no identity linkage. Conversion events carrying an `adclid` are attributed to the clicked ad. Never throws: failures return `{status:\"error\"}` and the request sets the first-party uid cookie.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3135,7 +3284,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrack201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3164,8 +3313,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_track
+        """Ingest a pixel event
 
+        Called by pixel.js. Body carries `pixelId`, `event` (default PageView), optional `eventId` (deduplicated per account for 7 days), `url`, `referrer`, `params` (value, currency, content_ids, order_id...), UTM touch data, hashed `am` identifiers and consent flags. Events from hosts outside the pixel's allowed domains are rejected; without consent (GPC or consent:false) the event is stored for aggregate analytics only, with no identity linkage. Conversion events carrying an `adclid` are attributed to the clicked ad. Never throws: failures return `{status:\"error\"}` and the request sets the first-party uid cookie.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3197,7 +3347,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrack201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3235,6 +3385,13 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3274,9 +3431,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_track_coding
+    ) -> PixelControllerTrackCoding201Response:
+        """Record terminal coding-context keywords
 
+        Public beacon for CLI/IDE clients. Body: `kw` (up to 20 keywords), `client`, and `em` (a SHA-256 email hash) or `uid`. Keywords are logged under a reserved network account keyed to the same email-derived canonical id the ad engine targets, so they feed developer interest segments. A valid `em` also writes the cross-surface identity link. Returns `skipped` when there are no keywords; never throws.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3308,7 +3466,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrackCoding201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3336,9 +3494,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_track_coding
+    ) -> ApiResponse[PixelControllerTrackCoding201Response]:
+        """Record terminal coding-context keywords
 
+        Public beacon for CLI/IDE clients. Body: `kw` (up to 20 keywords), `client`, and `em` (a SHA-256 email hash) or `uid`. Keywords are logged under a reserved network account keyed to the same email-derived canonical id the ad engine targets, so they feed developer interest segments. A valid `em` also writes the cross-surface identity link. Returns `skipped` when there are no keywords; never throws.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3370,7 +3529,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrackCoding201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3399,8 +3558,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_track_coding
+        """Record terminal coding-context keywords
 
+        Public beacon for CLI/IDE clients. Body: `kw` (up to 20 keywords), `client`, and `em` (a SHA-256 email hash) or `uid`. Keywords are logged under a reserved network account keyed to the same email-derived canonical id the ad engine targets, so they feed developer interest segments. A valid `em` also writes the cross-surface identity link. Returns `skipped` when there are no keywords; never throws.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3432,7 +3592,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrackCoding201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3470,6 +3630,13 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3510,8 +3677,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """pixel_controller_track_get
+        """Ingest a pixel event via image beacon
 
+        The noscript / image fallback for /v1/track/event. Query params `pixel_id`, `event`, `event_id`, `url` and `adclid` are read, and the full query string is stored as event params. Always responds with a 1x1 transparent GIF, even on failure.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3572,8 +3740,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """pixel_controller_track_get
+        """Ingest a pixel event via image beacon
 
+        The noscript / image fallback for /v1/track/event. Query params `pixel_id`, `event`, `event_id`, `url` and `adclid` are read, and the full query string is stored as event params. Always responds with a 1x1 transparent GIF, even on failure.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3634,8 +3803,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_track_get
+        """Ingest a pixel event via image beacon
 
+        The noscript / image fallback for /v1/track/event. Query params `pixel_id`, `event`, `event_id`, `url` and `adclid` are read, and the full query string is stored as event params. Always responds with a 1x1 transparent GIF, even on failure.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3744,9 +3914,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_trait
+    ) -> PixelControllerTrait201Response:
+        """Set user traits for the visitor
 
+        Stores CDP profile traits (`traits` object) for the caller's uid, resolved to a canonical id using optional hashed `am` identifiers. Traits require consent, so GPC or consent:false skips the write. When the pixel has real-time audiences enabled, trait-based rule audiences are re-evaluated. Fail-soft: errors (including an unknown pixel) return `{status:\"error\"}`.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3778,7 +3949,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrait201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3806,9 +3977,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_trait
+    ) -> ApiResponse[PixelControllerTrait201Response]:
+        """Set user traits for the visitor
 
+        Stores CDP profile traits (`traits` object) for the caller's uid, resolved to a canonical id using optional hashed `am` identifiers. Traits require consent, so GPC or consent:false skips the write. When the pixel has real-time audiences enabled, trait-based rule audiences are re-evaluated. Fail-soft: errors (including an unknown pixel) return `{status:\"error\"}`.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3840,7 +4012,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrait201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3869,8 +4041,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_trait
+        """Set user traits for the visitor
 
+        Stores CDP profile traits (`traits` object) for the caller's uid, resolved to a canonical id using optional hashed `am` identifiers. Traits require consent, so GPC or consent:false skips the write. When the pixel has real-time audiences enabled, trait-based rule audiences are re-evaluated. Fail-soft: errors (including an unknown pixel) return `{status:\"error\"}`.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3902,7 +4075,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PixelControllerTrait201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3940,6 +4113,13 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3981,9 +4161,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_trait_lookup
+    ) -> PixelControllerTraitLookup200Response:
+        """Look up a user's CDP traits
 
+        Resolves the `user` query value (a canonical `id_...`, a cookie uid, a SHA-256 email/phone hash, or a raw email which is hashed server-side) to a canonical id through the identity map and returns its stored traits. With `pixelId`, only traits set by that pixel are shown. Unknown identifiers return an empty canonical and no traits rather than an error.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param user: (required)
         :type user: str
@@ -4021,7 +4202,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerTraitLookup200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4051,9 +4232,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_trait_lookup
+    ) -> ApiResponse[PixelControllerTraitLookup200Response]:
+        """Look up a user's CDP traits
 
+        Resolves the `user` query value (a canonical `id_...`, a cookie uid, a SHA-256 email/phone hash, or a raw email which is hashed server-side) to a canonical id through the identity map and returns its stored traits. With `pixelId`, only traits set by that pixel are shown. Unknown identifiers return an empty canonical and no traits rather than an error.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param user: (required)
         :type user: str
@@ -4091,7 +4273,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerTraitLookup200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4122,8 +4304,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_trait_lookup
+        """Look up a user's CDP traits
 
+        Resolves the `user` query value (a canonical `id_...`, a cookie uid, a SHA-256 email/phone hash, or a raw email which is hashed server-side) to a canonical id through the identity map and returns its stored traits. With `pixelId`, only traits set by that pixel are shown. Unknown identifiers return an empty canonical and no traits rather than an error.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param user: (required)
         :type user: str
@@ -4161,7 +4344,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerTraitLookup200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4209,10 +4392,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4248,9 +4440,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """pixel_controller_update_settings
+    ) -> AudiencePixel:
+        """Update pixel settings
 
+        Patches `name` (max 80 chars), `defaultConsent` (whether events without an explicit consent signal are treated as consented) and `allowedDomains` for `pixelId` (or the primary pixel). Domains are normalized to bare lowercase hosts, deduplicated and capped at 50; once set, events fired from other hosts are rejected. Omitted fields are left unchanged; returns the updated pixel, or 404 if not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4282,7 +4475,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4310,9 +4503,10 @@ class PixelApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """pixel_controller_update_settings
+    ) -> ApiResponse[AudiencePixel]:
+        """Update pixel settings
 
+        Patches `name` (max 80 chars), `defaultConsent` (whether events without an explicit consent signal are treated as consented) and `allowedDomains` for `pixelId` (or the primary pixel). Domains are normalized to bare lowercase hosts, deduplicated and capped at 50; once set, events fired from other hosts are rejected. Omitted fields are left unchanged; returns the updated pixel, or 404 if not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4344,7 +4538,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4373,8 +4567,9 @@ class PixelApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """pixel_controller_update_settings
+        """Update pixel settings
 
+        Patches `name` (max 80 chars), `defaultConsent` (whether events without an explicit consent signal are treated as consented) and `allowedDomains` for `pixelId` (or the primary pixel). Domains are normalized to bare lowercase hosts, deduplicated and capped at 50; once set, events fired from other hosts are rejected. Omitted fields are left unchanged; returns the updated pixel, or 404 if not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4406,7 +4601,7 @@ class PixelApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudiencePixel",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4444,10 +4639,19 @@ class PixelApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

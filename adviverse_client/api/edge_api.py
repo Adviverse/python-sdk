@@ -52,9 +52,10 @@ class EdgeApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """edge_controller_domain_allowed
+    ) -> str:
+        """Check whether the edge may issue TLS for a domain
 
+        Public, unauthenticated endpoint called by the TLS edge's on-demand certificate check, not by users. Returns 200 with body `ok` only if `?domain=` is a verified publisher serving domain on a live property; otherwise 403.  Auth: public, no credentials required.
 
         :param domain: (required)
         :type domain: str
@@ -89,7 +90,7 @@ class EdgeApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -118,9 +119,10 @@ class EdgeApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """edge_controller_domain_allowed
+    ) -> ApiResponse[str]:
+        """Check whether the edge may issue TLS for a domain
 
+        Public, unauthenticated endpoint called by the TLS edge's on-demand certificate check, not by users. Returns 200 with body `ok` only if `?domain=` is a verified publisher serving domain on a live property; otherwise 403.  Auth: public, no credentials required.
 
         :param domain: (required)
         :type domain: str
@@ -155,7 +157,7 @@ class EdgeApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -185,8 +187,9 @@ class EdgeApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """edge_controller_domain_allowed
+        """Check whether the edge may issue TLS for a domain
 
+        Public, unauthenticated endpoint called by the TLS edge's on-demand certificate check, not by users. Returns 200 with body `ok` only if `?domain=` is a verified publisher serving domain on a live property; otherwise 403.  Auth: public, no credentials required.
 
         :param domain: (required)
         :type domain: str
@@ -221,7 +224,7 @@ class EdgeApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -264,6 +267,13 @@ class EdgeApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/html'
+                ]
+            )
 
 
         # authentication setting

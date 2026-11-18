@@ -17,10 +17,23 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.auth_controller_resend_verification201_response import AuthControllerResendVerification201Response
 from adviverse_client.models.claim_screen_dto import ClaimScreenDto
+from adviverse_client.models.dooh_controller_list200_response_inner import DoohControllerList200ResponseInner
+from adviverse_client.models.dooh_controller_save_setup201_response import DoohControllerSaveSetup201Response
 from adviverse_client.models.dooh_setup_dto import DoohSetupDto
 from adviverse_client.models.pair_init_dto import PairInitDto
+from adviverse_client.models.screens_controller_admin_screens200_response_inner import ScreensControllerAdminScreens200ResponseInner
+from adviverse_client.models.screens_controller_attest201_response import ScreensControllerAttest201Response
+from adviverse_client.models.screens_controller_list200_response_inner import ScreensControllerList200ResponseInner
+from adviverse_client.models.screens_controller_pair_init201_response import ScreensControllerPairInit201Response
+from adviverse_client.models.screens_controller_pair_status200_response import ScreensControllerPairStatus200Response
+from adviverse_client.models.screens_controller_set_status201_response import ScreensControllerSetStatus201Response
 from adviverse_client.models.set_screen_status_dto import SetScreenStatusDto
+from adviverse_client.models.sup_dooh_partner import SupDoohPartner
+from adviverse_client.models.sup_dooh_play_report import SupDoohPlayReport
+from adviverse_client.models.sup_dooh_screen import SupDoohScreen
 from adviverse_client.models.update_screen_dto import UpdateScreenDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -56,9 +69,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """dooh_controller_get_setup
+    ) -> SupDoohPartner:
+        """Get your DOOH network registration
 
+        Returns the account's DOOH partner registration (company, contact, screen count, venue types, integration, onboarding status), or null if it has not registered one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -90,7 +104,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPartner",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -118,9 +132,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """dooh_controller_get_setup
+    ) -> ApiResponse[SupDoohPartner]:
+        """Get your DOOH network registration
 
+        Returns the account's DOOH partner registration (company, contact, screen count, venue types, integration, onboarding status), or null if it has not registered one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -152,7 +167,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPartner",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -181,8 +196,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """dooh_controller_get_setup
+        """Get your DOOH network registration
 
+        Returns the account's DOOH partner registration (company, contact, screen count, venue types, integration, onboarding status), or null if it has not registered one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -214,7 +230,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPartner",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -252,10 +268,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -292,9 +317,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """dooh_controller_list
+    ) -> List[DoohControllerList200ResponseInner]:
+        """List DOOH partner registrations
 
+        Admin view of up to 500 DOOH registrations, newest first, each with the registering account's email. Optional `?status=` filters by new, contacted, onboarding, live or rejected (other values are ignored).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param status: (required)
         :type status: str
@@ -329,7 +355,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[DoohControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -358,9 +384,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """dooh_controller_list
+    ) -> ApiResponse[List[DoohControllerList200ResponseInner]]:
+        """List DOOH partner registrations
 
+        Admin view of up to 500 DOOH registrations, newest first, each with the registering account's email. Optional `?status=` filters by new, contacted, onboarding, live or rejected (other values are ignored).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param status: (required)
         :type status: str
@@ -395,7 +422,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[DoohControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -425,8 +452,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """dooh_controller_list
+        """List DOOH partner registrations
 
+        Admin view of up to 500 DOOH registrations, newest first, each with the registering account's email. Optional `?status=` filters by new, contacted, onboarding, live or rejected (other values are ignored).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param status: (required)
         :type status: str
@@ -461,7 +489,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[DoohControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -504,10 +532,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -544,9 +581,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """dooh_controller_save_setup
+    ) -> DoohControllerSaveSetup201Response:
+        """Create or update your DOOH network registration
 
+        Upserts the account's single DOOH registration. `company` is required; `contactName`, `email`, `website`, `country`, `screenCount`, `venueTypes` (max 20), `integration` and `notes` are optional and trimmed to length limits. Returns the row id and its current onboarding status. 400 if `company` is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
 
         :param dooh_setup_dto: (required)
         :type dooh_setup_dto: DoohSetupDto
@@ -581,7 +619,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DoohControllerSaveSetup201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -610,9 +648,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """dooh_controller_save_setup
+    ) -> ApiResponse[DoohControllerSaveSetup201Response]:
+        """Create or update your DOOH network registration
 
+        Upserts the account's single DOOH registration. `company` is required; `contactName`, `email`, `website`, `country`, `screenCount`, `venueTypes` (max 20), `integration` and `notes` are optional and trimmed to length limits. Returns the row id and its current onboarding status. 400 if `company` is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
 
         :param dooh_setup_dto: (required)
         :type dooh_setup_dto: DoohSetupDto
@@ -647,7 +686,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DoohControllerSaveSetup201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -677,8 +716,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """dooh_controller_save_setup
+        """Create or update your DOOH network registration
 
+        Upserts the account's single DOOH registration. `company` is required; `contactName`, `email`, `website`, `country`, `screenCount`, `venueTypes` (max 20), `integration` and `notes` are optional and trimmed to length limits. Returns the row id and its current onboarding status. 400 if `company` is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
 
         :param dooh_setup_dto: (required)
         :type dooh_setup_dto: DoohSetupDto
@@ -713,7 +753,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DoohControllerSaveSetup201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -754,6 +794,13 @@ class DoohApi:
             _body_params = dooh_setup_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -771,6 +818,8 @@ class DoohApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -807,9 +856,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """dooh_controller_set_status
+    ) -> AuthControllerResendVerification201Response:
+        """Set a DOOH registration's onboarding status
 
+        Moves a registration to `status` new, contacted, onboarding, live or rejected. 400 for any other value. Returns ok even if the id does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -844,7 +894,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -873,9 +923,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """dooh_controller_set_status
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Set a DOOH registration's onboarding status
 
+        Moves a registration to `status` new, contacted, onboarding, live or rejected. 400 for any other value. Returns ok even if the id does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -910,7 +961,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -940,8 +991,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """dooh_controller_set_status
+        """Set a DOOH registration's onboarding status
 
+        Moves a registration to `status` new, contacted, onboarding, live or rejected. 400 for any other value. Returns ok even if the id does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -976,7 +1028,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1017,10 +1069,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1056,9 +1117,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_admin_screens
+    ) -> List[ScreensControllerAdminScreens200ResponseInner]:
+        """List all paired DOOH screens
 
+        Admin fleet overview: up to 2000 claimed screens across all accounts, newest first, with serving tag and owner email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1090,7 +1152,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ScreensControllerAdminScreens200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1118,9 +1180,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_admin_screens
+    ) -> ApiResponse[List[ScreensControllerAdminScreens200ResponseInner]]:
+        """List all paired DOOH screens
 
+        Admin fleet overview: up to 2000 claimed screens across all accounts, newest first, with serving tag and owner email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1152,7 +1215,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ScreensControllerAdminScreens200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1181,8 +1244,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_admin_screens
+        """List all paired DOOH screens
 
+        Admin fleet overview: up to 2000 claimed screens across all accounts, newest first, with serving tag and owner email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1214,7 +1278,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ScreensControllerAdminScreens200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1252,10 +1316,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1293,9 +1366,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_advertiser_plays
+    ) -> SupDoohPlayReport:
+        """Get DOOH proof-of-play for your campaigns
 
+        Advertiser verification report over your campaigns' DOOH plays between `from` and `to` (default last 30 days), including venue name and any screenshot attestation per play. Same shape as the publisher report.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -1333,7 +1407,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPlayReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1363,9 +1437,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_advertiser_plays
+    ) -> ApiResponse[SupDoohPlayReport]:
+        """Get DOOH proof-of-play for your campaigns
 
+        Advertiser verification report over your campaigns' DOOH plays between `from` and `to` (default last 30 days), including venue name and any screenshot attestation per play. Same shape as the publisher report.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -1403,7 +1478,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPlayReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1434,8 +1509,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_advertiser_plays
+        """Get DOOH proof-of-play for your campaigns
 
+        Advertiser verification report over your campaigns' DOOH plays between `from` and `to` (default last 30 days), including venue name and any screenshot attestation per play. Same shape as the publisher report.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -1473,7 +1549,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPlayReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1521,10 +1597,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1560,9 +1645,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_attest
+    ) -> ScreensControllerAttest201Response:
+        """Upload a proof-of-play screenshot
 
+        Public, rate-limited endpoint used by the native DOOH player, authenticated by the active screen's serving `tag`. Body `image` is a base64 JPEG (data-URL prefix allowed, max ~2.5 MB). The image is stored and attached to the play identified by `popToken`, or to the screen's most recent play if omitted, and also counts as a heartbeat. 400 if tag/image are missing or the image is invalid, 404 if the tag is not an active screen.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1594,7 +1680,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerAttest201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1622,9 +1708,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_attest
+    ) -> ApiResponse[ScreensControllerAttest201Response]:
+        """Upload a proof-of-play screenshot
 
+        Public, rate-limited endpoint used by the native DOOH player, authenticated by the active screen's serving `tag`. Body `image` is a base64 JPEG (data-URL prefix allowed, max ~2.5 MB). The image is stored and attached to the play identified by `popToken`, or to the screen's most recent play if omitted, and also counts as a heartbeat. 400 if tag/image are missing or the image is invalid, 404 if the tag is not an active screen.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1656,7 +1743,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerAttest201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1685,8 +1772,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_attest
+        """Upload a proof-of-play screenshot
 
+        Public, rate-limited endpoint used by the native DOOH player, authenticated by the active screen's serving `tag`. Body `image` is a base64 JPEG (data-URL prefix allowed, max ~2.5 MB). The image is stored and attached to the play identified by `popToken`, or to the screen's most recent play if omitted, and also counts as a heartbeat. 400 if tag/image are missing or the image is invalid, 404 if the tag is not an active screen.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1718,7 +1806,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerAttest201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1756,6 +1844,13 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1796,9 +1891,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_claim
+    ) -> SupDoohScreen:
+        """Claim a DOOH screen by its pairing code
 
+        Attaches the pending screen showing `code` to your account and starts serving: creates a `dooh` placement under your DOOH property (created on first use) and stores venue details (`venueName`, `venueType`, `orientation`, resolution, `lat`/`lng`, `timezone`, `loopSeconds` default 8, `floorCpm`, `audienceMultiplier` default 1). Republishes the serving index. 404 if no screen is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param claim_screen_dto: (required)
         :type claim_screen_dto: ClaimScreenDto
@@ -1833,7 +1929,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1862,9 +1958,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_claim
+    ) -> ApiResponse[SupDoohScreen]:
+        """Claim a DOOH screen by its pairing code
 
+        Attaches the pending screen showing `code` to your account and starts serving: creates a `dooh` placement under your DOOH property (created on first use) and stores venue details (`venueName`, `venueType`, `orientation`, resolution, `lat`/`lng`, `timezone`, `loopSeconds` default 8, `floorCpm`, `audienceMultiplier` default 1). Republishes the serving index. 404 if no screen is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param claim_screen_dto: (required)
         :type claim_screen_dto: ClaimScreenDto
@@ -1899,7 +1996,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1929,8 +2026,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_claim
+        """Claim a DOOH screen by its pairing code
 
+        Attaches the pending screen showing `code` to your account and starts serving: creates a `dooh` placement under your DOOH property (created on first use) and stores venue details (`venueName`, `venueType`, `orientation`, resolution, `lat`/`lng`, `timezone`, `loopSeconds` default 8, `floorCpm`, `audienceMultiplier` default 1). Republishes the serving index. 404 if no screen is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param claim_screen_dto: (required)
         :type claim_screen_dto: ClaimScreenDto
@@ -1965,7 +2063,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2006,6 +2104,13 @@ class DoohApi:
             _body_params = claim_screen_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2023,6 +2128,8 @@ class DoohApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2059,9 +2166,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_get
+    ) -> SupDoohScreen:
+        """Get a DOOH screen
 
+        Returns one of your screens with its serving tag. 404 if it does not exist, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2096,7 +2204,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2125,9 +2233,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_get
+    ) -> ApiResponse[SupDoohScreen]:
+        """Get a DOOH screen
 
+        Returns one of your screens with its serving tag. 404 if it does not exist, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2162,7 +2271,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2192,8 +2301,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_get
+        """Get a DOOH screen
 
+        Returns one of your screens with its serving tag. 404 if it does not exist, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2228,7 +2338,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2269,10 +2379,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2308,9 +2427,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_list
+    ) -> List[ScreensControllerList200ResponseInner]:
+        """List your DOOH screens
 
+        Returns your screen fleet, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time and player version taken from live heartbeat data when available.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2342,7 +2462,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ScreensControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2370,9 +2490,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_list
+    ) -> ApiResponse[List[ScreensControllerList200ResponseInner]]:
+        """List your DOOH screens
 
+        Returns your screen fleet, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time and player version taken from live heartbeat data when available.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2404,7 +2525,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ScreensControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2433,8 +2554,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_list
+        """List your DOOH screens
 
+        Returns your screen fleet, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time and player version taken from live heartbeat data when available.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2466,7 +2588,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ScreensControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2504,10 +2626,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2544,9 +2675,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_pair_init
+    ) -> ScreensControllerPairInit201Response:
+        """Start pairing a DOOH screen
 
+        Public, rate-limited endpoint the DOOH player calls on first boot. Creates a pending screen and returns a human-readable `pairingCode` to show on the display plus a secret `pollToken`. Optional body `version` records the player version.  Auth: public, no credentials required.
 
         :param pair_init_dto: (required)
         :type pair_init_dto: PairInitDto
@@ -2581,7 +2713,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerPairInit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2610,9 +2742,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_pair_init
+    ) -> ApiResponse[ScreensControllerPairInit201Response]:
+        """Start pairing a DOOH screen
 
+        Public, rate-limited endpoint the DOOH player calls on first boot. Creates a pending screen and returns a human-readable `pairingCode` to show on the display plus a secret `pollToken`. Optional body `version` records the player version.  Auth: public, no credentials required.
 
         :param pair_init_dto: (required)
         :type pair_init_dto: PairInitDto
@@ -2647,7 +2780,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerPairInit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2677,8 +2810,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_pair_init
+        """Start pairing a DOOH screen
 
+        Public, rate-limited endpoint the DOOH player calls on first boot. Creates a pending screen and returns a human-readable `pairingCode` to show on the display plus a secret `pollToken`. Optional body `version` records the player version.  Auth: public, no credentials required.
 
         :param pair_init_dto: (required)
         :type pair_init_dto: PairInitDto
@@ -2713,7 +2847,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerPairInit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2754,6 +2888,13 @@ class DoohApi:
             _body_params = pair_init_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2807,9 +2948,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_pair_status
+    ) -> ScreensControllerPairStatus200Response:
+        """Poll a DOOH screen's pairing status
 
+        Public, rate-limited. The player polls with `?pollToken=` until a publisher claims its code; then it receives its serving `tag` and `servingBase`. 404 for an unknown poll token.  Auth: public, no credentials required.
 
         :param poll_token: (required)
         :type poll_token: str
@@ -2844,7 +2986,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ScreensControllerPairStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2873,9 +3015,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_pair_status
+    ) -> ApiResponse[ScreensControllerPairStatus200Response]:
+        """Poll a DOOH screen's pairing status
 
+        Public, rate-limited. The player polls with `?pollToken=` until a publisher claims its code; then it receives its serving `tag` and `servingBase`. 404 for an unknown poll token.  Auth: public, no credentials required.
 
         :param poll_token: (required)
         :type poll_token: str
@@ -2910,7 +3053,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ScreensControllerPairStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2940,8 +3083,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_pair_status
+        """Poll a DOOH screen's pairing status
 
+        Public, rate-limited. The player polls with `?pollToken=` until a publisher claims its code; then it receives its serving `tag` and `servingBase`. 404 for an unknown poll token.  Auth: public, no credentials required.
 
         :param poll_token: (required)
         :type poll_token: str
@@ -2976,7 +3120,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ScreensControllerPairStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3019,6 +3163,13 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3060,9 +3211,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_publisher_plays
+    ) -> SupDoohPlayReport:
+        """Get your DOOH proof-of-play report
 
+        Summarizes and lists (up to 2000) plays on your screens between `from` and `to` (ISO dates; default last 30 days): play and completion counts, completion rate (0-1), spend on completed plays, and distinct screens.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -3100,7 +3252,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPlayReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3130,9 +3282,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_publisher_plays
+    ) -> ApiResponse[SupDoohPlayReport]:
+        """Get your DOOH proof-of-play report
 
+        Summarizes and lists (up to 2000) plays on your screens between `from` and `to` (ISO dates; default last 30 days): play and completion counts, completion rate (0-1), spend on completed plays, and distinct screens.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -3170,7 +3323,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPlayReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3201,8 +3354,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_publisher_plays
+        """Get your DOOH proof-of-play report
 
+        Summarizes and lists (up to 2000) plays on your screens between `from` and `to` (ISO dates; default last 30 days): play and completion counts, completion rate (0-1), spend on completed plays, and distinct screens.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -3240,7 +3394,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohPlayReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3288,10 +3442,19 @@ class DoohApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3329,9 +3492,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_set_status
+    ) -> ScreensControllerSetStatus201Response:
+        """Pause or activate a DOOH screen
 
+        Sets `status` (`active` or `paused`) on both the screen and its placement, then republishes the index so serving stops or resumes. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3369,7 +3533,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3399,9 +3563,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_set_status
+    ) -> ApiResponse[ScreensControllerSetStatus201Response]:
+        """Pause or activate a DOOH screen
 
+        Sets `status` (`active` or `paused`) on both the screen and its placement, then republishes the index so serving stops or resumes. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3439,7 +3604,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3470,8 +3635,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_set_status
+        """Pause or activate a DOOH screen
 
+        Sets `status` (`active` or `paused`) on both the screen and its placement, then republishes the index so serving stops or resumes. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3509,7 +3675,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3553,6 +3719,13 @@ class DoohApi:
             _body_params = set_screen_status_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3570,6 +3743,8 @@ class DoohApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3607,9 +3782,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """screens_controller_update
+    ) -> SupDoohScreen:
+        """Update a DOOH screen
 
+        Edits `venueName`, `venueType`, `orientation`, `loopSeconds`, `floorCpm` and `audienceMultiplier` on a paired screen, keeping its placement settings in sync, and republishes the index. 400 if the screen is not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3647,7 +3823,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3677,9 +3853,10 @@ class DoohApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """screens_controller_update
+    ) -> ApiResponse[SupDoohScreen]:
+        """Update a DOOH screen
 
+        Edits `venueName`, `venueType`, `orientation`, `loopSeconds`, `floorCpm` and `audienceMultiplier` on a paired screen, keeping its placement settings in sync, and republishes the index. 400 if the screen is not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3717,7 +3894,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3748,8 +3925,9 @@ class DoohApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """screens_controller_update
+        """Update a DOOH screen
 
+        Edits `venueName`, `venueType`, `orientation`, `loopSeconds`, `floorCpm` and `audienceMultiplier` on a paired screen, keeping its placement settings in sync, and republishes the index. 400 if the screen is not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3787,7 +3965,7 @@ class DoohApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupDoohScreen",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3831,6 +4009,13 @@ class DoohApi:
             _body_params = update_screen_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3848,6 +4033,8 @@ class DoohApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

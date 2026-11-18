@@ -18,6 +18,11 @@ from typing_extensions import Annotated
 
 from pydantic import StrictStr
 from adviverse_client.models.consent_dto import ConsentDto
+from adviverse_client.models.identity_controller_consent201_response import IdentityControllerConsent201Response
+from adviverse_client.models.identity_controller_get200_response import IdentityControllerGet200Response
+from adviverse_client.models.identity_controller_link201_response import IdentityControllerLink201Response
+from adviverse_client.models.identity_controller_resolve201_response import IdentityControllerResolve201Response
+from adviverse_client.models.identity_controller_stats200_response import IdentityControllerStats200Response
 from adviverse_client.models.link_identity_dto import LinkIdentityDto
 from adviverse_client.models.resolve_identity_dto import ResolveIdentityDto
 
@@ -55,9 +60,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """identity_controller_consent
+    ) -> IdentityControllerConsent201Response:
+        """Set identity consent state
 
+        Sets `state` (`granted` or `denied`) on the identity `canonicalId`. `denied` blocks future cross-identity merges and signal moves involving it. Returns 404 if the identity does not exist or the caller does not own it (admins bypass).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param consent_dto: (required)
         :type consent_dto: ConsentDto
@@ -92,7 +98,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerConsent201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -121,9 +127,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """identity_controller_consent
+    ) -> ApiResponse[IdentityControllerConsent201Response]:
+        """Set identity consent state
 
+        Sets `state` (`granted` or `denied`) on the identity `canonicalId`. `denied` blocks future cross-identity merges and signal moves involving it. Returns 404 if the identity does not exist or the caller does not own it (admins bypass).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param consent_dto: (required)
         :type consent_dto: ConsentDto
@@ -158,7 +165,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerConsent201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -188,8 +195,9 @@ class IdentityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """identity_controller_consent
+        """Set identity consent state
 
+        Sets `state` (`granted` or `denied`) on the identity `canonicalId`. `denied` blocks future cross-identity merges and signal moves involving it. Returns 404 if the identity does not exist or the caller does not own it (admins bypass).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param consent_dto: (required)
         :type consent_dto: ConsentDto
@@ -224,7 +232,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerConsent201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -265,6 +273,13 @@ class IdentityApi:
             _body_params = consent_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -282,6 +297,8 @@ class IdentityApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -318,9 +335,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """identity_controller_get
+    ) -> IdentityControllerGet200Response:
+        """Get an identity with its signals
 
+        Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if `canonicalId` does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param canonical_id: (required)
         :type canonical_id: str
@@ -355,7 +373,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IdentityControllerGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -384,9 +402,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """identity_controller_get
+    ) -> ApiResponse[IdentityControllerGet200Response]:
+        """Get an identity with its signals
 
+        Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if `canonicalId` does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param canonical_id: (required)
         :type canonical_id: str
@@ -421,7 +440,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IdentityControllerGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -451,8 +470,9 @@ class IdentityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """identity_controller_get
+        """Get an identity with its signals
 
+        Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if `canonicalId` does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param canonical_id: (required)
         :type canonical_id: str
@@ -487,7 +507,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IdentityControllerGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -528,10 +548,19 @@ class IdentityApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -568,9 +597,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """identity_controller_link
+    ) -> IdentityControllerLink201Response:
+        """Link signals to an identity
 
+        Adds `signals` (each `{ type, value }`, type one of email/phone/cookie/device/ip_ua) to the identity `canonicalId` without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param link_identity_dto: (required)
         :type link_identity_dto: LinkIdentityDto
@@ -605,7 +635,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerLink201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -634,9 +664,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """identity_controller_link
+    ) -> ApiResponse[IdentityControllerLink201Response]:
+        """Link signals to an identity
 
+        Adds `signals` (each `{ type, value }`, type one of email/phone/cookie/device/ip_ua) to the identity `canonicalId` without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param link_identity_dto: (required)
         :type link_identity_dto: LinkIdentityDto
@@ -671,7 +702,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerLink201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -701,8 +732,9 @@ class IdentityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """identity_controller_link
+        """Link signals to an identity
 
+        Adds `signals` (each `{ type, value }`, type one of email/phone/cookie/device/ip_ua) to the identity `canonicalId` without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param link_identity_dto: (required)
         :type link_identity_dto: LinkIdentityDto
@@ -737,7 +769,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerLink201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -778,6 +810,13 @@ class IdentityApi:
             _body_params = link_identity_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -795,6 +834,8 @@ class IdentityApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -831,9 +872,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """identity_controller_resolve
+    ) -> IdentityControllerResolve201Response:
+        """Resolve signals to a canonical identity
 
+        Resolves any of `email`, `phone`, `cookieId`, `deviceId` (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent `denied`, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one `canonicalId`), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param resolve_identity_dto: (required)
         :type resolve_identity_dto: ResolveIdentityDto
@@ -868,7 +910,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerResolve201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -897,9 +939,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """identity_controller_resolve
+    ) -> ApiResponse[IdentityControllerResolve201Response]:
+        """Resolve signals to a canonical identity
 
+        Resolves any of `email`, `phone`, `cookieId`, `deviceId` (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent `denied`, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one `canonicalId`), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param resolve_identity_dto: (required)
         :type resolve_identity_dto: ResolveIdentityDto
@@ -934,7 +977,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerResolve201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -964,8 +1007,9 @@ class IdentityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """identity_controller_resolve
+        """Resolve signals to a canonical identity
 
+        Resolves any of `email`, `phone`, `cookieId`, `deviceId` (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent `denied`, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one `canonicalId`), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param resolve_identity_dto: (required)
         :type resolve_identity_dto: ResolveIdentityDto
@@ -1000,7 +1044,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "IdentityControllerResolve201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1041,6 +1085,13 @@ class IdentityApi:
             _body_params = resolve_identity_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1058,6 +1109,8 @@ class IdentityApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1093,9 +1146,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """identity_controller_stats
+    ) -> IdentityControllerStats200Response:
+        """Get identity graph counts
 
+        Returns counts across the identity graph: identities, linked signals, distinct households and identities that belong to a household (merged). Scoped to the calling account: only identities it owns and signals it supplied (admins get graph-wide totals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1127,7 +1181,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IdentityControllerStats200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1155,9 +1209,10 @@ class IdentityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """identity_controller_stats
+    ) -> ApiResponse[IdentityControllerStats200Response]:
+        """Get identity graph counts
 
+        Returns counts across the identity graph: identities, linked signals, distinct households and identities that belong to a household (merged). Scoped to the calling account: only identities it owns and signals it supplied (admins get graph-wide totals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1189,7 +1244,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IdentityControllerStats200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1218,8 +1273,9 @@ class IdentityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """identity_controller_stats
+        """Get identity graph counts
 
+        Returns counts across the identity graph: identities, linked signals, distinct households and identities that belong to a household (merged). Scoped to the calling account: only identities it owns and signals it supplied (admins get graph-wide totals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1251,7 +1307,7 @@ class IdentityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IdentityControllerStats200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1289,10 +1345,19 @@ class IdentityApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

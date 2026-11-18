@@ -17,6 +17,12 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.adv_deleted import AdvDeleted
+from adviverse_client.models.adv_team_member import AdvTeamMember
+from adviverse_client.models.auth_controller_resend_verification201_response import AuthControllerResendVerification201Response
+from adviverse_client.models.members_controller_accept201_response import MembersControllerAccept201Response
+from adviverse_client.models.members_controller_invite_info200_response import MembersControllerInviteInfo200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -51,9 +57,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_accept
+    ) -> MembersControllerAccept201Response:
+        """Accept a team invitation
 
+        Public endpoint. Sets the member's password (minimum 8 characters) and optional `name`, activates the seat, consumes the invite token, and returns a new session token so the dashboard can log in straight away. Responds 400 for a short password or an invalid or expired token.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -85,7 +92,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MembersControllerAccept201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -113,9 +120,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_accept
+    ) -> ApiResponse[MembersControllerAccept201Response]:
+        """Accept a team invitation
 
+        Public endpoint. Sets the member's password (minimum 8 characters) and optional `name`, activates the seat, consumes the invite token, and returns a new session token so the dashboard can log in straight away. Responds 400 for a short password or an invalid or expired token.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -147,7 +155,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MembersControllerAccept201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,8 +184,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_accept
+        """Accept a team invitation
 
+        Public endpoint. Sets the member's password (minimum 8 characters) and optional `name`, activates the seat, consumes the invite token, and returns a new session token so the dashboard can log in straight away. Responds 400 for a short password or an invalid or expired token.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -209,7 +218,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MembersControllerAccept201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,6 +256,13 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -286,9 +302,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_invite
+    ) -> AdvTeamMember:
+        """Invite a team member
 
+        Creates (or refreshes) an invited seat and emails a single-use accept link valid for 7 days. Body: `email`, `name`, `role` (admin, manager or analyst; anything else becomes analyst), `allPixels` and `pixelIds`. Admins always get all pixels. Responds 400 for an invalid email, an email that already has an Adviverse account or a seat on another account, or a pixel id the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -320,7 +337,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdvTeamMember",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -348,9 +365,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_invite
+    ) -> ApiResponse[AdvTeamMember]:
+        """Invite a team member
 
+        Creates (or refreshes) an invited seat and emails a single-use accept link valid for 7 days. Body: `email`, `name`, `role` (admin, manager or analyst; anything else becomes analyst), `allPixels` and `pixelIds`. Admins always get all pixels. Responds 400 for an invalid email, an email that already has an Adviverse account or a seat on another account, or a pixel id the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -382,7 +400,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdvTeamMember",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -411,8 +429,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_invite
+        """Invite a team member
 
+        Creates (or refreshes) an invited seat and emails a single-use accept link valid for 7 days. Body: `email`, `name`, `role` (admin, manager or analyst; anything else becomes analyst), `allPixels` and `pixelIds`. Admins always get all pixels. Responds 400 for an invalid email, an email that already has an Adviverse account or a seat on another account, or a pixel id the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -444,7 +463,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdvTeamMember",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -482,10 +501,19 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -522,9 +550,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_invite_info
+    ) -> MembersControllerInviteInfo200Response:
+        """Look up an invitation by token
 
+        Public endpoint for the accept-invite page. Returns the invited email, role and agency name for the `token` query parameter. Responds 404 when the token is invalid or expired.  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -559,7 +588,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "MembersControllerInviteInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -588,9 +617,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_invite_info
+    ) -> ApiResponse[MembersControllerInviteInfo200Response]:
+        """Look up an invitation by token
 
+        Public endpoint for the accept-invite page. Returns the invited email, role and agency name for the `token` query parameter. Responds 404 when the token is invalid or expired.  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -625,7 +655,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "MembersControllerInviteInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -655,8 +685,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_invite_info
+        """Look up an invitation by token
 
+        Public endpoint for the accept-invite page. Returns the invited email, role and agency name for the `token` query parameter. Responds 404 when the token is invalid or expired.  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -691,7 +722,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "MembersControllerInviteInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -734,6 +765,13 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -773,9 +811,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_list
+    ) -> List[AdvTeamMember]:
+        """List team members
 
+        Returns every seat on the agency account with role, status and pixel grants. Team-management routes are for the account owner and admin seats only; manager and analyst seats cannot reach them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -807,7 +846,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdvTeamMember]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -835,9 +874,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_list
+    ) -> ApiResponse[List[AdvTeamMember]]:
+        """List team members
 
+        Returns every seat on the agency account with role, status and pixel grants. Team-management routes are for the account owner and admin seats only; manager and analyst seats cannot reach them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -869,7 +909,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdvTeamMember]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -898,8 +938,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_list
+        """List team members
 
+        Returns every seat on the agency account with role, status and pixel grants. Team-management routes are for the account owner and admin seats only; manager and analyst seats cannot reach them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -931,7 +972,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdvTeamMember]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -969,10 +1010,19 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1009,9 +1059,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_remove
+    ) -> AdvDeleted:
+        """Remove a team member
 
+        Deletes the seat. Always returns `deleted: true`, even if no seat matched.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1046,7 +1097,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AdvDeleted",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1075,9 +1126,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_remove
+    ) -> ApiResponse[AdvDeleted]:
+        """Remove a team member
 
+        Deletes the seat. Always returns `deleted: true`, even if no seat matched.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1112,7 +1164,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AdvDeleted",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1142,8 +1194,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_remove
+        """Remove a team member
 
+        Deletes the seat. Always returns `deleted: true`, even if no seat matched.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1178,7 +1231,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AdvDeleted",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1219,10 +1272,19 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1259,9 +1321,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_resend
+    ) -> AuthControllerResendVerification201Response:
+        """Resend a team invitation
 
+        Issues a new invite token (invalidating the previous link), resets the 7-day expiry and emails it again. Responds 404 for an unknown member and 400 when the member is already active.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1296,7 +1359,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1325,9 +1388,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_resend
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Resend a team invitation
 
+        Issues a new invite token (invalidating the previous link), resets the 7-day expiry and emails it again. Responds 404 for an unknown member and 400 when the member is already active.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1362,7 +1426,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1392,8 +1456,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_resend
+        """Resend a team invitation
 
+        Issues a new invite token (invalidating the previous link), resets the 7-day expiry and emails it again. Responds 404 for an unknown member and 400 when the member is already active.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1428,7 +1493,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1469,10 +1534,19 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1509,9 +1583,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """members_controller_update
+    ) -> AdvTeamMember:
+        """Update a team member
 
+        Changes a seat's `role`, `allPixels`, `pixelIds` (replaces the grants), `status` (active, disabled or invited) and/or `name`. Disabling a member revokes their live sessions immediately. Responds 404 for an unknown member and 400 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1546,7 +1621,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdvTeamMember",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1575,9 +1650,10 @@ class MembersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """members_controller_update
+    ) -> ApiResponse[AdvTeamMember]:
+        """Update a team member
 
+        Changes a seat's `role`, `allPixels`, `pixelIds` (replaces the grants), `status` (active, disabled or invited) and/or `name`. Disabling a member revokes their live sessions immediately. Responds 404 for an unknown member and 400 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1612,7 +1688,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdvTeamMember",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1642,8 +1718,9 @@ class MembersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """members_controller_update
+        """Update a team member
 
+        Changes a seat's `role`, `allPixels`, `pixelIds` (replaces the grants), `status` (active, disabled or invited) and/or `name`. Disabling a member revokes their live sessions immediately. Responds 404 for an unknown member and 400 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1678,7 +1755,7 @@ class MembersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdvTeamMember",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1719,10 +1796,19 @@ class MembersApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

@@ -17,8 +17,15 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.create_onchain_pool_dto import CreateOnchainPoolDto
 from adviverse_client.models.fund_pool_dto import FundPoolDto
+from adviverse_client.models.rew_pool import RewPool
+from adviverse_client.models.rewards_controller_admin_payouts200_response_inner import RewardsControllerAdminPayouts200ResponseInner
+from adviverse_client.models.rewards_controller_report200_response import RewardsControllerReport200Response
+from adviverse_client.models.rewards_controller_set_pool_status201_response import RewardsControllerSetPoolStatus201Response
+from adviverse_client.models.rewards_controller_set_world_webhook201_response import RewardsControllerSetWorldWebhook201Response
+from adviverse_client.models.rewards_controller_voucher_secret200_response import RewardsControllerVoucherSecret200Response
 from adviverse_client.models.set_pool_status_dto import SetPoolStatusDto
 from adviverse_client.models.set_world_webhook_dto import SetWorldWebhookDto
 
@@ -56,9 +63,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_admin_payouts
+    ) -> List[RewardsControllerAdminPayouts200ResponseInner]:
+        """List recent reward payouts
 
+        Admin view of the most recent reward payouts across all pools, including delivery attempts and last error. `?limit=` defaults to 200 (max 1000).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param limit: (required)
         :type limit: str
@@ -93,7 +101,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewardsControllerAdminPayouts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -122,9 +130,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_admin_payouts
+    ) -> ApiResponse[List[RewardsControllerAdminPayouts200ResponseInner]]:
+        """List recent reward payouts
 
+        Admin view of the most recent reward payouts across all pools, including delivery attempts and last error. `?limit=` defaults to 200 (max 1000).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param limit: (required)
         :type limit: str
@@ -159,7 +168,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewardsControllerAdminPayouts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -189,8 +198,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_admin_payouts
+        """List recent reward payouts
 
+        Admin view of the most recent reward payouts across all pools, including delivery attempts and last error. `?limit=` defaults to 200 (max 1000).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param limit: (required)
         :type limit: str
@@ -225,7 +235,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewardsControllerAdminPayouts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -268,10 +278,19 @@ class RewardsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -308,9 +327,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_create_onchain_pool
+    ) -> RewPool:
+        """Create an on-chain (advertiser-custodied) reward pool
 
+        Creates or converts a campaign's pool to `onchain_creative` mode: no escrow and no ledger movement, because your own contract pays users on-chain. Adviverse verifies each completion and issues the creative a signed single-use eligibility voucher. `perCompletion`, `token` and optional `chain` are display/report values. The response includes `voucher_secret`, used to verify vouchers before disbursing (empty if the platform voucher key is not configured). 404 if the campaign is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_onchain_pool_dto: (required)
         :type create_onchain_pool_dto: CreateOnchainPoolDto
@@ -345,7 +365,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -374,9 +394,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_create_onchain_pool
+    ) -> ApiResponse[RewPool]:
+        """Create an on-chain (advertiser-custodied) reward pool
 
+        Creates or converts a campaign's pool to `onchain_creative` mode: no escrow and no ledger movement, because your own contract pays users on-chain. Adviverse verifies each completion and issues the creative a signed single-use eligibility voucher. `perCompletion`, `token` and optional `chain` are display/report values. The response includes `voucher_secret`, used to verify vouchers before disbursing (empty if the platform voucher key is not configured). 404 if the campaign is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_onchain_pool_dto: (required)
         :type create_onchain_pool_dto: CreateOnchainPoolDto
@@ -411,7 +432,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -441,8 +462,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_create_onchain_pool
+        """Create an on-chain (advertiser-custodied) reward pool
 
+        Creates or converts a campaign's pool to `onchain_creative` mode: no escrow and no ledger movement, because your own contract pays users on-chain. Adviverse verifies each completion and issues the creative a signed single-use eligibility voucher. `perCompletion`, `token` and optional `chain` are display/report values. The response includes `voucher_secret`, used to verify vouchers before disbursing (empty if the platform voucher key is not configured). 404 if the campaign is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_onchain_pool_dto: (required)
         :type create_onchain_pool_dto: CreateOnchainPoolDto
@@ -477,7 +499,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -518,6 +540,13 @@ class RewardsApi:
             _body_params = create_onchain_pool_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -535,6 +564,8 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -571,9 +602,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_fund_pool
+    ) -> RewPool:
+        """Fund or top up a campaign reward pool
 
+        Creates the reward pool for one of your campaigns, or adds to it, and escrows `amount` from your available balance in the same transaction (a `reward_fund` ledger entry). `perCompletion` is the fixed reward per verified completion; `token` defaults to your account currency; `perUserDailyCap`/`perWalletDailyCap` default to 5. 404 if the campaign is not yours; fails with insufficient funds if your balance cannot cover `amount`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param fund_pool_dto: (required)
         :type fund_pool_dto: FundPoolDto
@@ -608,7 +640,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -637,9 +669,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_fund_pool
+    ) -> ApiResponse[RewPool]:
+        """Fund or top up a campaign reward pool
 
+        Creates the reward pool for one of your campaigns, or adds to it, and escrows `amount` from your available balance in the same transaction (a `reward_fund` ledger entry). `perCompletion` is the fixed reward per verified completion; `token` defaults to your account currency; `perUserDailyCap`/`perWalletDailyCap` default to 5. 404 if the campaign is not yours; fails with insufficient funds if your balance cannot cover `amount`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param fund_pool_dto: (required)
         :type fund_pool_dto: FundPoolDto
@@ -674,7 +707,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -704,8 +737,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_fund_pool
+        """Fund or top up a campaign reward pool
 
+        Creates the reward pool for one of your campaigns, or adds to it, and escrows `amount` from your available balance in the same transaction (a `reward_fund` ledger entry). `perCompletion` is the fixed reward per verified completion; `token` defaults to your account currency; `perUserDailyCap`/`perWalletDailyCap` default to 5. 404 if the campaign is not yours; fails with insufficient funds if your balance cannot cover `amount`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param fund_pool_dto: (required)
         :type fund_pool_dto: FundPoolDto
@@ -740,7 +774,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -781,6 +815,13 @@ class RewardsApi:
             _body_params = fund_pool_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -798,6 +839,8 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -834,9 +877,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_get_pool
+    ) -> RewPool:
+        """Get a campaign reward pool
 
+        Returns the reward pool for `campaignId`; on-chain pools also include `voucher_secret`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -871,7 +915,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -900,9 +944,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_get_pool
+    ) -> ApiResponse[RewPool]:
+        """Get a campaign reward pool
 
+        Returns the reward pool for `campaignId`; on-chain pools also include `voucher_secret`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -937,7 +982,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -967,8 +1012,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_get_pool
+        """Get a campaign reward pool
 
+        Returns the reward pool for `campaignId`; on-chain pools also include `voucher_secret`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -1003,7 +1049,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewPool",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1044,10 +1090,19 @@ class RewardsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1083,9 +1138,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_list_pools
+    ) -> List[RewPool]:
+        """List your reward pools
 
+        Returns all of your campaign reward pools, newest first. Voucher secrets are not included here.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1117,7 +1173,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewPool]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1145,9 +1201,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_list_pools
+    ) -> ApiResponse[List[RewPool]]:
+        """List your reward pools
 
+        Returns all of your campaign reward pools, newest first. Voucher secrets are not included here.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1179,7 +1236,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewPool]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1208,8 +1265,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_list_pools
+        """List your reward pools
 
+        Returns all of your campaign reward pools, newest first. Voucher secrets are not included here.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1241,7 +1299,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewPool]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1279,10 +1337,19 @@ class RewardsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1320,9 +1387,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_report
+    ) -> RewardsControllerReport200Response:
+        """Get your reward payout report
 
+        Reports reward payouts on your pools between `from` and `to` (default last 30 days): totals by status (sent, pending, failed, on-chain, on-chain with a tx hash), amount paid and distinct recipient wallets, a per-campaign breakdown, current pool balances, and up to 2000 payout rows.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param var_from: (required)
         :type var_from: str
@@ -1360,7 +1428,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewardsControllerReport200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1390,9 +1458,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_report
+    ) -> ApiResponse[RewardsControllerReport200Response]:
+        """Get your reward payout report
 
+        Reports reward payouts on your pools between `from` and `to` (default last 30 days): totals by status (sent, pending, failed, on-chain, on-chain with a tx hash), amount paid and distinct recipient wallets, a per-campaign breakdown, current pool balances, and up to 2000 payout rows.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param var_from: (required)
         :type var_from: str
@@ -1430,7 +1499,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewardsControllerReport200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1461,8 +1530,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_report
+        """Get your reward payout report
 
+        Reports reward payouts on your pools between `from` and `to` (default last 30 days): totals by status (sent, pending, failed, on-chain, on-chain with a tx hash), amount paid and distinct recipient wallets, a per-campaign breakdown, current pool balances, and up to 2000 payout rows.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param var_from: (required)
         :type var_from: str
@@ -1500,7 +1570,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewardsControllerReport200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1548,10 +1618,19 @@ class RewardsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1589,9 +1668,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_set_pool_status
+    ) -> RewardsControllerSetPoolStatus201Response:
+        """Pause or resume a reward pool
 
+        Sets the pool `status` to `paused` (stops accruing completions) or `active`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -1629,7 +1709,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewardsControllerSetPoolStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1659,9 +1739,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_set_pool_status
+    ) -> ApiResponse[RewardsControllerSetPoolStatus201Response]:
+        """Pause or resume a reward pool
 
+        Sets the pool `status` to `paused` (stops accruing completions) or `active`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -1699,7 +1780,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewardsControllerSetPoolStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1730,8 +1811,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_set_pool_status
+        """Pause or resume a reward pool
 
+        Sets the pool `status` to `paused` (stops accruing completions) or `active`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -1769,7 +1851,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewardsControllerSetPoolStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1813,6 +1895,13 @@ class RewardsApi:
             _body_params = set_pool_status_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1830,6 +1919,8 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1866,9 +1957,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_set_world_webhook
+    ) -> RewardsControllerSetWorldWebhook201Response:
+        """Set a world's reward-payout webhook
 
+        Points one of your world integrations at `url`. Pending reward payouts for that operator are POSTed there as signed `reward.payout` webhooks (HMAC with the world's signing secret) so the operator can pay the user; delivery is retried up to 8 times. 404 if the world is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param set_world_webhook_dto: (required)
         :type set_world_webhook_dto: SetWorldWebhookDto
@@ -1903,7 +1995,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewardsControllerSetWorldWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1932,9 +2024,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_set_world_webhook
+    ) -> ApiResponse[RewardsControllerSetWorldWebhook201Response]:
+        """Set a world's reward-payout webhook
 
+        Points one of your world integrations at `url`. Pending reward payouts for that operator are POSTed there as signed `reward.payout` webhooks (HMAC with the world's signing secret) so the operator can pay the user; delivery is retried up to 8 times. 404 if the world is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param set_world_webhook_dto: (required)
         :type set_world_webhook_dto: SetWorldWebhookDto
@@ -1969,7 +2062,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewardsControllerSetWorldWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1999,8 +2092,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_set_world_webhook
+        """Set a world's reward-payout webhook
 
+        Points one of your world integrations at `url`. Pending reward payouts for that operator are POSTed there as signed `reward.payout` webhooks (HMAC with the world's signing secret) so the operator can pay the user; delivery is retried up to 8 times. 404 if the world is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param set_world_webhook_dto: (required)
         :type set_world_webhook_dto: SetWorldWebhookDto
@@ -2035,7 +2129,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewardsControllerSetWorldWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2076,6 +2170,13 @@ class RewardsApi:
             _body_params = set_world_webhook_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2093,6 +2194,8 @@ class RewardsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2129,9 +2232,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """rewards_controller_voucher_secret
+    ) -> RewardsControllerVoucherSecret200Response:
+        """Get the voucher secret for an on-chain pool
 
+        Returns the HMAC voucher secret for the campaign's on-chain reward pool. 404 if you have no pool for the campaign, 400 if the pool is not in on-chain mode.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -2166,7 +2270,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewardsControllerVoucherSecret200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2195,9 +2299,10 @@ class RewardsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """rewards_controller_voucher_secret
+    ) -> ApiResponse[RewardsControllerVoucherSecret200Response]:
+        """Get the voucher secret for an on-chain pool
 
+        Returns the HMAC voucher secret for the campaign's on-chain reward pool. 404 if you have no pool for the campaign, 400 if the pool is not in on-chain mode.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -2232,7 +2337,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewardsControllerVoucherSecret200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2262,8 +2367,9 @@ class RewardsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """rewards_controller_voucher_secret
+        """Get the voucher secret for an on-chain pool
 
+        Returns the HMAC voucher secret for the campaign's on-chain reward pool. 404 if you have no pool for the campaign, 400 if the pool is not in on-chain mode.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param campaign_id: (required)
         :type campaign_id: str
@@ -2298,7 +2404,7 @@ class RewardsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewardsControllerVoucherSecret200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2339,10 +2445,19 @@ class RewardsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

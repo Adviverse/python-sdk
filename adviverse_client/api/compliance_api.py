@@ -17,6 +17,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
+from adviverse_client.models.compliance_consent_config import ComplianceConsentConfig
+from adviverse_client.models.compliance_controller_consent201_response import ComplianceControllerConsent201Response
+from adviverse_client.models.compliance_controller_consent_log200_response_inner import ComplianceControllerConsentLog200ResponseInner
+from adviverse_client.models.compliance_controller_sellers200_response import ComplianceControllerSellers200Response
+from adviverse_client.models.compliance_dsar import ComplianceDsar
+from adviverse_client.models.compliance_seller_listing import ComplianceSellerListing
 from adviverse_client.models.consent_config_dto import ConsentConfigDto
 from adviverse_client.models.consent_dto import ConsentDto
 from adviverse_client.models.dsar_dto import DsarDto
@@ -55,9 +63,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_ads_txt
+    ) -> str:
+        """Get the ads.txt line
 
+        Public. Returns the single ads.txt line (`<domain>, <seller id>, DIRECT`) publishers add to their own ads.txt to authorize Adviverse to sell their inventory.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -89,7 +98,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -117,9 +126,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_ads_txt
+    ) -> ApiResponse[str]:
+        """Get the ads.txt line
 
+        Public. Returns the single ads.txt line (`<domain>, <seller id>, DIRECT`) publishers add to their own ads.txt to authorize Adviverse to sell their inventory.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -151,7 +161,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -180,8 +190,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_ads_txt
+        """Get the ads.txt line
 
+        Public. Returns the single ads.txt line (`<domain>, <seller id>, DIRECT`) publishers add to their own ads.txt to authorize Adviverse to sell their inventory.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -213,7 +224,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -251,6 +262,13 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain'
+                ]
+            )
 
 
         # authentication setting
@@ -291,9 +309,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_complete
+    ) -> AdminControllerSetStatus201Response:
+        """Complete a data-subject request
 
+        Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -328,7 +347,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -357,9 +376,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_complete
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Complete a data-subject request
 
+        Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -394,7 +414,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -424,8 +444,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_complete
+        """Complete a data-subject request
 
+        Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -460,7 +481,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -501,10 +522,19 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -541,9 +571,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_consent
+    ) -> ComplianceControllerConsent201Response:
+        """Log a consent signal
 
+        Public, rate-limited; called by the SDK/CMP bridge. Stores a consent record with a SHA-256 hash of `userId`, plus optional `tcf`, `gpp`, `gpc`, `purposes` and `mode`. `publisherId` and `propertyId` attribute the record and are kept only when they are well-formed UUIDs.  Auth: public, no credentials required.
 
         :param consent_dto: (required)
         :type consent_dto: ConsentDto
@@ -578,7 +609,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceControllerConsent201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -607,9 +638,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_consent
+    ) -> ApiResponse[ComplianceControllerConsent201Response]:
+        """Log a consent signal
 
+        Public, rate-limited; called by the SDK/CMP bridge. Stores a consent record with a SHA-256 hash of `userId`, plus optional `tcf`, `gpp`, `gpc`, `purposes` and `mode`. `publisherId` and `propertyId` attribute the record and are kept only when they are well-formed UUIDs.  Auth: public, no credentials required.
 
         :param consent_dto: (required)
         :type consent_dto: ConsentDto
@@ -644,7 +676,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceControllerConsent201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -674,8 +706,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_consent
+        """Log a consent signal
 
+        Public, rate-limited; called by the SDK/CMP bridge. Stores a consent record with a SHA-256 hash of `userId`, plus optional `tcf`, `gpp`, `gpc`, `purposes` and `mode`. `publisherId` and `propertyId` attribute the record and are kept only when they are well-formed UUIDs.  Auth: public, no credentials required.
 
         :param consent_dto: (required)
         :type consent_dto: ConsentDto
@@ -710,7 +743,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceControllerConsent201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -751,6 +784,13 @@ class ComplianceApi:
             _body_params = consent_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -803,9 +843,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_consent_log
+    ) -> List[ComplianceControllerConsentLog200ResponseInner]:
+        """List recent consent records
 
+        Returns the 100 most recent consent-log entries forwarded by this publisher's snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -837,7 +878,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ComplianceControllerConsentLog200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -865,9 +906,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_consent_log
+    ) -> ApiResponse[List[ComplianceControllerConsentLog200ResponseInner]]:
+        """List recent consent records
 
+        Returns the 100 most recent consent-log entries forwarded by this publisher's snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -899,7 +941,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ComplianceControllerConsentLog200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -928,8 +970,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_consent_log
+        """List recent consent records
 
+        Returns the 100 most recent consent-log entries forwarded by this publisher's snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -961,7 +1004,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ComplianceControllerConsentLog200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -999,10 +1042,19 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1041,8 +1093,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """compliance_controller_domain_connect_template
+        """Get the DomainConnect verification template
 
+        Public. Serves the DomainConnect template for publisher domain verification at the standard service-provider path. The template applies one TXT record at the verification host carrying the `%txt%` token. Any other provider/service id returns 404.  Auth: public, no credentials required.
 
         :param provider_id: (required)
         :type provider_id: str
@@ -1111,8 +1164,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """compliance_controller_domain_connect_template
+        """Get the DomainConnect verification template
 
+        Public. Serves the DomainConnect template for publisher domain verification at the standard service-provider path. The template applies one TXT record at the verification host carrying the `%txt%` token. Any other provider/service id returns 404.  Auth: public, no credentials required.
 
         :param provider_id: (required)
         :type provider_id: str
@@ -1181,8 +1235,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_domain_connect_template
+        """Get the DomainConnect verification template
 
+        Public. Serves the DomainConnect template for publisher domain verification at the standard service-provider path. The template applies one TXT record at the verification host carrying the `%txt%` token. Any other provider/service id returns 404.  Auth: public, no credentials required.
 
         :param provider_id: (required)
         :type provider_id: str
@@ -1304,9 +1359,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_dsar
+    ) -> ComplianceDsar:
+        """Submit a data-subject request
 
+        Public, rate-limited. Files an `access` or `delete` request for `email`; only a hash of the subject is stored. A delete request starts erasing the subject from identity maps, CDP traits, segment memberships and event history and suppresses re-collection (fail-soft, in the background). An access request returns the stored request plus an `export` of the data held on the subject.  Auth: public, no credentials required.
 
         :param dsar_dto: (required)
         :type dsar_dto: DsarDto
@@ -1341,7 +1397,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceDsar",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1370,9 +1426,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_dsar
+    ) -> ApiResponse[ComplianceDsar]:
+        """Submit a data-subject request
 
+        Public, rate-limited. Files an `access` or `delete` request for `email`; only a hash of the subject is stored. A delete request starts erasing the subject from identity maps, CDP traits, segment memberships and event history and suppresses re-collection (fail-soft, in the background). An access request returns the stored request plus an `export` of the data held on the subject.  Auth: public, no credentials required.
 
         :param dsar_dto: (required)
         :type dsar_dto: DsarDto
@@ -1407,7 +1464,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceDsar",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1437,8 +1494,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_dsar
+        """Submit a data-subject request
 
+        Public, rate-limited. Files an `access` or `delete` request for `email`; only a hash of the subject is stored. A delete request starts erasing the subject from identity maps, CDP traits, segment memberships and event history and suppresses re-collection (fail-soft, in the background). An access request returns the stored request plus an `export` of the data held on the subject.  Auth: public, no credentials required.
 
         :param dsar_dto: (required)
         :type dsar_dto: DsarDto
@@ -1473,7 +1531,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceDsar",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1514,6 +1572,13 @@ class ComplianceApi:
             _body_params = dsar_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1567,9 +1632,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_get_consent_config
+    ) -> ComplianceConsentConfig:
+        """Get consent configuration
 
+        Returns the consent config for `propertyId`, falling back to the account-wide default and then to built-in defaults (TCF v2, no default consent, all collection on). Without `propertyId` the account default is returned. The property must belong to the caller (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param property_id: (required)
         :type property_id: str
@@ -1604,7 +1670,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceConsentConfig",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1633,9 +1699,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_get_consent_config
+    ) -> ApiResponse[ComplianceConsentConfig]:
+        """Get consent configuration
 
+        Returns the consent config for `propertyId`, falling back to the account-wide default and then to built-in defaults (TCF v2, no default consent, all collection on). Without `propertyId` the account default is returned. The property must belong to the caller (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param property_id: (required)
         :type property_id: str
@@ -1670,7 +1737,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceConsentConfig",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1700,8 +1767,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_get_consent_config
+        """Get consent configuration
 
+        Returns the consent config for `propertyId`, falling back to the account-wide default and then to built-in defaults (TCF v2, no default consent, all collection on). Without `propertyId` the account default is returned. The property must belong to the caller (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param property_id: (required)
         :type property_id: str
@@ -1736,7 +1804,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceConsentConfig",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1779,10 +1847,19 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1818,9 +1895,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_get_seller_listing
+    ) -> ComplianceSellerListing:
+        """Get sellers.json listing preference
 
+        Returns whether the publisher is listed publicly in sellers.json and its declared seller domain. Defaults to confidential.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1852,7 +1930,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceSellerListing",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1880,9 +1958,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_get_seller_listing
+    ) -> ApiResponse[ComplianceSellerListing]:
+        """Get sellers.json listing preference
 
+        Returns whether the publisher is listed publicly in sellers.json and its declared seller domain. Defaults to confidential.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1914,7 +1993,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceSellerListing",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1943,8 +2022,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_get_seller_listing
+        """Get sellers.json listing preference
 
+        Returns whether the publisher is listed publicly in sellers.json and its declared seller domain. Defaults to confidential.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1976,7 +2056,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceSellerListing",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2014,10 +2094,19 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2053,9 +2142,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_list_dsar
+    ) -> List[ComplianceDsar]:
+        """List data-subject requests
 
+        Returns the 200 most recent DSAR requests, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2087,7 +2177,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ComplianceDsar]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2115,9 +2205,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_list_dsar
+    ) -> ApiResponse[List[ComplianceDsar]]:
+        """List data-subject requests
 
+        Returns the 200 most recent DSAR requests, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2149,7 +2240,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ComplianceDsar]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2178,8 +2269,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_list_dsar
+        """List data-subject requests
 
+        Returns the 200 most recent DSAR requests, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2211,7 +2303,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ComplianceDsar]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2249,10 +2341,19 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2289,9 +2390,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_save_consent_config
+    ) -> ComplianceConsentConfig:
+        """Save consent configuration
 
+        Upserts the consent config for `propertyId`, or the account default when omitted. Requires `mode` (`tcf_v2`, `gpp`, `custom`) and `defaultConsent`; snippet controls default to true. For a custom CMP, `consentSource` `cookie` or `global` requires `consentKey` (cookie name or JS global path), and `consentGrantValue` defaults to `true`. `tcfPurpose` (1-11, default 1) and `tcfVendorId` are range-checked. Invalid mode, source or key returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param consent_config_dto: (required)
         :type consent_config_dto: ConsentConfigDto
@@ -2326,7 +2428,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceConsentConfig",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2355,9 +2457,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_save_consent_config
+    ) -> ApiResponse[ComplianceConsentConfig]:
+        """Save consent configuration
 
+        Upserts the consent config for `propertyId`, or the account default when omitted. Requires `mode` (`tcf_v2`, `gpp`, `custom`) and `defaultConsent`; snippet controls default to true. For a custom CMP, `consentSource` `cookie` or `global` requires `consentKey` (cookie name or JS global path), and `consentGrantValue` defaults to `true`. `tcfPurpose` (1-11, default 1) and `tcfVendorId` are range-checked. Invalid mode, source or key returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param consent_config_dto: (required)
         :type consent_config_dto: ConsentConfigDto
@@ -2392,7 +2495,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceConsentConfig",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2422,8 +2525,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_save_consent_config
+        """Save consent configuration
 
+        Upserts the consent config for `propertyId`, or the account default when omitted. Requires `mode` (`tcf_v2`, `gpp`, `custom`) and `defaultConsent`; snippet controls default to true. For a custom CMP, `consentSource` `cookie` or `global` requires `consentKey` (cookie name or JS global path), and `consentGrantValue` defaults to `true`. `tcfPurpose` (1-11, default 1) and `tcfVendorId` are range-checked. Invalid mode, source or key returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param consent_config_dto: (required)
         :type consent_config_dto: ConsentConfigDto
@@ -2458,7 +2562,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComplianceConsentConfig",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2499,6 +2603,13 @@ class ComplianceApi:
             _body_params = consent_config_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2516,6 +2627,8 @@ class ComplianceApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2552,9 +2665,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_save_seller_listing
+    ) -> ComplianceSellerListing:
+        """Set sellers.json listing preference
 
+        Sets `sellerPublic` and an optional `sellerDomain`. The domain is normalized (scheme, path and `www.` stripped, lowercased) and must be a valid hostname (400 otherwise). A public listing exposes the company name and domain in sellers.json.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param seller_listing_dto: (required)
         :type seller_listing_dto: SellerListingDto
@@ -2589,7 +2703,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceSellerListing",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2618,9 +2732,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_save_seller_listing
+    ) -> ApiResponse[ComplianceSellerListing]:
+        """Set sellers.json listing preference
 
+        Sets `sellerPublic` and an optional `sellerDomain`. The domain is normalized (scheme, path and `www.` stripped, lowercased) and must be a valid hostname (400 otherwise). A public listing exposes the company name and domain in sellers.json.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param seller_listing_dto: (required)
         :type seller_listing_dto: SellerListingDto
@@ -2655,7 +2770,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceSellerListing",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2685,8 +2800,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_save_seller_listing
+        """Set sellers.json listing preference
 
+        Sets `sellerPublic` and an optional `sellerDomain`. The domain is normalized (scheme, path and `www.` stripped, lowercased) and must be a valid hostname (400 otherwise). A public listing exposes the company name and domain in sellers.json.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param seller_listing_dto: (required)
         :type seller_listing_dto: SellerListingDto
@@ -2721,7 +2837,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceSellerListing",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2762,6 +2878,13 @@ class ComplianceApi:
             _body_params = seller_listing_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2779,6 +2902,8 @@ class ComplianceApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2814,9 +2939,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """compliance_controller_sellers
+    ) -> ComplianceControllerSellers200Response:
+        """Get sellers.json
 
+        Public IAB sellers.json listing active publisher accounts as PUBLISHER sellers. Advertisers are not listed. Sellers are confidential (`is_confidential: 1`, no name/domain) unless the publisher opted into a public listing, which exposes their company name and seller domain.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2848,7 +2974,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceControllerSellers200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2876,9 +3002,10 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """compliance_controller_sellers
+    ) -> ApiResponse[ComplianceControllerSellers200Response]:
+        """Get sellers.json
 
+        Public IAB sellers.json listing active publisher accounts as PUBLISHER sellers. Advertisers are not listed. Sellers are confidential (`is_confidential: 1`, no name/domain) unless the publisher opted into a public listing, which exposes their company name and seller domain.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2910,7 +3037,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceControllerSellers200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2939,8 +3066,9 @@ class ComplianceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """compliance_controller_sellers
+        """Get sellers.json
 
+        Public IAB sellers.json listing active publisher accounts as PUBLISHER sellers. Advertisers are not listed. Sellers are confidential (`is_confidential: 1`, no name/domain) unless the publisher opted into a public listing, which exposes their company name and seller domain.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2972,7 +3100,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComplianceControllerSellers200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3010,6 +3138,13 @@ class ComplianceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting

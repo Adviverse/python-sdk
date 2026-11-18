@@ -17,8 +17,20 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.currency_dto import CurrencyDto
 from adviverse_client.models.deposit_dto import DepositDto
+from adviverse_client.models.fin_balance import FinBalance
+from adviverse_client.models.fin_currency_rate import FinCurrencyRate
+from adviverse_client.models.fin_deposit import FinDeposit
+from adviverse_client.models.fin_deposit_result import FinDepositResult
+from adviverse_client.models.fin_ledger_entry import FinLedgerEntry
+from adviverse_client.models.fin_payout import FinPayout
+from adviverse_client.models.fin_tax_form import FinTaxForm
+from adviverse_client.models.finance_controller_methods200_response import FinanceControllerMethods200Response
+from adviverse_client.models.finance_controller_payout201_response import FinanceControllerPayout201Response
+from adviverse_client.models.finance_controller_paypal_webhook201_response import FinanceControllerPaypalWebhook201Response
+from adviverse_client.models.finance_controller_stripe_webhook201_response import FinanceControllerStripeWebhook201Response
 from adviverse_client.models.payout_dto import PayoutDto
 from adviverse_client.models.tax_form_dto import TaxFormDto
 
@@ -55,9 +67,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_balance
+    ) -> FinBalance:
+        """Get the caller's available and held balance
 
+        Returns the materialized balance row for the caller's account: available funds, funds held (pending payouts and unmatured earnings) and the account currency. Returns zeros in USD when no ledger activity exists.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -89,7 +102,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinBalance",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -117,9 +130,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_balance
+    ) -> ApiResponse[FinBalance]:
+        """Get the caller's available and held balance
 
+        Returns the materialized balance row for the caller's account: available funds, funds held (pending payouts and unmatured earnings) and the account currency. Returns zeros in USD when no ledger activity exists.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -151,7 +165,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinBalance",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -180,8 +194,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_balance
+        """Get the caller's available and held balance
 
+        Returns the materialized balance row for the caller's account: available funds, funds held (pending payouts and unmatured earnings) and the account currency. Returns zeros in USD when no ledger activity exists.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -213,7 +228,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinBalance",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -251,10 +266,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -291,9 +315,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_crypto_webhook
+    ) -> str:
+        """Receive OxaPay crypto webhooks
 
+        Called by OxaPay. Verifies the `hmac` header (HMAC-SHA512 of the raw body). Payment callbacks (merchant key) credit the deposit when status is 'Paid'; payout callbacks (payout key) settle the held funds as paid on 'Confirmed' or return them on 'Failed'/'Rejected'. Always answers 200 with the plain body 'ok' once verified so OxaPay stops retrying.  Auth: public, no credentials required.
 
         :param hmac: (required)
         :type hmac: str
@@ -328,7 +353,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -357,9 +382,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_crypto_webhook
+    ) -> ApiResponse[str]:
+        """Receive OxaPay crypto webhooks
 
+        Called by OxaPay. Verifies the `hmac` header (HMAC-SHA512 of the raw body). Payment callbacks (merchant key) credit the deposit when status is 'Paid'; payout callbacks (payout key) settle the held funds as paid on 'Confirmed' or return them on 'Failed'/'Rejected'. Always answers 200 with the plain body 'ok' once verified so OxaPay stops retrying.  Auth: public, no credentials required.
 
         :param hmac: (required)
         :type hmac: str
@@ -394,7 +420,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -424,8 +450,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_crypto_webhook
+        """Receive OxaPay crypto webhooks
 
+        Called by OxaPay. Verifies the `hmac` header (HMAC-SHA512 of the raw body). Payment callbacks (merchant key) credit the deposit when status is 'Paid'; payout callbacks (payout key) settle the held funds as paid on 'Confirmed' or return them on 'Failed'/'Rejected'. Always answers 200 with the plain body 'ok' once verified so OxaPay stops retrying.  Auth: public, no credentials required.
 
         :param hmac: (required)
         :type hmac: str
@@ -460,7 +487,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -501,6 +528,13 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain'
+                ]
+            )
 
 
         # authentication setting
@@ -540,9 +574,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_currencies
+    ) -> List[FinCurrencyRate]:
+        """List registered currencies and token rates
 
+        Returns every row of currency_rates (fiat codes and tenant-registered tokens) with its USD rate in micro-USD, optional live price feed and last update, ordered by most recently updated.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -574,7 +609,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinCurrencyRate]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -602,9 +637,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_currencies
+    ) -> ApiResponse[List[FinCurrencyRate]]:
+        """List registered currencies and token rates
 
+        Returns every row of currency_rates (fiat codes and tenant-registered tokens) with its USD rate in micro-USD, optional live price feed and last update, ordered by most recently updated.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -636,7 +672,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinCurrencyRate]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -665,8 +701,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_currencies
+        """List registered currencies and token rates
 
+        Returns every row of currency_rates (fiat codes and tenant-registered tokens) with its USD rate in micro-USD, optional live price feed and last update, ordered by most recently updated.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -698,7 +735,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinCurrencyRate]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -736,10 +773,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -776,9 +822,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_deposit
+    ) -> FinDepositResult:
+        """Start a deposit
 
+        Creates a pending deposit for `amount` (0.01..1,000,000, 2 dp) through `provider`: stripe (default) / card, paypal, crypto, wire, paxum, or mock (refused in production). The deposit is denominated in the account's currency; tokens not at USD par are charged to the provider in USD. Hosted-checkout providers return a redirectUrl and are credited later by webhook; wire/paxum return transfer instructions and are credited when ops confirm receipt; mock completes immediately. An unconfigured provider is refused.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param deposit_dto: (required)
         :type deposit_dto: DepositDto
@@ -813,7 +860,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinDepositResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -842,9 +889,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_deposit
+    ) -> ApiResponse[FinDepositResult]:
+        """Start a deposit
 
+        Creates a pending deposit for `amount` (0.01..1,000,000, 2 dp) through `provider`: stripe (default) / card, paypal, crypto, wire, paxum, or mock (refused in production). The deposit is denominated in the account's currency; tokens not at USD par are charged to the provider in USD. Hosted-checkout providers return a redirectUrl and are credited later by webhook; wire/paxum return transfer instructions and are credited when ops confirm receipt; mock completes immediately. An unconfigured provider is refused.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param deposit_dto: (required)
         :type deposit_dto: DepositDto
@@ -879,7 +927,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinDepositResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -909,8 +957,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_deposit
+        """Start a deposit
 
+        Creates a pending deposit for `amount` (0.01..1,000,000, 2 dp) through `provider`: stripe (default) / card, paypal, crypto, wire, paxum, or mock (refused in production). The deposit is denominated in the account's currency; tokens not at USD par are charged to the provider in USD. Hosted-checkout providers return a redirectUrl and are credited later by webhook; wire/paxum return transfer instructions and are credited when ops confirm receipt; mock completes immediately. An unconfigured provider is refused.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param deposit_dto: (required)
         :type deposit_dto: DepositDto
@@ -945,7 +994,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinDepositResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -986,6 +1035,13 @@ class FinanceApi:
             _body_params = deposit_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1003,6 +1059,8 @@ class FinanceApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1038,9 +1096,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_deposits
+    ) -> List[FinDeposit]:
+        """List the caller's deposits
 
+        Returns the caller's 100 most recent deposits (all statuses), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1072,7 +1131,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinDeposit]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1100,9 +1159,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_deposits
+    ) -> ApiResponse[List[FinDeposit]]:
+        """List the caller's deposits
 
+        Returns the caller's 100 most recent deposits (all statuses), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1134,7 +1194,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinDeposit]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1163,8 +1223,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_deposits
+        """List the caller's deposits
 
+        Returns the caller's 100 most recent deposits (all statuses), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1196,7 +1257,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinDeposit]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1234,10 +1295,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1273,9 +1343,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_history
+    ) -> List[FinLedgerEntry]:
+        """List the caller's ledger entries
 
+        Returns the caller's 100 most recent ledger entries, newest first. Every money movement is one immutable, signed entry with a running balance_after and a unique idempotency key.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1307,7 +1378,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinLedgerEntry]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1335,9 +1406,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_history
+    ) -> ApiResponse[List[FinLedgerEntry]]:
+        """List the caller's ledger entries
 
+        Returns the caller's 100 most recent ledger entries, newest first. Every money movement is one immutable, signed entry with a running balance_after and a unique idempotency key.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1369,7 +1441,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinLedgerEntry]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1398,8 +1470,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_history
+        """List the caller's ledger entries
 
+        Returns the caller's 100 most recent ledger entries, newest first. Every money movement is one immutable, signed entry with a running balance_after and a unique idempotency key.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1431,7 +1504,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinLedgerEntry]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1469,10 +1542,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1508,9 +1590,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_methods
+    ) -> FinanceControllerMethods200Response:
+        """List configured deposit and payout rails
 
+        Returns the payment rails usable in this environment, derived from configured provider credentials. Deposit rails can include card, crypto, paypal, wire, paxum (and mock outside production); payout rails crypto, paxum and wire (wire payout is always offered as a manual bank transfer).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1542,7 +1625,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinanceControllerMethods200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1570,9 +1653,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_methods
+    ) -> ApiResponse[FinanceControllerMethods200Response]:
+        """List configured deposit and payout rails
 
+        Returns the payment rails usable in this environment, derived from configured provider credentials. Deposit rails can include card, crypto, paypal, wire, paxum (and mock outside production); payout rails crypto, paxum and wire (wire payout is always offered as a manual bank transfer).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1604,7 +1688,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinanceControllerMethods200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1633,8 +1717,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_methods
+        """List configured deposit and payout rails
 
+        Returns the payment rails usable in this environment, derived from configured provider credentials. Deposit rails can include card, crypto, paypal, wire, paxum (and mock outside production); payout rails crypto, paxum and wire (wire payout is always offered as a manual bank transfer).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1666,7 +1751,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinanceControllerMethods200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1704,10 +1789,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1744,9 +1838,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_payout
+    ) -> FinanceControllerPayout201Response:
+        """Request a payout
 
+        Requests a withdrawal of `amount` via `method` (crypto, paxum or wire) to `destination` (method-specific object). Enforces the minimum payout and, when configured, a tax form on file. Inside one transaction the balance row is locked, available funds are re-checked (400 'insufficient available balance'), and the amount is moved from available to held. Dispatch to the provider happens later; the payout starts in status 'requested'.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param payout_dto: (required)
         :type payout_dto: PayoutDto
@@ -1781,7 +1876,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerPayout201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1810,9 +1905,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_payout
+    ) -> ApiResponse[FinanceControllerPayout201Response]:
+        """Request a payout
 
+        Requests a withdrawal of `amount` via `method` (crypto, paxum or wire) to `destination` (method-specific object). Enforces the minimum payout and, when configured, a tax form on file. Inside one transaction the balance row is locked, available funds are re-checked (400 'insufficient available balance'), and the amount is moved from available to held. Dispatch to the provider happens later; the payout starts in status 'requested'.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param payout_dto: (required)
         :type payout_dto: PayoutDto
@@ -1847,7 +1943,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerPayout201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1877,8 +1973,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_payout
+        """Request a payout
 
+        Requests a withdrawal of `amount` via `method` (crypto, paxum or wire) to `destination` (method-specific object). Enforces the minimum payout and, when configured, a tax form on file. Inside one transaction the balance row is locked, available funds are re-checked (400 'insufficient available balance'), and the amount is moved from available to held. Dispatch to the provider happens later; the payout starts in status 'requested'.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param payout_dto: (required)
         :type payout_dto: PayoutDto
@@ -1913,7 +2010,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerPayout201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1954,6 +2051,13 @@ class FinanceApi:
             _body_params = payout_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1971,6 +2075,8 @@ class FinanceApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2006,9 +2112,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_payouts
+    ) -> List[FinPayout]:
+        """List the caller's payouts
 
+        Returns the publisher's 100 most recent payout requests, newest first, with status, method, destination and provider reference.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2040,7 +2147,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinPayout]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2068,9 +2175,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_payouts
+    ) -> ApiResponse[List[FinPayout]]:
+        """List the caller's payouts
 
+        Returns the publisher's 100 most recent payout requests, newest first, with status, method, destination and provider reference.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2102,7 +2210,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinPayout]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2131,8 +2239,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_payouts
+        """List the caller's payouts
 
+        Returns the publisher's 100 most recent payout requests, newest first, with status, method, destination and provider reference.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2164,7 +2273,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[FinPayout]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2202,10 +2311,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2246,9 +2364,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_paypal_webhook
+    ) -> FinanceControllerPaypalWebhook201Response:
+        """Receive PayPal order webhooks
 
+        Called by PayPal. Verifies the PayPal-Transmission-* headers via PayPal's verify-webhook-signature API before any crediting (400 if unverifiable or PayPal is not configured). CHECKOUT.ORDER.APPROVED captures the order and credits the matching deposit; PAYMENT.CAPTURE.COMPLETED credits directly. Crediting is idempotent; other events are ignored.  Auth: public, no credentials required.
 
         :param paypal_transmission_id: (required)
         :type paypal_transmission_id: str
@@ -2295,7 +2414,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerPaypalWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2328,9 +2447,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_paypal_webhook
+    ) -> ApiResponse[FinanceControllerPaypalWebhook201Response]:
+        """Receive PayPal order webhooks
 
+        Called by PayPal. Verifies the PayPal-Transmission-* headers via PayPal's verify-webhook-signature API before any crediting (400 if unverifiable or PayPal is not configured). CHECKOUT.ORDER.APPROVED captures the order and credits the matching deposit; PAYMENT.CAPTURE.COMPLETED credits directly. Crediting is idempotent; other events are ignored.  Auth: public, no credentials required.
 
         :param paypal_transmission_id: (required)
         :type paypal_transmission_id: str
@@ -2377,7 +2497,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerPaypalWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2411,8 +2531,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_paypal_webhook
+        """Receive PayPal order webhooks
 
+        Called by PayPal. Verifies the PayPal-Transmission-* headers via PayPal's verify-webhook-signature API before any crediting (400 if unverifiable or PayPal is not configured). CHECKOUT.ORDER.APPROVED captures the order and credits the matching deposit; PAYMENT.CAPTURE.COMPLETED credits directly. Crediting is idempotent; other events are ignored.  Auth: public, no credentials required.
 
         :param paypal_transmission_id: (required)
         :type paypal_transmission_id: str
@@ -2459,7 +2580,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerPaypalWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2512,6 +2633,13 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2552,9 +2680,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_stripe_webhook
+    ) -> FinanceControllerStripeWebhook201Response:
+        """Receive Stripe payment webhooks
 
+        Called by Stripe, not by API clients. Verifies the `stripe-signature` header against the raw body (400 on failure or if Stripe is not configured). On checkout.session.completed (paid) or payment_intent.succeeded it resolves the deposit from metadata or provider_ref and credits it to the ledger idempotently; other event types are acknowledged and ignored.  Auth: public, no credentials required.
 
         :param stripe_signature: (required)
         :type stripe_signature: str
@@ -2589,7 +2718,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerStripeWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2618,9 +2747,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_stripe_webhook
+    ) -> ApiResponse[FinanceControllerStripeWebhook201Response]:
+        """Receive Stripe payment webhooks
 
+        Called by Stripe, not by API clients. Verifies the `stripe-signature` header against the raw body (400 on failure or if Stripe is not configured). On checkout.session.completed (paid) or payment_intent.succeeded it resolves the deposit from metadata or provider_ref and credits it to the ledger idempotently; other event types are acknowledged and ignored.  Auth: public, no credentials required.
 
         :param stripe_signature: (required)
         :type stripe_signature: str
@@ -2655,7 +2785,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerStripeWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2685,8 +2815,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_stripe_webhook
+        """Receive Stripe payment webhooks
 
+        Called by Stripe, not by API clients. Verifies the `stripe-signature` header against the raw body (400 on failure or if Stripe is not configured). On checkout.session.completed (paid) or payment_intent.succeeded it resolves the deposit from metadata or provider_ref and credits it to the ledger idempotently; other event types are acknowledged and ignored.  Auth: public, no credentials required.
 
         :param stripe_signature: (required)
         :type stripe_signature: str
@@ -2721,7 +2852,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinanceControllerStripeWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2762,6 +2893,13 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2802,9 +2940,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_submit_tax_form
+    ) -> FinTaxForm:
+        """Submit or replace the tax form
 
+        Upserts the publisher's tax form. Body: `formType` (w9|w8ben), `legalName`, optional `taxClassification`, `taxId` (SSN/EIN/TIN, encrypted at rest; only the last 4 digits are kept in clear), `address`, 2-letter `country` and `certified` (must be true). Status resets to 'submitted'. Returns the masked view.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param tax_form_dto: (required)
         :type tax_form_dto: TaxFormDto
@@ -2839,7 +2978,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinTaxForm",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2868,9 +3007,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_submit_tax_form
+    ) -> ApiResponse[FinTaxForm]:
+        """Submit or replace the tax form
 
+        Upserts the publisher's tax form. Body: `formType` (w9|w8ben), `legalName`, optional `taxClassification`, `taxId` (SSN/EIN/TIN, encrypted at rest; only the last 4 digits are kept in clear), `address`, 2-letter `country` and `certified` (must be true). Status resets to 'submitted'. Returns the masked view.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param tax_form_dto: (required)
         :type tax_form_dto: TaxFormDto
@@ -2905,7 +3045,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinTaxForm",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2935,8 +3075,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_submit_tax_form
+        """Submit or replace the tax form
 
+        Upserts the publisher's tax form. Body: `formType` (w9|w8ben), `legalName`, optional `taxClassification`, `taxId` (SSN/EIN/TIN, encrypted at rest; only the last 4 digits are kept in clear), `address`, 2-letter `country` and `certified` (must be true). Status resets to 'submitted'. Returns the masked view.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param tax_form_dto: (required)
         :type tax_form_dto: TaxFormDto
@@ -2971,7 +3112,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinTaxForm",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3012,6 +3153,13 @@ class FinanceApi:
             _body_params = tax_form_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3029,6 +3177,8 @@ class FinanceApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3064,9 +3214,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_tax_form
+    ) -> FinTaxForm:
+        """Get the caller's tax form (masked)
 
+        Returns the publisher's W-9 / W-8BEN on file with the tax id masked to its last 4 digits, or `{ onFile: false }` if none has been submitted.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3098,7 +3249,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinTaxForm",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3126,9 +3277,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_tax_form
+    ) -> ApiResponse[FinTaxForm]:
+        """Get the caller's tax form (masked)
 
+        Returns the publisher's W-9 / W-8BEN on file with the tax id masked to its last 4 digits, or `{ onFile: false }` if none has been submitted.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3160,7 +3312,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinTaxForm",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3189,8 +3341,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_tax_form
+        """Get the caller's tax form (masked)
 
+        Returns the publisher's W-9 / W-8BEN on file with the tax id masked to its last 4 digits, or `{ onFile: false }` if none has been submitted.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3222,7 +3375,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "FinTaxForm",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3260,10 +3413,19 @@ class FinanceApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3300,9 +3462,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """finance_controller_upsert_currency
+    ) -> FinCurrencyRate:
+        """Register or update the caller's token rate
 
+        Creates or updates a currency code (2-12 uppercase alphanumerics) owned by the caller. Body: `code`, `name`, and either `usdMicro` (micro-USD per unit) or `rateUrl` (a price API polled to keep the rate current, SSRF-guarded) with optional `rateJsonPath` (dot-path to the price). When rateUrl is given it is fetched once to seed the rate. Fails with 400 if the code belongs to another account or no positive rate can be determined.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param currency_dto: (required)
         :type currency_dto: CurrencyDto
@@ -3337,7 +3500,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinCurrencyRate",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3366,9 +3529,10 @@ class FinanceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """finance_controller_upsert_currency
+    ) -> ApiResponse[FinCurrencyRate]:
+        """Register or update the caller's token rate
 
+        Creates or updates a currency code (2-12 uppercase alphanumerics) owned by the caller. Body: `code`, `name`, and either `usdMicro` (micro-USD per unit) or `rateUrl` (a price API polled to keep the rate current, SSRF-guarded) with optional `rateJsonPath` (dot-path to the price). When rateUrl is given it is fetched once to seed the rate. Fails with 400 if the code belongs to another account or no positive rate can be determined.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param currency_dto: (required)
         :type currency_dto: CurrencyDto
@@ -3403,7 +3567,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinCurrencyRate",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3433,8 +3597,9 @@ class FinanceApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """finance_controller_upsert_currency
+        """Register or update the caller's token rate
 
+        Creates or updates a currency code (2-12 uppercase alphanumerics) owned by the caller. Body: `code`, `name`, and either `usdMicro` (micro-USD per unit) or `rateUrl` (a price API polled to keep the rate current, SSRF-guarded) with optional `rateJsonPath` (dot-path to the price). When rateUrl is given it is fetched once to seed the rate. Fails with 400 if the code belongs to another account or no positive rate can be determined.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param currency_dto: (required)
         :type currency_dto: CurrencyDto
@@ -3469,7 +3634,7 @@ class FinanceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "FinCurrencyRate",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3510,6 +3675,13 @@ class FinanceApi:
             _body_params = currency_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3527,6 +3699,8 @@ class FinanceApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

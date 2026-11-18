@@ -17,10 +17,23 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.claim_surface_dto import ClaimSurfaceDto
 from adviverse_client.models.create_world_dto import CreateWorldDto
+from adviverse_client.models.metaverse_controller_admin_worlds200_response_inner import MetaverseControllerAdminWorlds200ResponseInner
+from adviverse_client.models.metaverse_controller_create_world201_response import MetaverseControllerCreateWorld201Response
+from adviverse_client.models.metaverse_controller_list200_response_inner import MetaverseControllerList200ResponseInner
+from adviverse_client.models.metaverse_controller_score_now201_response import MetaverseControllerScoreNow201Response
+from adviverse_client.models.metaverse_controller_set_world_trust201_response import MetaverseControllerSetWorldTrust201Response
+from adviverse_client.models.metaverse_controller_trust_scores200_response_inner import MetaverseControllerTrustScores200ResponseInner
+from adviverse_client.models.screens_controller_pair_init201_response import ScreensControllerPairInit201Response
+from adviverse_client.models.screens_controller_pair_status200_response import ScreensControllerPairStatus200Response
+from adviverse_client.models.screens_controller_set_status201_response import ScreensControllerSetStatus201Response
 from adviverse_client.models.set_surface_status_dto import SetSurfaceStatusDto
 from adviverse_client.models.set_world_trust_dto import SetWorldTrustDto
+from adviverse_client.models.sup_surface import SupSurface
+from adviverse_client.models.sup_surface_report import SupSurfaceReport
+from adviverse_client.models.sup_world import SupWorld
 from adviverse_client.models.surface_pair_init_dto import SurfacePairInitDto
 from adviverse_client.models.update_surface_dto import UpdateSurfaceDto
 
@@ -57,9 +70,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_admin_worlds
+    ) -> List[MetaverseControllerAdminWorlds200ResponseInner]:
+        """List all world integrations
 
+        Admin view of up to 1000 world integrations across all accounts, with the operator's email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -91,7 +105,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerAdminWorlds200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -119,9 +133,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_admin_worlds
+    ) -> ApiResponse[List[MetaverseControllerAdminWorlds200ResponseInner]]:
+        """List all world integrations
 
+        Admin view of up to 1000 world integrations across all accounts, with the operator's email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -153,7 +168,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerAdminWorlds200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -182,8 +197,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_admin_worlds
+        """List all world integrations
 
+        Admin view of up to 1000 world integrations across all accounts, with the operator's email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -215,7 +231,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerAdminWorlds200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -253,10 +269,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -294,9 +319,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_advertiser_views
+    ) -> SupSurfaceReport:
+        """Get metaverse proof-of-view for your campaigns
 
+        Same report as the publisher view, scoped to surface events on your campaigns between `from` and `to` (default last 30 days).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -334,7 +360,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurfaceReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -364,9 +390,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_advertiser_views
+    ) -> ApiResponse[SupSurfaceReport]:
+        """Get metaverse proof-of-view for your campaigns
 
+        Same report as the publisher view, scoped to surface events on your campaigns between `from` and `to` (default last 30 days).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -404,7 +431,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurfaceReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -435,8 +462,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_advertiser_views
+        """Get metaverse proof-of-view for your campaigns
 
+        Same report as the publisher view, scoped to surface events on your campaigns between `from` and `to` (default last 30 days).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -474,7 +502,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurfaceReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -522,10 +550,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -562,9 +599,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_claim
+    ) -> SupSurface:
+        """Claim a metaverse surface by its pairing code
 
+        Attaches the pending surface showing `code` to your account and starts serving: creates a `surface` placement (signed with the world's attestation key) under a per-world property that inherits the world's trust tier. Optional spatial details: `shopId`, `world`, `surfaceType`, `posX/Y/Z`, `widthM`, `heightM`, `floorCpm`, `audienceMultiplier` (default 1), `maxDistanceM`. 404 if no surface is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param claim_surface_dto: (required)
         :type claim_surface_dto: ClaimSurfaceDto
@@ -599,7 +637,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -628,9 +666,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_claim
+    ) -> ApiResponse[SupSurface]:
+        """Claim a metaverse surface by its pairing code
 
+        Attaches the pending surface showing `code` to your account and starts serving: creates a `surface` placement (signed with the world's attestation key) under a per-world property that inherits the world's trust tier. Optional spatial details: `shopId`, `world`, `surfaceType`, `posX/Y/Z`, `widthM`, `heightM`, `floorCpm`, `audienceMultiplier` (default 1), `maxDistanceM`. 404 if no surface is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param claim_surface_dto: (required)
         :type claim_surface_dto: ClaimSurfaceDto
@@ -665,7 +704,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -695,8 +734,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_claim
+        """Claim a metaverse surface by its pairing code
 
+        Attaches the pending surface showing `code` to your account and starts serving: creates a `surface` placement (signed with the world's attestation key) under a per-world property that inherits the world's trust tier. Optional spatial details: `shopId`, `world`, `surfaceType`, `posX/Y/Z`, `widthM`, `heightM`, `floorCpm`, `audienceMultiplier` (default 1), `maxDistanceM`. 404 if no surface is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param claim_surface_dto: (required)
         :type claim_surface_dto: ClaimSurfaceDto
@@ -731,7 +771,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -772,6 +812,13 @@ class MetaverseApi:
             _body_params = claim_surface_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -789,6 +836,8 @@ class MetaverseApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -825,9 +874,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_create_world
+    ) -> MetaverseControllerCreateWorld201Response:
+        """Register a metaverse world integration
 
+        Creates a world integration for a metaverse operator from `name` (required) and optional `networkId`. New worlds start `unverified` (their surfaces serve CPA-only until trusted). The response includes `signing_secret`, which the world's server uses to attest proofs of view; it is returned only here. 400 if name is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param create_world_dto: (required)
         :type create_world_dto: CreateWorldDto
@@ -862,7 +912,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerCreateWorld201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -891,9 +941,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_create_world
+    ) -> ApiResponse[MetaverseControllerCreateWorld201Response]:
+        """Register a metaverse world integration
 
+        Creates a world integration for a metaverse operator from `name` (required) and optional `networkId`. New worlds start `unverified` (their surfaces serve CPA-only until trusted). The response includes `signing_secret`, which the world's server uses to attest proofs of view; it is returned only here. 400 if name is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param create_world_dto: (required)
         :type create_world_dto: CreateWorldDto
@@ -928,7 +979,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerCreateWorld201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -958,8 +1009,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_create_world
+        """Register a metaverse world integration
 
+        Creates a world integration for a metaverse operator from `name` (required) and optional `networkId`. New worlds start `unverified` (their surfaces serve CPA-only until trusted). The response includes `signing_secret`, which the world's server uses to attest proofs of view; it is returned only here. 400 if name is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param create_world_dto: (required)
         :type create_world_dto: CreateWorldDto
@@ -994,7 +1046,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerCreateWorld201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1035,6 +1087,13 @@ class MetaverseApi:
             _body_params = create_world_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1052,6 +1111,8 @@ class MetaverseApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1088,9 +1149,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_get
+    ) -> SupSurface:
+        """Get a metaverse surface
 
+        Returns one of your surfaces with its serving tag. 404 if not found, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -1125,7 +1187,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1154,9 +1216,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_get
+    ) -> ApiResponse[SupSurface]:
+        """Get a metaverse surface
 
+        Returns one of your surfaces with its serving tag. 404 if not found, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -1191,7 +1254,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1221,8 +1284,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_get
+        """Get a metaverse surface
 
+        Returns one of your surfaces with its serving tag. 404 if not found, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -1257,7 +1321,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1298,10 +1362,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1337,9 +1410,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_list
+    ) -> List[MetaverseControllerList200ResponseInner]:
+        """List your metaverse surfaces
 
+        Returns your surfaces, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1371,7 +1445,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1399,9 +1473,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_list
+    ) -> ApiResponse[List[MetaverseControllerList200ResponseInner]]:
+        """List your metaverse surfaces
 
+        Returns your surfaces, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1433,7 +1508,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1462,8 +1537,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_list
+        """List your metaverse surfaces
 
+        Returns your surfaces, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1495,7 +1571,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerList200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1533,10 +1609,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1572,9 +1657,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_list_worlds
+    ) -> List[SupWorld]:
+        """List your world integrations
 
+        Returns the caller's world integrations (without signing secrets), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1606,7 +1692,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SupWorld]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1634,9 +1720,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_list_worlds
+    ) -> ApiResponse[List[SupWorld]]:
+        """List your world integrations
 
+        Returns the caller's world integrations (without signing secrets), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1668,7 +1755,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SupWorld]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1697,8 +1784,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_list_worlds
+        """List your world integrations
 
+        Returns the caller's world integrations (without signing secrets), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1730,7 +1818,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SupWorld]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1768,10 +1856,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1808,9 +1905,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_pair_init
+    ) -> ScreensControllerPairInit201Response:
+        """Start pairing a metaverse ad surface
 
+        Public, rate-limited. A world client calls this with `worldId` (must be an active world) and optional `surfaceType` (screen, poster, portal; default screen). Returns a pairing code to show in-world and a poll token. 404 for an unknown world.  Auth: public, no credentials required.
 
         :param surface_pair_init_dto: (required)
         :type surface_pair_init_dto: SurfacePairInitDto
@@ -1845,7 +1943,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerPairInit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1874,9 +1972,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_pair_init
+    ) -> ApiResponse[ScreensControllerPairInit201Response]:
+        """Start pairing a metaverse ad surface
 
+        Public, rate-limited. A world client calls this with `worldId` (must be an active world) and optional `surfaceType` (screen, poster, portal; default screen). Returns a pairing code to show in-world and a poll token. 404 for an unknown world.  Auth: public, no credentials required.
 
         :param surface_pair_init_dto: (required)
         :type surface_pair_init_dto: SurfacePairInitDto
@@ -1911,7 +2010,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerPairInit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1941,8 +2040,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_pair_init
+        """Start pairing a metaverse ad surface
 
+        Public, rate-limited. A world client calls this with `worldId` (must be an active world) and optional `surfaceType` (screen, poster, portal; default screen). Returns a pairing code to show in-world and a poll token. 404 for an unknown world.  Auth: public, no credentials required.
 
         :param surface_pair_init_dto: (required)
         :type surface_pair_init_dto: SurfacePairInitDto
@@ -1977,7 +2077,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerPairInit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2018,6 +2118,13 @@ class MetaverseApi:
             _body_params = surface_pair_init_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2071,9 +2178,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_pair_status
+    ) -> ScreensControllerPairStatus200Response:
+        """Poll a metaverse surface's pairing status
 
+        Public, rate-limited. Poll with `?pollToken=` until a shop owner claims the code, then receive the serving `tag`. 404 for an unknown token.  Auth: public, no credentials required.
 
         :param poll_token: (required)
         :type poll_token: str
@@ -2108,7 +2216,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ScreensControllerPairStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2137,9 +2245,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_pair_status
+    ) -> ApiResponse[ScreensControllerPairStatus200Response]:
+        """Poll a metaverse surface's pairing status
 
+        Public, rate-limited. Poll with `?pollToken=` until a shop owner claims the code, then receive the serving `tag`. 404 for an unknown token.  Auth: public, no credentials required.
 
         :param poll_token: (required)
         :type poll_token: str
@@ -2174,7 +2283,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ScreensControllerPairStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2204,8 +2313,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_pair_status
+        """Poll a metaverse surface's pairing status
 
+        Public, rate-limited. Poll with `?pollToken=` until a shop owner claims the code, then receive the serving `tag`. 404 for an unknown token.  Auth: public, no credentials required.
 
         :param poll_token: (required)
         :type poll_token: str
@@ -2240,7 +2350,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ScreensControllerPairStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2283,6 +2393,13 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2324,9 +2441,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_publisher_views
+    ) -> SupSurfaceReport:
+        """Get your metaverse proof-of-view report
 
+        Summarizes and lists (up to 2000) surface events on your surfaces between `from` and `to` (default last 30 days): views, valid views, portal enters and completes, spend, and distinct surfaces.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -2364,7 +2482,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurfaceReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2394,9 +2512,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_publisher_views
+    ) -> ApiResponse[SupSurfaceReport]:
+        """Get your metaverse proof-of-view report
 
+        Summarizes and lists (up to 2000) surface events on your surfaces between `from` and `to` (default last 30 days): views, valid views, portal enters and completes, spend, and distinct surfaces.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -2434,7 +2553,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurfaceReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2465,8 +2584,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_publisher_views
+        """Get your metaverse proof-of-view report
 
+        Summarizes and lists (up to 2000) surface events on your surfaces between `from` and `to` (default last 30 days): views, valid views, portal enters and completes, spend, and distinct surfaces.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param var_from: (required)
         :type var_from: str
@@ -2504,7 +2624,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurfaceReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2552,10 +2672,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2591,9 +2720,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_score_now
+    ) -> MetaverseControllerScoreNow201Response:
+        """Run world trust scoring now
 
+        Scores every active world's last 7 days of surface traffic immediately (normally a scheduled job), stores the snapshots, and promotes or demotes worlds whose computed tier differs from their current one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2625,7 +2755,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerScoreNow201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2653,9 +2783,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_score_now
+    ) -> ApiResponse[MetaverseControllerScoreNow201Response]:
+        """Run world trust scoring now
 
+        Scores every active world's last 7 days of surface traffic immediately (normally a scheduled job), stores the snapshots, and promotes or demotes worlds whose computed tier differs from their current one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2687,7 +2818,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerScoreNow201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2716,8 +2847,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_score_now
+        """Run world trust scoring now
 
+        Scores every active world's last 7 days of surface traffic immediately (normally a scheduled job), stores the snapshots, and promotes or demotes worlds whose computed tier differs from their current one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2749,7 +2881,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerScoreNow201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2787,10 +2919,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2828,9 +2969,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_set_status
+    ) -> ScreensControllerSetStatus201Response:
+        """Pause or activate a metaverse surface
 
+        Sets `status` (`active`/`paused`) on the surface and its placement and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2868,7 +3010,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2898,9 +3040,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_set_status
+    ) -> ApiResponse[ScreensControllerSetStatus201Response]:
+        """Pause or activate a metaverse surface
 
+        Sets `status` (`active`/`paused`) on the surface and its placement and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2938,7 +3081,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2969,8 +3112,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_set_status
+        """Pause or activate a metaverse surface
 
+        Sets `status` (`active`/`paused`) on the surface and its placement and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3008,7 +3152,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ScreensControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3052,6 +3196,13 @@ class MetaverseApi:
             _body_params = set_surface_status_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3069,6 +3220,8 @@ class MetaverseApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3106,9 +3259,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_set_world_trust
+    ) -> MetaverseControllerSetWorldTrust201Response:
+        """Set a world's trust tier
 
+        Sets `trust` to `trusted` (surfaces may sell CPM) or `unverified` (CPA-only), cascades it to the world's surface properties, and republishes the index. 404 if the world does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -3146,7 +3300,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerSetWorldTrust201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3176,9 +3330,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_set_world_trust
+    ) -> ApiResponse[MetaverseControllerSetWorldTrust201Response]:
+        """Set a world's trust tier
 
+        Sets `trust` to `trusted` (surfaces may sell CPM) or `unverified` (CPA-only), cascades it to the world's surface properties, and republishes the index. 404 if the world does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -3216,7 +3371,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerSetWorldTrust201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3247,8 +3402,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_set_world_trust
+        """Set a world's trust tier
 
+        Sets `trust` to `trusted` (surfaces may sell CPM) or `unverified` (CPA-only), cascades it to the world's surface properties, and republishes the index. 404 if the world does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -3286,7 +3442,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "MetaverseControllerSetWorldTrust201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3330,6 +3486,13 @@ class MetaverseApi:
             _body_params = set_world_trust_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3347,6 +3510,8 @@ class MetaverseApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3382,9 +3547,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_trust_scores
+    ) -> List[MetaverseControllerTrustScores200ResponseInner]:
+        """List world trust scores
 
+        Admin view of the latest automatic trust-score snapshot per world (7-day view volume, valid and attested rates, unique-user ratio, dwell-time variation, the tier the scorer chose, and its factors).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3416,7 +3582,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerTrustScores200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3444,9 +3610,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_trust_scores
+    ) -> ApiResponse[List[MetaverseControllerTrustScores200ResponseInner]]:
+        """List world trust scores
 
+        Admin view of the latest automatic trust-score snapshot per world (7-day view volume, valid and attested rates, unique-user ratio, dwell-time variation, the tier the scorer chose, and its factors).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3478,7 +3645,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerTrustScores200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3507,8 +3674,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_trust_scores
+        """List world trust scores
 
+        Admin view of the latest automatic trust-score snapshot per world (7-day view volume, valid and attested rates, unique-user ratio, dwell-time variation, the tier the scorer chose, and its factors).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3540,7 +3708,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MetaverseControllerTrustScores200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3578,10 +3746,19 @@ class MetaverseApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3619,9 +3796,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """metaverse_controller_update
+    ) -> SupSurface:
+        """Update a metaverse surface
 
+        Edits `surfaceType`, `floorCpm`, `audienceMultiplier` and `maxDistanceM` on a paired surface (synced into its placement settings) and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3659,7 +3837,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3689,9 +3867,10 @@ class MetaverseApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """metaverse_controller_update
+    ) -> ApiResponse[SupSurface]:
+        """Update a metaverse surface
 
+        Edits `surfaceType`, `floorCpm`, `audienceMultiplier` and `maxDistanceM` on a paired surface (synced into its placement settings) and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3729,7 +3908,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3760,8 +3939,9 @@ class MetaverseApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """metaverse_controller_update
+        """Update a metaverse surface
 
+        Edits `surfaceType`, `floorCpm`, `audienceMultiplier` and `maxDistanceM` on a paired surface (synced into its placement settings) and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -3799,7 +3979,7 @@ class MetaverseApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SupSurface",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3843,6 +4023,13 @@ class MetaverseApi:
             _body_params = update_surface_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3860,6 +4047,8 @@ class MetaverseApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

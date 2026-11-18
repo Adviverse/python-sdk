@@ -16,6 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from typing import List
+from adviverse_client.models.export_job import ExportJob
+from adviverse_client.models.exports_controller_run201_response import ExportsControllerRun201Response
 from adviverse_client.models.run_export_dto import RunExportDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -51,9 +54,10 @@ class ExportsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """exports_controller_list
+    ) -> List[ExportJob]:
+        """List export jobs
 
+        Returns the 200 most recent export jobs, newest first: the caller's own for advertisers, all jobs for admins.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -85,7 +89,7 @@ class ExportsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ExportJob]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -113,9 +117,10 @@ class ExportsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """exports_controller_list
+    ) -> ApiResponse[List[ExportJob]]:
+        """List export jobs
 
+        Returns the 200 most recent export jobs, newest first: the caller's own for advertisers, all jobs for admins.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -147,7 +152,7 @@ class ExportsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ExportJob]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,8 +181,9 @@ class ExportsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """exports_controller_list
+        """List export jobs
 
+        Returns the 200 most recent export jobs, newest first: the caller's own for advertisers, all jobs for admins.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -209,7 +215,7 @@ class ExportsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ExportJob]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,10 +253,19 @@ class ExportsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -287,9 +302,10 @@ class ExportsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """exports_controller_run
+    ) -> ExportsControllerRun201Response:
+        """Export an analytics dataset to object storage
 
+        Pages a ClickHouse dataset into one NDJSON or CSV object plus a manifest JSON in object storage and returns a presigned download URL. Body: `dataset` (events = raw impressions, conversions, or spend = hourly rollup), `from` (inclusive) and `to` (exclusive) as ISO dates, optional `format` (ndjson default, csv). Advertisers export only their own rows; admins export network-wide. The job is recorded and marked failed if the export errors.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param run_export_dto: (required)
         :type run_export_dto: RunExportDto
@@ -324,7 +340,7 @@ class ExportsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ExportsControllerRun201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -353,9 +369,10 @@ class ExportsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """exports_controller_run
+    ) -> ApiResponse[ExportsControllerRun201Response]:
+        """Export an analytics dataset to object storage
 
+        Pages a ClickHouse dataset into one NDJSON or CSV object plus a manifest JSON in object storage and returns a presigned download URL. Body: `dataset` (events = raw impressions, conversions, or spend = hourly rollup), `from` (inclusive) and `to` (exclusive) as ISO dates, optional `format` (ndjson default, csv). Advertisers export only their own rows; admins export network-wide. The job is recorded and marked failed if the export errors.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param run_export_dto: (required)
         :type run_export_dto: RunExportDto
@@ -390,7 +407,7 @@ class ExportsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ExportsControllerRun201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -420,8 +437,9 @@ class ExportsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """exports_controller_run
+        """Export an analytics dataset to object storage
 
+        Pages a ClickHouse dataset into one NDJSON or CSV object plus a manifest JSON in object storage and returns a presigned download URL. Body: `dataset` (events = raw impressions, conversions, or spend = hourly rollup), `from` (inclusive) and `to` (exclusive) as ISO dates, optional `format` (ndjson default, csv). Advertisers export only their own rows; admins export network-wide. The job is recorded and marked failed if the export errors.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param run_export_dto: (required)
         :type run_export_dto: RunExportDto
@@ -456,7 +474,7 @@ class ExportsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ExportsControllerRun201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -497,6 +515,13 @@ class ExportsApi:
             _body_params = run_export_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -514,6 +539,8 @@ class ExportsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

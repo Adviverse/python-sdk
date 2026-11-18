@@ -17,6 +17,19 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.agency_client import AgencyClient
+from adviverse_client.models.agency_controller_accept_transfer201_response import AgencyControllerAcceptTransfer201Response
+from adviverse_client.models.agency_controller_cancel_transfer201_response import AgencyControllerCancelTransfer201Response
+from adviverse_client.models.agency_controller_client_spend200_response import AgencyControllerClientSpend200Response
+from adviverse_client.models.agency_controller_pay_info200_response import AgencyControllerPayInfo200Response
+from adviverse_client.models.agency_controller_start_payment201_response import AgencyControllerStartPayment201Response
+from adviverse_client.models.agency_controller_tag_campaign201_response import AgencyControllerTagCampaign201Response
+from adviverse_client.models.agency_controller_taggable200_response_inner import AgencyControllerTaggable200ResponseInner
+from adviverse_client.models.agency_controller_transfer_info200_response import AgencyControllerTransferInfo200Response
+from adviverse_client.models.agency_invoice import AgencyInvoice
+from adviverse_client.models.agency_transfer import AgencyTransfer
+from adviverse_client.models.pixel_controller_delete_pixel200_response import PixelControllerDeletePixel200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -51,9 +64,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_accept_transfer
+    ) -> AgencyControllerAcceptTransfer201Response:
+        """Accept a pixel transfer
 
+        The recipient, signed in to their own account, accepts with `token`. In one transaction the pixel, its pixel-scoped audiences and their sync destinations move to the accepting account, and the sender's campaigns tagged to a client linked to that pixel are untagged. Audience membership keys are unchanged, so serving continues; historical analytics stay with the sender. Returns 400 if the transfer is not pending, has expired, is your own, or the pixel is gone.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -85,7 +99,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerAcceptTransfer201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -113,9 +127,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_accept_transfer
+    ) -> ApiResponse[AgencyControllerAcceptTransfer201Response]:
+        """Accept a pixel transfer
 
+        The recipient, signed in to their own account, accepts with `token`. In one transaction the pixel, its pixel-scoped audiences and their sync destinations move to the accepting account, and the sender's campaigns tagged to a client linked to that pixel are untagged. Audience membership keys are unchanged, so serving continues; historical analytics stay with the sender. Returns 400 if the transfer is not pending, has expired, is your own, or the pixel is gone.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -147,7 +162,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerAcceptTransfer201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,8 +191,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_accept_transfer
+        """Accept a pixel transfer
 
+        The recipient, signed in to their own account, accepts with `token`. In one transaction the pixel, its pixel-scoped audiences and their sync destinations move to the accepting account, and the sender's campaigns tagged to a client linked to that pixel are untagged. Audience membership keys are unchanged, so serving continues; historical analytics stay with the sender. Returns 400 if the transfer is not pending, has expired, is your own, or the pixel is gone.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -209,7 +225,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerAcceptTransfer201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,10 +263,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -287,9 +312,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_add_item
+    ) -> AgencyInvoice:
+        """Add a line item to a draft invoice
 
+        Appends a line with `description` (required), optional `kind` (default `fee`), `quantity` (default 1) and `unitAmount`. `amount` defaults to quantity x unitAmount, rounded to cents. Draft invoices only (400 otherwise); totals are recomputed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -324,7 +350,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -353,9 +379,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_add_item
+    ) -> ApiResponse[AgencyInvoice]:
+        """Add a line item to a draft invoice
 
+        Appends a line with `description` (required), optional `kind` (default `fee`), `quantity` (default 1) and `unitAmount`. `amount` defaults to quantity x unitAmount, rounded to cents. Draft invoices only (400 otherwise); totals are recomputed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -390,7 +417,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -420,8 +447,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_add_item
+        """Add a line item to a draft invoice
 
+        Appends a line with `description` (required), optional `kind` (default `fee`), `quantity` (default 1) and `unitAmount`. `amount` defaults to quantity x unitAmount, rounded to cents. Draft invoices only (400 otherwise); totals are recomputed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -456,7 +484,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -497,10 +525,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -537,9 +574,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_cancel_transfer
+    ) -> AgencyControllerCancelTransfer201Response:
+        """Cancel a pending pixel transfer
 
+        Cancels a transfer this account started. Only `pending` transfers can be cancelled (400 otherwise); 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -574,7 +612,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerCancelTransfer201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -603,9 +641,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_cancel_transfer
+    ) -> ApiResponse[AgencyControllerCancelTransfer201Response]:
+        """Cancel a pending pixel transfer
 
+        Cancels a transfer this account started. Only `pending` transfers can be cancelled (400 otherwise); 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -640,7 +679,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerCancelTransfer201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -670,8 +709,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_cancel_transfer
+        """Cancel a pending pixel transfer
 
+        Cancels a transfer this account started. Only `pending` transfers can be cancelled (400 otherwise); 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -706,7 +746,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerCancelTransfer201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -747,10 +787,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -789,9 +838,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_client_spend
+    ) -> AgencyControllerClientSpend200Response:
+        """Get spend and delivery for a client
 
+        Sums spend, impressions, clicks and conversions from the ClickHouse hourly rollup across the client's tagged campaigns for the inclusive date range `from`..`to` (YYYY-MM-DD). Defaults to the last 30 days. Returns zeros when no campaigns are tagged. 404 for an unknown client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -832,7 +882,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerClientSpend200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -863,9 +913,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_client_spend
+    ) -> ApiResponse[AgencyControllerClientSpend200Response]:
+        """Get spend and delivery for a client
 
+        Sums spend, impressions, clicks and conversions from the ClickHouse hourly rollup across the client's tagged campaigns for the inclusive date range `from`..`to` (YYYY-MM-DD). Defaults to the last 30 days. Returns zeros when no campaigns are tagged. 404 for an unknown client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -906,7 +957,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerClientSpend200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -938,8 +989,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_client_spend
+        """Get spend and delivery for a client
 
+        Sums spend, impressions, clicks and conversions from the ClickHouse hourly rollup across the client's tagged campaigns for the inclusive date range `from`..`to` (YYYY-MM-DD). Defaults to the last 30 days. Returns zeros when no campaigns are tagged. 404 for an unknown client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -980,7 +1032,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerClientSpend200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1031,10 +1083,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1070,9 +1131,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_create_client
+    ) -> AgencyClient:
+        """Create an agency client
 
+        Creates a client with `name` (required, truncated to 160 chars), optional `billingEmail` (lowercased; used when sending invoices), `pixelId` and `notes` (truncated to 2000 chars). A supplied `pixelId` must belong to the calling account, otherwise 400. A missing name also returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1104,7 +1166,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1132,9 +1194,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_create_client
+    ) -> ApiResponse[AgencyClient]:
+        """Create an agency client
 
+        Creates a client with `name` (required, truncated to 160 chars), optional `billingEmail` (lowercased; used when sending invoices), `pixelId` and `notes` (truncated to 2000 chars). A supplied `pixelId` must belong to the calling account, otherwise 400. A missing name also returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1166,7 +1229,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1195,8 +1258,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_create_client
+        """Create an agency client
 
+        Creates a client with `name` (required, truncated to 160 chars), optional `billingEmail` (lowercased; used when sending invoices), `pixelId` and `notes` (truncated to 2000 chars). A supplied `pixelId` must belong to the calling account, otherwise 400. A missing name also returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1228,7 +1292,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1266,10 +1330,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1305,9 +1378,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_create_invoice
+    ) -> AgencyInvoice:
+        """Create a draft invoice for a client
 
+        Creates a draft invoice numbered `INV-NNNN` for `clientId` (required, must be owned). When `periodStart` and `periodEnd` are set and `includeSpend` is not false, an \"Ad spend\" line is added from the client's tagged-campaign spend, plus an agency fee line of `markupPct` percent of it. Optional `items` (description, kind, quantity, unitAmount, amount) are appended; `currency` defaults to USD. Totals are recomputed from the lines.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1339,7 +1413,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1367,9 +1441,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_create_invoice
+    ) -> ApiResponse[AgencyInvoice]:
+        """Create a draft invoice for a client
 
+        Creates a draft invoice numbered `INV-NNNN` for `clientId` (required, must be owned). When `periodStart` and `periodEnd` are set and `includeSpend` is not false, an \"Ad spend\" line is added from the client's tagged-campaign spend, plus an agency fee line of `markupPct` percent of it. Optional `items` (description, kind, quantity, unitAmount, amount) are appended; `currency` defaults to USD. Totals are recomputed from the lines.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1401,7 +1476,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1430,8 +1505,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_create_invoice
+        """Create a draft invoice for a client
 
+        Creates a draft invoice numbered `INV-NNNN` for `clientId` (required, must be owned). When `periodStart` and `periodEnd` are set and `includeSpend` is not false, an \"Ad spend\" line is added from the client's tagged-campaign spend, plus an agency fee line of `markupPct` percent of it. Optional `items` (description, kind, quantity, unitAmount, amount) are appended; `currency` defaults to USD. Totals are recomputed from the lines.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1463,7 +1539,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1501,10 +1577,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1541,9 +1626,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_get_client
+    ) -> AgencyClient:
+        """Get an agency client
 
+        Returns one client owned by the calling account. 404 if it does not exist or belongs to another account. The single-client view reports `taggedCampaigns` as 0; use the list endpoint for counts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1578,7 +1664,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1607,9 +1693,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_get_client
+    ) -> ApiResponse[AgencyClient]:
+        """Get an agency client
 
+        Returns one client owned by the calling account. 404 if it does not exist or belongs to another account. The single-client view reports `taggedCampaigns` as 0; use the list endpoint for counts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1644,7 +1731,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1674,8 +1761,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_get_client
+        """Get an agency client
 
+        Returns one client owned by the calling account. 404 if it does not exist or belongs to another account. The single-client view reports `taggedCampaigns` as 0; use the list endpoint for counts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1710,7 +1798,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1751,10 +1839,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1791,9 +1888,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_get_invoice
+    ) -> AgencyInvoice:
+        """Get an invoice with line items
 
+        Returns one invoice owned by the calling account, including its line items ordered by sort position. 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1828,7 +1926,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1857,9 +1955,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_get_invoice
+    ) -> ApiResponse[AgencyInvoice]:
+        """Get an invoice with line items
 
+        Returns one invoice owned by the calling account, including its line items ordered by sort position. 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1894,7 +1993,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1924,8 +2023,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_get_invoice
+        """Get an invoice with line items
 
+        Returns one invoice owned by the calling account, including its line items ordered by sort position. 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1960,7 +2060,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2001,10 +2101,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2040,9 +2149,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_initiate_transfer
+    ) -> AgencyTransfer:
+        """Start a pixel ownership transfer
 
+        Offers one of the account's pixels (`pixelId`), with its pixel-scoped audiences, to the account at `email`. The recipient is emailed a link that expires in 14 days. Returns 400 for an invalid email, a transfer to yourself, or a pixel that already has a pending transfer, and 404 for an unknown pixel. Not available to manager/analyst team seats.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2074,7 +2184,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyTransfer",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2102,9 +2212,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_initiate_transfer
+    ) -> ApiResponse[AgencyTransfer]:
+        """Start a pixel ownership transfer
 
+        Offers one of the account's pixels (`pixelId`), with its pixel-scoped audiences, to the account at `email`. The recipient is emailed a link that expires in 14 days. Returns 400 for an invalid email, a transfer to yourself, or a pixel that already has a pending transfer, and 404 for an unknown pixel. Not available to manager/analyst team seats.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2136,7 +2247,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyTransfer",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2165,8 +2276,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_initiate_transfer
+        """Start a pixel ownership transfer
 
+        Offers one of the account's pixels (`pixelId`), with its pixel-scoped audiences, to the account at `email`. The recipient is emailed a link that expires in 14 days. Returns 400 for an invalid email, a transfer to yourself, or a pixel that already has a pending transfer, and 404 for an unknown pixel. Not available to manager/analyst team seats.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2198,7 +2310,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyTransfer",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2236,10 +2348,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2275,9 +2396,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_list_clients
+    ) -> List[AgencyClient]:
+        """List agency clients
 
+        Returns the billable clients this agency account runs campaigns and pixels for, newest first. Each client includes `taggedCampaigns`, the number of non-deleted campaigns currently tagged to it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2309,7 +2431,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyClient]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2337,9 +2459,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_list_clients
+    ) -> ApiResponse[List[AgencyClient]]:
+        """List agency clients
 
+        Returns the billable clients this agency account runs campaigns and pixels for, newest first. Each client includes `taggedCampaigns`, the number of non-deleted campaigns currently tagged to it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2371,7 +2494,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyClient]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2400,8 +2523,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_list_clients
+        """List agency clients
 
+        Returns the billable clients this agency account runs campaigns and pixels for, newest first. Each client includes `taggedCampaigns`, the number of non-deleted campaigns currently tagged to it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2433,7 +2557,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyClient]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2471,10 +2595,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2511,9 +2644,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_list_invoices
+    ) -> List[AgencyInvoice]:
+        """List agency invoices
 
+        Returns the account's client invoices, newest first, optionally filtered by `clientId`. List entries carry an empty `items` array; fetch a single invoice for its line items.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param client_id: (required)
         :type client_id: str
@@ -2548,7 +2682,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyInvoice]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2577,9 +2711,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_list_invoices
+    ) -> ApiResponse[List[AgencyInvoice]]:
+        """List agency invoices
 
+        Returns the account's client invoices, newest first, optionally filtered by `clientId`. List entries carry an empty `items` array; fetch a single invoice for its line items.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param client_id: (required)
         :type client_id: str
@@ -2614,7 +2749,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyInvoice]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2644,8 +2779,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_list_invoices
+        """List agency invoices
 
+        Returns the account's client invoices, newest first, optionally filtered by `clientId`. List entries carry an empty `items` array; fetch a single invoice for its line items.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param client_id: (required)
         :type client_id: str
@@ -2680,7 +2816,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyInvoice]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2723,10 +2859,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2762,9 +2907,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_list_transfers
+    ) -> List[AgencyTransfer]:
+        """List outgoing pixel transfers
 
+        Returns up to 100 transfers this account has started, newest first, with pixel names and current status.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2796,7 +2942,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyTransfer]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2824,9 +2970,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_list_transfers
+    ) -> ApiResponse[List[AgencyTransfer]]:
+        """List outgoing pixel transfers
 
+        Returns up to 100 transfers this account has started, newest first, with pixel names and current status.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2858,7 +3005,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyTransfer]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2887,8 +3034,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_list_transfers
+        """List outgoing pixel transfers
 
+        Returns up to 100 transfers this account has started, newest first, with pixel names and current status.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2920,7 +3068,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyTransfer]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2958,10 +3106,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2998,9 +3155,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_mark_paid
+    ) -> AgencyInvoice:
+        """Mark an invoice paid manually
 
+        Records an offline payment by setting the status to `paid` and stamping `paidAt`. No ledger entry is posted. Void invoices return 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3035,7 +3193,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3064,9 +3222,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_mark_paid
+    ) -> ApiResponse[AgencyInvoice]:
+        """Mark an invoice paid manually
 
+        Records an offline payment by setting the status to `paid` and stamping `paidAt`. No ledger entry is posted. Void invoices return 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3101,7 +3260,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3131,8 +3290,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_mark_paid
+        """Mark an invoice paid manually
 
+        Records an offline payment by setting the status to `paid` and stamping `paidAt`. No ledger entry is posted. Void invoices return 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3167,7 +3327,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3208,10 +3368,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3248,9 +3417,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_pay_info
+    ) -> AgencyControllerPayInfo200Response:
+        """Get the public view of an invoice
 
+        Unauthenticated: the pay token in the path grants access. Returns what the client needs to review an invoice: number, status, total, agency and client names, period, notes, due/paid dates and line descriptions with amounts. 404 for an unknown token.  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -3285,7 +3455,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerPayInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3314,9 +3484,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_pay_info
+    ) -> ApiResponse[AgencyControllerPayInfo200Response]:
+        """Get the public view of an invoice
 
+        Unauthenticated: the pay token in the path grants access. Returns what the client needs to review an invoice: number, status, total, agency and client names, period, notes, due/paid dates and line descriptions with amounts. 404 for an unknown token.  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -3351,7 +3522,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerPayInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3381,8 +3552,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_pay_info
+        """Get the public view of an invoice
 
+        Unauthenticated: the pay token in the path grants access. Returns what the client needs to review an invoice: number, status, total, agency and client names, period, notes, due/paid dates and line descriptions with amounts. 404 for an unknown token.  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -3417,7 +3589,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerPayInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3458,6 +3630,13 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3498,9 +3677,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_remove_client
+    ) -> PixelControllerDeletePixel200Response:
+        """Delete an agency client
 
+        Deletes the client if it belongs to the calling account. Campaigns tagged to it are untagged by the database (ON DELETE SET NULL). Returns `{ deleted: true }` even when no matching client existed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3535,7 +3715,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3564,9 +3744,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_remove_client
+    ) -> ApiResponse[PixelControllerDeletePixel200Response]:
+        """Delete an agency client
 
+        Deletes the client if it belongs to the calling account. Campaigns tagged to it are untagged by the database (ON DELETE SET NULL). Returns `{ deleted: true }` even when no matching client existed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3601,7 +3782,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3631,8 +3812,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_remove_client
+        """Delete an agency client
 
+        Deletes the client if it belongs to the calling account. Campaigns tagged to it are untagged by the database (ON DELETE SET NULL). Returns `{ deleted: true }` even when no matching client existed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3667,7 +3849,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3708,10 +3890,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3749,9 +3940,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_remove_item
+    ) -> AgencyInvoice:
+        """Remove a line item from a draft invoice
 
+        Deletes the line item `itemId` from a draft invoice and recomputes the totals. Returns 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3789,7 +3981,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3819,9 +4011,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_remove_item
+    ) -> ApiResponse[AgencyInvoice]:
+        """Remove a line item from a draft invoice
 
+        Deletes the line item `itemId` from a draft invoice and recomputes the totals. Returns 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3859,7 +4052,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3890,8 +4083,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_remove_item
+        """Remove a line item from a draft invoice
 
+        Deletes the line item `itemId` from a draft invoice and recomputes the totals. Returns 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -3929,7 +4123,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3973,10 +4167,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4013,9 +4216,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_send_invoice
+    ) -> AgencyInvoice:
+        """Send an invoice and mint its pay link
 
+        Moves the invoice to `sent`, mints a public pay token (reused if already set) and stamps `issuedAt`. If the client has a billing email, it is emailed a link to the hosted pay page. Fails with 400 for paid or void invoices or a non-positive total. The response adds `payLink`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -4050,7 +4254,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4079,9 +4283,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_send_invoice
+    ) -> ApiResponse[AgencyInvoice]:
+        """Send an invoice and mint its pay link
 
+        Moves the invoice to `sent`, mints a public pay token (reused if already set) and stamps `issuedAt`. If the client has a billing email, it is emailed a link to the hosted pay page. Fails with 400 for paid or void invoices or a non-positive total. The response adds `payLink`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -4116,7 +4321,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4146,8 +4351,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_send_invoice
+        """Send an invoice and mint its pay link
 
+        Moves the invoice to `sent`, mints a public pay token (reused if already set) and stamps `issuedAt`. If the client has a billing email, it is emailed a link to the hosted pay page. Fails with 400 for paid or void invoices or a non-positive total. The response adds `payLink`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -4182,7 +4388,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4223,10 +4429,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4263,9 +4478,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_start_payment
+    ) -> AgencyControllerStartPayment201Response:
+        """Start paying an invoice
 
+        Unauthenticated (pay token in the path). Creates a pending deposit on the agency's account linked to the invoice and starts checkout with `provider` (`crypto`, anything else means Stripe). When the provider confirms, the deposit credits the agency balance and marks the invoice paid. Only `sent` invoices can be paid (400 otherwise).  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -4300,7 +4516,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerStartPayment201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4329,9 +4545,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_start_payment
+    ) -> ApiResponse[AgencyControllerStartPayment201Response]:
+        """Start paying an invoice
 
+        Unauthenticated (pay token in the path). Creates a pending deposit on the agency's account linked to the invoice and starts checkout with `provider` (`crypto`, anything else means Stripe). When the provider confirms, the deposit credits the agency balance and marks the invoice paid. Only `sent` invoices can be paid (400 otherwise).  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -4366,7 +4583,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerStartPayment201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4396,8 +4613,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_start_payment
+        """Start paying an invoice
 
+        Unauthenticated (pay token in the path). Creates a pending deposit on the agency's account linked to the invoice and starts checkout with `provider` (`crypto`, anything else means Stripe). When the provider confirms, the deposit credits the agency balance and marks the invoice paid. Only `sent` invoices can be paid (400 otherwise).  Auth: public, no credentials required.
 
         :param token: (required)
         :type token: str
@@ -4432,7 +4650,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerStartPayment201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4473,6 +4691,13 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -4512,9 +4737,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_tag_campaign
+    ) -> AgencyControllerTagCampaign201Response:
+        """Tag or untag a campaign to a client
 
+        Sets `campaignId`'s client tag to `clientId`, or clears it when `clientId` is null. Both the campaign and the client must belong to the calling account (404 otherwise). Tagged campaigns' spend is what client spend reports and auto-generated invoices bill.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4546,7 +4772,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerTagCampaign201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4574,9 +4800,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_tag_campaign
+    ) -> ApiResponse[AgencyControllerTagCampaign201Response]:
+        """Tag or untag a campaign to a client
 
+        Sets `campaignId`'s client tag to `clientId`, or clears it when `clientId` is null. Both the campaign and the client must belong to the calling account (404 otherwise). Tagged campaigns' spend is what client spend reports and auto-generated invoices bill.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4608,7 +4835,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerTagCampaign201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4637,8 +4864,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_tag_campaign
+        """Tag or untag a campaign to a client
 
+        Sets `campaignId`'s client tag to `clientId`, or clears it when `clientId` is null. Both the campaign and the client must belong to the calling account (404 otherwise). Tagged campaigns' spend is what client spend reports and auto-generated invoices bill.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4670,7 +4898,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyControllerTagCampaign201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4708,10 +4936,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4747,9 +4984,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_taggable
+    ) -> List[AgencyControllerTaggable200ResponseInner]:
+        """List campaigns available for client tagging
 
+        Returns up to 500 of the account's non-deleted campaigns (ad sets) with their current `client_id` tag, newest first. Used by the tagging UI to assign campaign spend to a client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4781,7 +5019,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyControllerTaggable200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4809,9 +5047,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_taggable
+    ) -> ApiResponse[List[AgencyControllerTaggable200ResponseInner]]:
+        """List campaigns available for client tagging
 
+        Returns up to 500 of the account's non-deleted campaigns (ad sets) with their current `client_id` tag, newest first. Used by the tagging UI to assign campaign spend to a client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4843,7 +5082,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyControllerTaggable200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4872,8 +5111,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_taggable
+        """List campaigns available for client tagging
 
+        Returns up to 500 of the account's non-deleted campaigns (ad sets) with their current `client_id` tag, newest first. Used by the tagging UI to assign campaign spend to a client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4905,7 +5145,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AgencyControllerTaggable200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4943,10 +5183,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4983,9 +5232,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_transfer_info
+    ) -> AgencyControllerTransferInfo200Response:
+        """Preview a pixel transfer by token
 
+        Looks up a transfer by the `token` query parameter from the email link, so the recipient can review it before accepting. A pending transfer past its expiry is reported as `expired`. 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -5020,7 +5270,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerTransferInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5049,9 +5299,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_transfer_info
+    ) -> ApiResponse[AgencyControllerTransferInfo200Response]:
+        """Preview a pixel transfer by token
 
+        Looks up a transfer by the `token` query parameter from the email link, so the recipient can review it before accepting. A pending transfer past its expiry is reported as `expired`. 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -5086,7 +5337,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerTransferInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5116,8 +5367,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_transfer_info
+        """Preview a pixel transfer by token
 
+        Looks up a transfer by the `token` query parameter from the email link, so the recipient can review it before accepting. A pending transfer past its expiry is reported as `expired`. 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -5152,7 +5404,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AgencyControllerTransferInfo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5195,10 +5447,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5235,9 +5496,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_update_client
+    ) -> AgencyClient:
+        """Update an agency client
 
+        Partially updates `name`, `billingEmail`, `pixelId`, `notes` and `status`. Only fields present are changed; `status` is applied only when it is `active` or `archived`. A new `pixelId` must belong to the account (400 otherwise); an empty string clears it. Returns the updated client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5272,7 +5534,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5301,9 +5563,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_update_client
+    ) -> ApiResponse[AgencyClient]:
+        """Update an agency client
 
+        Partially updates `name`, `billingEmail`, `pixelId`, `notes` and `status`. Only fields present are changed; `status` is applied only when it is `active` or `archived`. A new `pixelId` must belong to the account (400 otherwise); an empty string clears it. Returns the updated client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5338,7 +5601,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5368,8 +5631,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_update_client
+        """Update an agency client
 
+        Partially updates `name`, `billingEmail`, `pixelId`, `notes` and `status`. Only fields present are changed; `status` is applied only when it is `active` or `archived`. A new `pixelId` must belong to the account (400 otherwise); an empty string clears it. Returns the updated client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5404,7 +5668,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyClient",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5445,10 +5709,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5485,9 +5758,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_update_invoice
+    ) -> AgencyInvoice:
+        """Update a draft invoice
 
+        Updates `notes` (truncated to 4000 chars) and/or `dueAt` on a draft invoice. Returns 400 if the invoice is no longer a draft and 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5522,7 +5796,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5551,9 +5825,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_update_invoice
+    ) -> ApiResponse[AgencyInvoice]:
+        """Update a draft invoice
 
+        Updates `notes` (truncated to 4000 chars) and/or `dueAt` on a draft invoice. Returns 400 if the invoice is no longer a draft and 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5588,7 +5863,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5618,8 +5893,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_update_invoice
+        """Update a draft invoice
 
+        Updates `notes` (truncated to 4000 chars) and/or `dueAt` on a draft invoice. Returns 400 if the invoice is no longer a draft and 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5654,7 +5930,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5695,10 +5971,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5735,9 +6020,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """agency_controller_void_invoice
+    ) -> AgencyInvoice:
+        """Void an invoice
 
+        Sets the invoice status to `void`; its pay link stops accepting payments. Paid invoices cannot be voided (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5772,7 +6058,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5801,9 +6087,10 @@ class AgencyApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """agency_controller_void_invoice
+    ) -> ApiResponse[AgencyInvoice]:
+        """Void an invoice
 
+        Sets the invoice status to `void`; its pay link stops accepting payments. Paid invoices cannot be voided (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5838,7 +6125,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5868,8 +6155,9 @@ class AgencyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """agency_controller_void_invoice
+        """Void an invoice
 
+        Sets the invoice status to `void`; its pay link stops accepting payments. Paid invoices cannot be voided (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -5904,7 +6192,7 @@ class AgencyApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AgencyInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5945,10 +6233,19 @@ class AgencyApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

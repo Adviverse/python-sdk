@@ -16,6 +16,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from adviverse_client.models.skadnetwork_controller_health200_response import SkadnetworkControllerHealth200Response
+from adviverse_client.models.skadnetwork_controller_postback200_response import SkadnetworkControllerPostback200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -50,9 +52,10 @@ class SkadnetworkApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """skadnetwork_controller_health
+    ) -> SkadnetworkControllerHealth200Response:
+        """Check the SKAdNetwork postback endpoint
 
+        Public liveness check for the registered postback URL.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -84,7 +87,7 @@ class SkadnetworkApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SkadnetworkControllerHealth200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -112,9 +115,10 @@ class SkadnetworkApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """skadnetwork_controller_health
+    ) -> ApiResponse[SkadnetworkControllerHealth200Response]:
+        """Check the SKAdNetwork postback endpoint
 
+        Public liveness check for the registered postback URL.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -146,7 +150,7 @@ class SkadnetworkApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SkadnetworkControllerHealth200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -175,8 +179,9 @@ class SkadnetworkApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """skadnetwork_controller_health
+        """Check the SKAdNetwork postback endpoint
 
+        Public liveness check for the registered postback URL.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -208,7 +213,7 @@ class SkadnetworkApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SkadnetworkControllerHealth200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -246,6 +251,13 @@ class SkadnetworkApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -285,9 +297,10 @@ class SkadnetworkApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """skadnetwork_controller_postback
+    ) -> SkadnetworkControllerPostback200Response:
+        """Receive an Apple SKAdNetwork install postback
 
+        Public, rate-limited endpoint Apple POSTs signed install postbacks to. Every postback is stored once per `transaction-id`; the signature is verified, the campaign resolved from `source-identifier`/`campaign-id` (and `app-id`), and won, verified postbacks are emitted as conversions. Always answers 200 so Apple does not retry; the outcome is in `status`: attributed, duplicate, invalid_signature, verified_unmatched, verified_lost, wrong_network, unsupported, bad_request or error.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -319,7 +332,7 @@ class SkadnetworkApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SkadnetworkControllerPostback200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -347,9 +360,10 @@ class SkadnetworkApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """skadnetwork_controller_postback
+    ) -> ApiResponse[SkadnetworkControllerPostback200Response]:
+        """Receive an Apple SKAdNetwork install postback
 
+        Public, rate-limited endpoint Apple POSTs signed install postbacks to. Every postback is stored once per `transaction-id`; the signature is verified, the campaign resolved from `source-identifier`/`campaign-id` (and `app-id`), and won, verified postbacks are emitted as conversions. Always answers 200 so Apple does not retry; the outcome is in `status`: attributed, duplicate, invalid_signature, verified_unmatched, verified_lost, wrong_network, unsupported, bad_request or error.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -381,7 +395,7 @@ class SkadnetworkApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SkadnetworkControllerPostback200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -410,8 +424,9 @@ class SkadnetworkApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """skadnetwork_controller_postback
+        """Receive an Apple SKAdNetwork install postback
 
+        Public, rate-limited endpoint Apple POSTs signed install postbacks to. Every postback is stored once per `transaction-id`; the signature is verified, the campaign resolved from `source-identifier`/`campaign-id` (and `app-id`), and won, verified postbacks are emitted as conversions. Always answers 200 so Apple does not retry; the outcome is in `status`: attributed, duplicate, invalid_signature, verified_unmatched, verified_lost, wrong_network, unsupported, bad_request or error.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -443,7 +458,7 @@ class SkadnetworkApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SkadnetworkControllerPostback200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -481,6 +496,13 @@ class SkadnetworkApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting

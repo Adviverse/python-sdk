@@ -17,6 +17,19 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.audience_catalog_entry import AudienceCatalogEntry
+from adviverse_client.models.audience_taxonomy_node import AudienceTaxonomyNode
+from adviverse_client.models.segments_controller_contribute201_response import SegmentsControllerContribute201Response
+from adviverse_client.models.segments_controller_contributions200_response_inner import SegmentsControllerContributions200ResponseInner
+from adviverse_client.models.segments_controller_detect_niche200_response import SegmentsControllerDetectNiche200Response
+from adviverse_client.models.segments_controller_earnings200_response import SegmentsControllerEarnings200Response
+from adviverse_client.models.segments_controller_license201_response import SegmentsControllerLicense201Response
+from adviverse_client.models.segments_controller_licenses200_response_inner import SegmentsControllerLicenses200ResponseInner
+from adviverse_client.models.segments_controller_opt_out201_response import SegmentsControllerOptOut201Response
+from adviverse_client.models.segments_controller_rebuild201_response import SegmentsControllerRebuild201Response
+from adviverse_client.models.segments_controller_revoke201_response import SegmentsControllerRevoke201Response
+from adviverse_client.models.segments_controller_user_segments200_response import SegmentsControllerUserSegments200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -51,9 +64,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_catalog
+    ) -> List[AudienceCatalogEntry]:
+        """Get the targetable interest catalog
 
+        Lists every non-sensitive taxonomy node with two ways to target it. `contextualKeywords` goes into targeting.contextual_include, is matched against page content at serve time and is free. `behavioral` is a network preset segment for targeting.audience_include and carries a data CPM; it is null until the preset reaches its k-anonymity minimum, and `behavioralBuilding` reports progress while it builds.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -85,7 +99,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceCatalogEntry]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -113,9 +127,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_catalog
+    ) -> ApiResponse[List[AudienceCatalogEntry]]:
+        """Get the targetable interest catalog
 
+        Lists every non-sensitive taxonomy node with two ways to target it. `contextualKeywords` goes into targeting.contextual_include, is matched against page content at serve time and is free. `behavioral` is a network preset segment for targeting.audience_include and carries a data CPM; it is null until the preset reaches its k-anonymity minimum, and `behavioralBuilding` reports progress while it builds.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -147,7 +162,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceCatalogEntry]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,8 +191,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_catalog
+        """Get the targetable interest catalog
 
+        Lists every non-sensitive taxonomy node with two ways to target it. `contextualKeywords` goes into targeting.contextual_include, is matched against page content at serve time and is free. `behavioral` is a network preset segment for targeting.audience_include and carries a data CPM; it is null until the preset reaches its k-anonymity minimum, and `behavioralBuilding` reports progress while it builds.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -209,7 +225,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceCatalogEntry]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,10 +263,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -286,9 +311,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_contribute
+    ) -> SegmentsControllerContribute201Response:
+        """Contribute an audience to the co-op
 
+        Shares one of the caller's audiences (`audienceId`) as a co-op segment that other advertisers can license. `taxonomyId` is optional: when omitted the niche is auto-detected from the members, and unknown or sensitive niches leave the segment uncategorized. `revShare` (default 0.5, clamped to 0-0.9) sets the contributor's share of data fees. Re-contributing updates the existing segment. Members are materialized minus opted-out ids. Returns 404 if the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -320,7 +346,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerContribute201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -348,9 +374,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_contribute
+    ) -> ApiResponse[SegmentsControllerContribute201Response]:
+        """Contribute an audience to the co-op
 
+        Shares one of the caller's audiences (`audienceId`) as a co-op segment that other advertisers can license. `taxonomyId` is optional: when omitted the niche is auto-detected from the members, and unknown or sensitive niches leave the segment uncategorized. `revShare` (default 0.5, clamped to 0-0.9) sets the contributor's share of data fees. Re-contributing updates the existing segment. Members are materialized minus opted-out ids. Returns 404 if the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -382,7 +409,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerContribute201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -411,8 +438,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_contribute
+        """Contribute an audience to the co-op
 
+        Shares one of the caller's audiences (`audienceId`) as a co-op segment that other advertisers can license. `taxonomyId` is optional: when omitted the niche is auto-detected from the members, and unknown or sensitive niches leave the segment uncategorized. `revShare` (default 0.5, clamped to 0-0.9) sets the contributor's share of data fees. Re-contributing updates the existing segment. Members are materialized minus opted-out ids. Returns 404 if the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -444,7 +472,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerContribute201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -482,10 +510,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -521,9 +558,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_contributions
+    ) -> List[SegmentsControllerContributions200ResponseInner]:
+        """List your co-op contributions
 
+        Returns the caller's contributed co-op segments, newest first, with their size, rev-share and the number of advertisers that have licensed each one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -555,7 +593,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SegmentsControllerContributions200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -583,9 +621,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_contributions
+    ) -> ApiResponse[List[SegmentsControllerContributions200ResponseInner]]:
+        """List your co-op contributions
 
+        Returns the caller's contributed co-op segments, newest first, with their size, rev-share and the number of advertisers that have licensed each one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -617,7 +656,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SegmentsControllerContributions200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -646,8 +685,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_contributions
+        """List your co-op contributions
 
+        Returns the caller's contributed co-op segments, newest first, with their size, rev-share and the number of advertisers that have licensed each one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -679,7 +719,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SegmentsControllerContributions200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -717,10 +757,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -757,9 +806,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_detect_niche
+    ) -> SegmentsControllerDetectNiche200Response:
+        """Detect an audience's interest niche
 
+        Previews the taxonomy node that best matches the members of `audienceId`, scored by keyword overlap. This is the niche contribute would assign. Returns nulls when nothing matches and 404 when the audience is not owned by the caller.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param audience_id: (required)
         :type audience_id: str
@@ -794,7 +844,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerDetectNiche200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -823,9 +873,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_detect_niche
+    ) -> ApiResponse[SegmentsControllerDetectNiche200Response]:
+        """Detect an audience's interest niche
 
+        Previews the taxonomy node that best matches the members of `audienceId`, scored by keyword overlap. This is the niche contribute would assign. Returns nulls when nothing matches and 404 when the audience is not owned by the caller.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param audience_id: (required)
         :type audience_id: str
@@ -860,7 +911,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerDetectNiche200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -890,8 +941,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_detect_niche
+        """Detect an audience's interest niche
 
+        Previews the taxonomy node that best matches the members of `audienceId`, scored by keyword overlap. This is the niche contribute would assign. Returns nulls when nothing matches and 404 when the audience is not owned by the caller.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param audience_id: (required)
         :type audience_id: str
@@ -926,7 +978,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerDetectNiche200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -969,10 +1021,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1008,9 +1069,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_earnings
+    ) -> SegmentsControllerEarnings200Response:
+        """Co-op data-fee statement
 
+        Reads the ledger for co-op data-fee movements. Returns the total earned as a contributor (rev-share credits) and the total spent as a licensee, a per-segment earnings rollup, and the 50 most recent earning and spend entries. Totals are rounded to cents.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1042,7 +1104,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerEarnings200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1070,9 +1132,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_earnings
+    ) -> ApiResponse[SegmentsControllerEarnings200Response]:
+        """Co-op data-fee statement
 
+        Reads the ledger for co-op data-fee movements. Returns the total earned as a contributor (rev-share credits) and the total spent as a licensee, a per-segment earnings rollup, and the 50 most recent earning and spend entries. Totals are rounded to cents.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1104,7 +1167,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerEarnings200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1133,8 +1196,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_earnings
+        """Co-op data-fee statement
 
+        Reads the ledger for co-op data-fee movements. Returns the total earned as a contributor (rev-share credits) and the total spent as a licensee, a per-segment earnings rollup, and the 50 most recent earning and spend entries. Totals are rounded to cents.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1166,7 +1230,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerEarnings200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1204,10 +1268,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1244,9 +1317,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_license
+    ) -> SegmentsControllerLicense201Response:
+        """License a co-op, preset or in-market segment
 
+        Grants the advertiser the right to target segment `id`, recording the data CPM that is charged on delivery and shared with the contributor. Returns 404 if the segment is not a coop/preset/in_market segment. Returns 400 if the caller owns it, if it is sensitive, or if it is below the k-anonymity threshold. Licensing is idempotent; add the returned `segmentId` to a campaign's targeting.audience_include.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1281,7 +1355,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerLicense201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1310,9 +1384,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_license
+    ) -> ApiResponse[SegmentsControllerLicense201Response]:
+        """License a co-op, preset or in-market segment
 
+        Grants the advertiser the right to target segment `id`, recording the data CPM that is charged on delivery and shared with the contributor. Returns 404 if the segment is not a coop/preset/in_market segment. Returns 400 if the caller owns it, if it is sensitive, or if it is below the k-anonymity threshold. Licensing is idempotent; add the returned `segmentId` to a campaign's targeting.audience_include.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1347,7 +1422,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerLicense201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1377,8 +1452,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_license
+        """License a co-op, preset or in-market segment
 
+        Grants the advertiser the right to target segment `id`, recording the data CPM that is charged on delivery and shared with the contributor. Returns 404 if the segment is not a coop/preset/in_market segment. Returns 400 if the caller owns it, if it is sensitive, or if it is below the k-anonymity threshold. Licensing is idempotent; add the returned `segmentId` to a campaign's targeting.audience_include.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1413,7 +1489,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerLicense201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1454,10 +1530,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1493,9 +1578,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_licenses
+    ) -> List[SegmentsControllerLicenses200ResponseInner]:
+        """List licensed segments
 
+        Returns the segments the advertiser has licensed, newest first, with the data CPM locked at license time and the segment's name, taxonomy node, size and scope.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1527,7 +1613,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SegmentsControllerLicenses200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1555,9 +1641,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_licenses
+    ) -> ApiResponse[List[SegmentsControllerLicenses200ResponseInner]]:
+        """List licensed segments
 
+        Returns the segments the advertiser has licensed, newest first, with the data CPM locked at license time and the segment's name, taxonomy node, size and scope.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1589,7 +1676,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SegmentsControllerLicenses200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1618,8 +1705,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_licenses
+        """List licensed segments
 
+        Returns the segments the advertiser has licensed, newest first, with the data CPM locked at license time and the segment's name, taxonomy node, size and scope.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1651,7 +1739,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SegmentsControllerLicenses200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1689,10 +1777,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1728,9 +1825,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_opt_out
+    ) -> SegmentsControllerOptOut201Response:
+        """Opt a user out of all audience segments
 
+        Public privacy endpoint, typically called by a preference center with the visitor's `adnet_uid` cookie or canonical id as `id`. The id is recorded as opted out and excluded from every future segment rebuild, and it is removed from live segment sets straight away on a best-effort basis. A missing `id` returns 400.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1762,7 +1860,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerOptOut201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1790,9 +1888,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_opt_out
+    ) -> ApiResponse[SegmentsControllerOptOut201Response]:
+        """Opt a user out of all audience segments
 
+        Public privacy endpoint, typically called by a preference center with the visitor's `adnet_uid` cookie or canonical id as `id`. The id is recorded as opted out and excluded from every future segment rebuild, and it is removed from live segment sets straight away on a best-effort basis. A missing `id` returns 400.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1824,7 +1923,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerOptOut201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1853,8 +1952,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_opt_out
+        """Opt a user out of all audience segments
 
+        Public privacy endpoint, typically called by a preference center with the visitor's `adnet_uid` cookie or canonical id as `id`. The id is recorded as opted out and excluded from every future segment rebuild, and it is removed from live segment sets straight away on a best-effort basis. A missing `id` returns 400.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1886,7 +1986,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerOptOut201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1924,6 +2024,13 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1963,9 +2070,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_rebuild
+    ) -> SegmentsControllerRebuild201Response:
+        """Force a segment rebuild
 
+        Runs, in order, the jobs that normally run on a timer: network preset classification, co-op niche union, in-market segments, and per-account first-party interest segments. Returns each job's count. Can be slow on large datasets because it scans ClickHouse keyword data for each taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1997,7 +2105,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerRebuild201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2025,9 +2133,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_rebuild
+    ) -> ApiResponse[SegmentsControllerRebuild201Response]:
+        """Force a segment rebuild
 
+        Runs, in order, the jobs that normally run on a timer: network preset classification, co-op niche union, in-market segments, and per-account first-party interest segments. Returns each job's count. Can be slow on large datasets because it scans ClickHouse keyword data for each taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2059,7 +2168,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerRebuild201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2088,8 +2197,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_rebuild
+        """Force a segment rebuild
 
+        Runs, in order, the jobs that normally run on a timer: network preset classification, co-op niche union, in-market segments, and per-account first-party interest segments. Returns each job's count. Can be slow on large datasets because it scans ClickHouse keyword data for each taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2121,7 +2231,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerRebuild201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2159,10 +2269,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2199,9 +2318,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_revoke
+    ) -> SegmentsControllerRevoke201Response:
+        """Stop sharing a contributed segment
 
+        Unshares the co-op segment `id` and removes its contribution record, so it earns no further data fees. Only affects segments the caller owns; other ids are silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2236,7 +2356,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerRevoke201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2265,9 +2385,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_revoke
+    ) -> ApiResponse[SegmentsControllerRevoke201Response]:
+        """Stop sharing a contributed segment
 
+        Unshares the co-op segment `id` and removes its contribution record, so it earns no further data fees. Only affects segments the caller owns; other ids are silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2302,7 +2423,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerRevoke201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2332,8 +2453,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_revoke
+        """Stop sharing a contributed segment
 
+        Unshares the co-op segment `id` and removes its contribution record, so it earns no further data fees. Only affects segments the caller owns; other ids are silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -2368,7 +2490,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SegmentsControllerRevoke201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2409,10 +2531,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2448,9 +2579,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_taxonomy
+    ) -> List[AudienceTaxonomyNode]:
+        """Get the interest taxonomy
 
+        Returns every node of the Audience Cloud interest taxonomy with its parent, display name, matching keywords and whether it is a sensitive category. Sensitive nodes are never built into shareable or licensable segments.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2482,7 +2614,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceTaxonomyNode]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2510,9 +2642,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_taxonomy
+    ) -> ApiResponse[List[AudienceTaxonomyNode]]:
+        """Get the interest taxonomy
 
+        Returns every node of the Audience Cloud interest taxonomy with its parent, display name, matching keywords and whether it is a sensitive category. Sensitive nodes are never built into shareable or licensable segments.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2544,7 +2677,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceTaxonomyNode]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2573,8 +2706,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_taxonomy
+        """Get the interest taxonomy
 
+        Returns every node of the Audience Cloud interest taxonomy with its parent, display name, matching keywords and whether it is a sensitive category. Sensitive nodes are never built into shareable or licensable segments.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2606,7 +2740,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceTaxonomyNode]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2644,10 +2778,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2684,9 +2827,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """segments_controller_user_segments
+    ) -> SegmentsControllerUserSegments200Response:
+        """List the segments containing an id
 
+        Admin transparency tool: checks every non-empty segment for membership of `idHash` (a canonical id or uid) and returns the matching segments with their scope and taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id_hash: (required)
         :type id_hash: str
@@ -2721,7 +2865,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerUserSegments200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2750,9 +2894,10 @@ class SegmentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """segments_controller_user_segments
+    ) -> ApiResponse[SegmentsControllerUserSegments200Response]:
+        """List the segments containing an id
 
+        Admin transparency tool: checks every non-empty segment for membership of `idHash` (a canonical id or uid) and returns the matching segments with their scope and taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id_hash: (required)
         :type id_hash: str
@@ -2787,7 +2932,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerUserSegments200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2817,8 +2962,9 @@ class SegmentsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """segments_controller_user_segments
+        """List the segments containing an id
 
+        Admin transparency tool: checks every non-empty segment for membership of `idHash` (a canonical id or uid) and returns the matching segments with their scope and taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id_hash: (required)
         :type id_hash: str
@@ -2853,7 +2999,7 @@ class SegmentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerUserSegments200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2894,10 +3040,19 @@ class SegmentsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

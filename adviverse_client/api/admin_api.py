@@ -17,7 +17,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.add_block_dto import AddBlockDto
+from adviverse_client.models.admin_controller_accounts200_response_inner import AdminControllerAccounts200ResponseInner
+from adviverse_client.models.admin_controller_config200_response_inner import AdminControllerConfig200ResponseInner
+from adviverse_client.models.admin_controller_process_payout201_response import AdminControllerProcessPayout201Response
+from adviverse_client.models.admin_controller_quality200_response_inner import AdminControllerQuality200ResponseInner
+from adviverse_client.models.admin_controller_rescan201_response import AdminControllerRescan201Response
+from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
 from adviverse_client.models.moderation_decision_dto import ModerationDecisionDto
 from adviverse_client.models.set_account_status_dto import SetAccountStatusDto
 from adviverse_client.models.set_config_dto import SetConfigDto
@@ -56,9 +63,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_accounts
+    ) -> List[AdminControllerAccounts200ResponseInner]:
+        """Search accounts
 
+        Returns up to 200 non-deleted accounts, newest first. `q` filters by case-insensitive substring match on email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param q: (required)
         :type q: str
@@ -93,7 +101,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerAccounts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -122,9 +130,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_accounts
+    ) -> ApiResponse[List[AdminControllerAccounts200ResponseInner]]:
+        """Search accounts
 
+        Returns up to 200 non-deleted accounts, newest first. `q` filters by case-insensitive substring match on email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param q: (required)
         :type q: str
@@ -159,7 +168,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerAccounts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -189,8 +198,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_accounts
+        """Search accounts
 
+        Returns up to 200 non-deleted accounts, newest first. `q` filters by case-insensitive substring match on email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param q: (required)
         :type q: str
@@ -225,7 +235,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerAccounts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -268,10 +278,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -308,9 +327,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_add_block
+    ) -> AdminControllerSetStatus201Response:
+        """Add a fraud blocklist entry
 
+        Adds a `kind` (`ip`, `domain`, `asn`, `device`, `user_agent`, `country`, `subnet`) / `value` pair with an optional `reason`. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param add_block_dto: (required)
         :type add_block_dto: AddBlockDto
@@ -345,7 +365,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -374,9 +394,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_add_block
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Add a fraud blocklist entry
 
+        Adds a `kind` (`ip`, `domain`, `asn`, `device`, `user_agent`, `country`, `subnet`) / `value` pair with an optional `reason`. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param add_block_dto: (required)
         :type add_block_dto: AddBlockDto
@@ -411,7 +432,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -441,8 +462,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_add_block
+        """Add a fraud blocklist entry
 
+        Adds a `kind` (`ip`, `domain`, `asn`, `device`, `user_agent`, `country`, `subnet`) / `value` pair with an optional `reason`. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param add_block_dto: (required)
         :type add_block_dto: AddBlockDto
@@ -477,7 +499,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -518,6 +540,13 @@ class AdminApi:
             _body_params = add_block_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -535,6 +564,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -571,8 +602,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """admin_controller_audits
+        """Read the admin audit log
 
+        Returns the 500 most recent `audit_log` rows (actor, action, target type/id, before/after JSON, timestamp). Includes account status changes, moderation decisions, blocks and config changes.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -633,8 +665,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """admin_controller_audits
+        """Read the admin audit log
 
+        Returns the 500 most recent `audit_log` rows (actor, action, target type/id, before/after JSON, timestamp). Includes account status changes, moderation decisions, blocks and config changes.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -695,8 +728,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_audits
+        """Read the admin audit log
 
+        Returns the 500 most recent `audit_log` rows (actor, action, target type/id, before/after JSON, timestamp). Includes account status changes, moderation decisions, blocks and config changes.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -770,6 +804,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -806,8 +842,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """admin_controller_blocklist
+        """List fraud blocklist entries
 
+        Returns the 500 most recent `block_lists` rows (kind, value, reason, creator, timestamps).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -868,8 +905,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """admin_controller_blocklist
+        """List fraud blocklist entries
 
+        Returns the 500 most recent `block_lists` rows (kind, value, reason, creator, timestamps).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -930,8 +968,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_blocklist
+        """List fraud blocklist entries
 
+        Returns the 500 most recent `block_lists` rows (kind, value, reason, creator, timestamps).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1005,6 +1044,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1040,9 +1081,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_config
+    ) -> List[AdminControllerConfig200ResponseInner]:
+        """List platform config and feature flags
 
+        Returns all `platform_config` key/value pairs, ordered by key. Values are arbitrary JSON.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1074,7 +1116,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerConfig200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1102,9 +1144,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_config
+    ) -> ApiResponse[List[AdminControllerConfig200ResponseInner]]:
+        """List platform config and feature flags
 
+        Returns all `platform_config` key/value pairs, ordered by key. Values are arbitrary JSON.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1136,7 +1179,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerConfig200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1165,8 +1208,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_config
+        """List platform config and feature flags
 
+        Returns all `platform_config` key/value pairs, ordered by key. Values are arbitrary JSON.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1198,7 +1242,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerConfig200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1236,10 +1280,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1276,9 +1329,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_confirm_deposit
+    ) -> AdminControllerSetStatus201Response:
+        """Confirm a manual deposit
 
+        Marks a manual deposit received and credits the advertiser ledger. `ref` is the bank/provider reference (defaults to `manual:<id>`). Idempotent: `ok` is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1313,7 +1367,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1342,9 +1396,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_confirm_deposit
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Confirm a manual deposit
 
+        Marks a manual deposit received and credits the advertiser ledger. `ref` is the bank/provider reference (defaults to `manual:<id>`). Idempotent: `ok` is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1379,7 +1434,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1409,8 +1464,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_confirm_deposit
+        """Confirm a manual deposit
 
+        Marks a manual deposit received and credits the advertiser ledger. `ref` is the bank/provider reference (defaults to `manual:<id>`). Idempotent: `ok` is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1445,7 +1501,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1486,10 +1542,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1526,9 +1591,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_confirm_payout
+    ) -> AdminControllerSetStatus201Response:
+        """Confirm a manual payout
 
+        For manual (wire) payouts left in `processing`: after ops sends the bank transfer, `paid: true` (default) settles it and releases the held funds, and `paid: false` marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1563,7 +1629,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1592,9 +1658,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_confirm_payout
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Confirm a manual payout
 
+        For manual (wire) payouts left in `processing`: after ops sends the bank transfer, `paid: true` (default) settles it and releases the held funds, and `paid: false` marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1629,7 +1696,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1659,8 +1726,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_confirm_payout
+        """Confirm a manual payout
 
+        For manual (wire) payouts left in `processing`: after ops sends the bank transfer, `paid: true` (default) settles it and releases the held funds, and `paid: false` marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1695,7 +1763,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1736,10 +1804,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1777,9 +1854,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_decide
+    ) -> AdminControllerSetStatus201Response:
+        """Approve or reject a moderation item
 
+        Applies `decision` (`approved` or `rejected`) with optional `notes` to a queue item. This updates the target: the creative's moderation status, the campaign or sponsored-product campaign's status (`active` or `rejected`), or the property's status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1817,7 +1895,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1847,9 +1925,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_decide
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Approve or reject a moderation item
 
+        Applies `decision` (`approved` or `rejected`) with optional `notes` to a queue item. This updates the target: the creative's moderation status, the campaign or sponsored-product campaign's status (`active` or `rejected`), or the property's status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1887,7 +1966,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1918,8 +1997,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_decide
+        """Approve or reject a moderation item
 
+        Applies `decision` (`approved` or `rejected`) with optional `notes` to a queue item. This updates the target: the creative's moderation status, the campaign or sponsored-product campaign's status (`active` or `rejected`), or the property's status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1957,7 +2037,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2001,6 +2081,13 @@ class AdminApi:
             _body_params = moderation_decision_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2018,6 +2105,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2054,8 +2143,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """admin_controller_pending_deposits
+        """List manual deposits awaiting confirmation
 
+        Returns up to 500 `pending` deposits on the manual `wire` and `paxum` rails, oldest first (all `deposits` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2116,8 +2206,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """admin_controller_pending_deposits
+        """List manual deposits awaiting confirmation
 
+        Returns up to 500 `pending` deposits on the manual `wire` and `paxum` rails, oldest first (all `deposits` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2178,8 +2269,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_pending_deposits
+        """List manual deposits awaiting confirmation
 
+        Returns up to 500 `pending` deposits on the manual `wire` and `paxum` rails, oldest first (all `deposits` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2253,6 +2345,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2289,8 +2383,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """admin_controller_pending_payouts
+        """List payouts awaiting processing
 
+        Returns publisher payouts in `requested` or `on_hold` status, oldest request first (all `payouts` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2351,8 +2446,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """admin_controller_pending_payouts
+        """List payouts awaiting processing
 
+        Returns publisher payouts in `requested` or `on_hold` status, oldest request first (all `payouts` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2413,8 +2509,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_pending_payouts
+        """List payouts awaiting processing
 
+        Returns publisher payouts in `requested` or `on_hold` status, oldest request first (all `payouts` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2488,6 +2585,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2524,9 +2623,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_process_payout
+    ) -> AdminControllerProcessPayout201Response:
+        """Process a requested payout
 
+        Claims a `requested` payout atomically (so double-triggers call the provider once) and sends it through the payout rail for its method. If paid, the held funds are released from the ledger; if failed, the hold returns to available balance; manual rails such as wire stay `processing` until confirmed. Returns 400 if the payout is not in `requested`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -2561,7 +2661,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerProcessPayout201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2590,9 +2690,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_process_payout
+    ) -> ApiResponse[AdminControllerProcessPayout201Response]:
+        """Process a requested payout
 
+        Claims a `requested` payout atomically (so double-triggers call the provider once) and sends it through the payout rail for its method. If paid, the held funds are released from the ledger; if failed, the hold returns to available balance; manual rails such as wire stay `processing` until confirmed. Returns 400 if the payout is not in `requested`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -2627,7 +2728,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerProcessPayout201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2657,8 +2758,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_process_payout
+        """Process a requested payout
 
+        Claims a `requested` payout atomically (so double-triggers call the provider once) and sends it through the payout rail for its method. If paid, the held funds are released from the ledger; if failed, the hold returns to available balance; manual rails such as wire stay `processing` until confirmed. Returns 400 if the payout is not in `requested`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -2693,7 +2795,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerProcessPayout201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2734,10 +2836,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2773,9 +2884,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_quality
+    ) -> List[AdminControllerQuality200ResponseInner]:
+        """List placement quality scores
 
+        Returns the 200 most recent quality-score windows per placement with the property domain, IVT rate, fill rate and composite score.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2807,7 +2919,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerQuality200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2835,9 +2947,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_quality
+    ) -> ApiResponse[List[AdminControllerQuality200ResponseInner]]:
+        """List placement quality scores
 
+        Returns the 200 most recent quality-score windows per placement with the property domain, IVT rate, fill rate and composite score.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2869,7 +2982,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerQuality200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2898,8 +3011,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_quality
+        """List placement quality scores
 
+        Returns the 200 most recent quality-score windows per placement with the property domain, IVT rate, fill rate and composite score.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2931,7 +3045,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AdminControllerQuality200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2969,10 +3083,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3010,8 +3133,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """admin_controller_queue
+        """List the pending moderation queue
 
+        Returns pending moderation items, oldest first, optionally filtered by `type` (entity type such as `creative`, `campaign`, `promote_campaign`, `property`). Creative items are joined with what a reviewer needs to see the ad: type, asset and landing URLs, title, screenshot, VAST/VPAID URLs, duration and companions.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param type: (required)
         :type type: str
@@ -3076,8 +3200,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """admin_controller_queue
+        """List the pending moderation queue
 
+        Returns pending moderation items, oldest first, optionally filtered by `type` (entity type such as `creative`, `campaign`, `promote_campaign`, `property`). Creative items are joined with what a reviewer needs to see the ad: type, asset and landing URLs, title, screenshot, VAST/VPAID URLs, duration and companions.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param type: (required)
         :type type: str
@@ -3142,8 +3267,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_queue
+        """List the pending moderation queue
 
+        Returns pending moderation items, oldest first, optionally filtered by `type` (entity type such as `creative`, `campaign`, `promote_campaign`, `property`). Creative items are joined with what a reviewer needs to see the ad: type, asset and landing URLs, title, screenshot, VAST/VPAID URLs, duration and companions.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param type: (required)
         :type type: str
@@ -3225,6 +3351,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3261,9 +3389,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_rescan
+    ) -> AdminControllerRescan201Response:
+        """Re-scan a creative for cloaking
 
+        Recaptures the landing-page screenshot, then fetches the landing URL with a browser and a bot user agent and compares the responses. Repeated divergence adds cloaking strikes and, at the threshold, flags the creative and re-queues it for moderation. A matching fetch clears strikes and a prior cloaking flag. Fetch errors fail open (not flagged). The result is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param creative_id: (required)
         :type creative_id: str
@@ -3298,7 +3427,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerRescan201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3327,9 +3456,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_rescan
+    ) -> ApiResponse[AdminControllerRescan201Response]:
+        """Re-scan a creative for cloaking
 
+        Recaptures the landing-page screenshot, then fetches the landing URL with a browser and a bot user agent and compares the responses. Repeated divergence adds cloaking strikes and, at the threshold, flags the creative and re-queues it for moderation. A matching fetch clears strikes and a prior cloaking flag. Fetch errors fail open (not flagged). The result is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param creative_id: (required)
         :type creative_id: str
@@ -3364,7 +3494,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerRescan201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3394,8 +3524,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_rescan
+        """Re-scan a creative for cloaking
 
+        Recaptures the landing-page screenshot, then fetches the landing URL with a browser and a bot user agent and compares the responses. Repeated divergence adds cloaking strikes and, at the threshold, flags the creative and re-queues it for moderation. A matching fetch clears strikes and a prior cloaking flag. Fetch errors fail open (not flagged). The result is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param creative_id: (required)
         :type creative_id: str
@@ -3430,7 +3561,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerRescan201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3471,10 +3602,19 @@ class AdminApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3511,9 +3651,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_set_config
+    ) -> AdminControllerSetStatus201Response:
+        """Set a platform config value
 
+        Creates or replaces the config entry `key` (1-200 chars) with `value` (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param set_config_dto: (required)
         :type set_config_dto: SetConfigDto
@@ -3548,7 +3689,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3577,9 +3718,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_set_config
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Set a platform config value
 
+        Creates or replaces the config entry `key` (1-200 chars) with `value` (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param set_config_dto: (required)
         :type set_config_dto: SetConfigDto
@@ -3614,7 +3756,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3644,8 +3786,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_set_config
+        """Set a platform config value
 
+        Creates or replaces the config entry `key` (1-200 chars) with `value` (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param set_config_dto: (required)
         :type set_config_dto: SetConfigDto
@@ -3680,7 +3823,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3721,6 +3864,13 @@ class AdminApi:
             _body_params = set_config_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3738,6 +3888,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3775,9 +3927,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """admin_controller_set_status
+    ) -> AdminControllerSetStatus201Response:
+        """Set an account's status
 
+        Sets an account's `status` to `active`, `pending`, `suspended`, `banned` or `closed`. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -3815,7 +3968,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3845,9 +3998,10 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """admin_controller_set_status
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Set an account's status
 
+        Sets an account's `status` to `active`, `pending`, `suspended`, `banned` or `closed`. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -3885,7 +4039,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3916,8 +4070,9 @@ class AdminApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """admin_controller_set_status
+        """Set an account's status
 
+        Sets an account's `status` to `active`, `pending`, `suspended`, `banned` or `closed`. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -3955,7 +4110,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3999,6 +4154,13 @@ class AdminApi:
             _body_params = set_account_status_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4016,6 +4178,8 @@ class AdminApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

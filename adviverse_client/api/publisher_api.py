@@ -17,9 +17,20 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.auth_controller_resend_verification201_response import AuthControllerResendVerification201Response
 from adviverse_client.models.create_app_dto import CreateAppDto
 from adviverse_client.models.create_placement_dto import CreatePlacementDto
 from adviverse_client.models.create_property_dto import CreatePropertyDto
+from adviverse_client.models.pub_placement import PubPlacement
+from adviverse_client.models.pub_property import PubProperty
+from adviverse_client.models.pub_serving_domain import PubServingDomain
+from adviverse_client.models.publisher_controller_disable_signing200_response import PublisherControllerDisableSigning200Response
+from adviverse_client.models.publisher_controller_domain_connect201_response import PublisherControllerDomainConnect201Response
+from adviverse_client.models.publisher_controller_rotate_signing_secret201_response import PublisherControllerRotateSigningSecret201Response
+from adviverse_client.models.publisher_controller_tag200_response import PublisherControllerTag200Response
+from adviverse_client.models.publisher_controller_verify201_response import PublisherControllerVerify201Response
+from adviverse_client.models.publisher_controller_verify_serving_domain201_response import PublisherControllerVerifyServingDomain201Response
 from adviverse_client.models.serving_domain_dto import ServingDomainDto
 from adviverse_client.models.update_app_dto import UpdateAppDto
 from adviverse_client.models.update_placement_dto import UpdatePlacementDto
@@ -59,9 +70,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_app_ads_txt
+    ) -> str:
+        """Get the app-ads.txt content for an app
 
+        Returns plain-text app-ads.txt: a comment, the network's own `adviverse.com, <publisherAccountId>, DIRECT` line, then each configured authorized-seller entry (`domain, sellerId, DIRECT|RESELLER[, certId]`). 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -96,7 +108,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -125,9 +137,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_app_ads_txt
+    ) -> ApiResponse[str]:
+        """Get the app-ads.txt content for an app
 
+        Returns plain-text app-ads.txt: a comment, the network's own `adviverse.com, <publisherAccountId>, DIRECT` line, then each configured authorized-seller entry (`domain, sellerId, DIRECT|RESELLER[, certId]`). 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -162,7 +175,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -192,8 +205,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_app_ads_txt
+        """Get the app-ads.txt content for an app
 
+        Returns plain-text app-ads.txt: a comment, the network's own `adviverse.com, <publisherAccountId>, DIRECT` line, then each configured authorized-seller entry (`domain, sellerId, DIRECT|RESELLER[, certId]`). 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -228,7 +242,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -269,10 +283,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -309,9 +332,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_create_app
+    ) -> PubProperty:
+        """Register a mobile or CTV app
 
+        Creates a `mobile_app` or `ctv` property from `kind`, `name`, `bundleId` and `platform` (ios, android, roku, firetv, appletv, androidtv, web), with optional `storeUrl`, `appStoreId`, `category` and `ctvMeta`. The bundle id is stored in both `bundle_id` and `domain`; the app enters the normal `pending` approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_app_dto: (required)
         :type create_app_dto: CreateAppDto
@@ -346,7 +370,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -375,9 +399,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_create_app
+    ) -> ApiResponse[PubProperty]:
+        """Register a mobile or CTV app
 
+        Creates a `mobile_app` or `ctv` property from `kind`, `name`, `bundleId` and `platform` (ios, android, roku, firetv, appletv, androidtv, web), with optional `storeUrl`, `appStoreId`, `category` and `ctvMeta`. The bundle id is stored in both `bundle_id` and `domain`; the app enters the normal `pending` approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_app_dto: (required)
         :type create_app_dto: CreateAppDto
@@ -412,7 +437,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -442,8 +467,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_create_app
+        """Register a mobile or CTV app
 
+        Creates a `mobile_app` or `ctv` property from `kind`, `name`, `bundleId` and `platform` (ios, android, roku, firetv, appletv, androidtv, web), with optional `storeUrl`, `appStoreId`, `category` and `ctvMeta`. The bundle id is stored in both `bundle_id` and `domain`; the app enters the normal `pending` approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_app_dto: (required)
         :type create_app_dto: CreateAppDto
@@ -478,7 +504,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -519,6 +545,13 @@ class PublisherApi:
             _body_params = create_app_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -536,6 +569,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -572,9 +607,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_create_placement
+    ) -> PubPlacement:
+        """Create a placement
 
+        Creates an ad unit on one of your properties (`propertyId`, `name`, `format` required) with a generated `tag_key`. Optional fields cover size (`width`/`height` or `responsive`), `floorCpm`, `revShare` (defaults to the network rev-share), `auctionType` (default `first_price`), `passbackUrl`, `frequencyCap`, format `settings`, and yield fill (`houseOnly`, `houseShare` clamped to 0-1, `houseBackfill`, `floorFallback`). Popunders default to a 1-per-visitor-per-24h frequency cap unless `frequencyCap` is given (`{}` opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_placement_dto: (required)
         :type create_placement_dto: CreatePlacementDto
@@ -609,7 +645,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubPlacement",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -638,9 +674,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_create_placement
+    ) -> ApiResponse[PubPlacement]:
+        """Create a placement
 
+        Creates an ad unit on one of your properties (`propertyId`, `name`, `format` required) with a generated `tag_key`. Optional fields cover size (`width`/`height` or `responsive`), `floorCpm`, `revShare` (defaults to the network rev-share), `auctionType` (default `first_price`), `passbackUrl`, `frequencyCap`, format `settings`, and yield fill (`houseOnly`, `houseShare` clamped to 0-1, `houseBackfill`, `floorFallback`). Popunders default to a 1-per-visitor-per-24h frequency cap unless `frequencyCap` is given (`{}` opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_placement_dto: (required)
         :type create_placement_dto: CreatePlacementDto
@@ -675,7 +712,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubPlacement",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -705,8 +742,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_create_placement
+        """Create a placement
 
+        Creates an ad unit on one of your properties (`propertyId`, `name`, `format` required) with a generated `tag_key`. Optional fields cover size (`width`/`height` or `responsive`), `floorCpm`, `revShare` (defaults to the network rev-share), `auctionType` (default `first_price`), `passbackUrl`, `frequencyCap`, format `settings`, and yield fill (`houseOnly`, `houseShare` clamped to 0-1, `houseBackfill`, `floorFallback`). Popunders default to a 1-per-visitor-per-24h frequency cap unless `frequencyCap` is given (`{}` opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_placement_dto: (required)
         :type create_placement_dto: CreatePlacementDto
@@ -741,7 +779,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubPlacement",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -782,6 +820,13 @@ class PublisherApi:
             _body_params = create_placement_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -799,6 +844,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -835,9 +882,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_create_property
+    ) -> PubProperty:
+        """Register a property
 
+        Creates a property with a fresh `adviverse-verify-…` verification token. `domain` is required; `kind` defaults to `website` and `verificationMethod` to `dns`. Website properties start `unverified`/`pending` and must be verified before they serve. With `kind: \"cli\"` the property is a terminal/AI-agent tool: `domain` is treated as a tool name and turned into a unique slug, and the row is created already `verified` and `approved` (no domain to prove).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_property_dto: (required)
         :type create_property_dto: CreatePropertyDto
@@ -872,7 +920,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -901,9 +949,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_create_property
+    ) -> ApiResponse[PubProperty]:
+        """Register a property
 
+        Creates a property with a fresh `adviverse-verify-…` verification token. `domain` is required; `kind` defaults to `website` and `verificationMethod` to `dns`. Website properties start `unverified`/`pending` and must be verified before they serve. With `kind: \"cli\"` the property is a terminal/AI-agent tool: `domain` is treated as a tool name and turned into a unique slug, and the row is created already `verified` and `approved` (no domain to prove).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_property_dto: (required)
         :type create_property_dto: CreatePropertyDto
@@ -938,7 +987,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -968,8 +1017,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_create_property
+        """Register a property
 
+        Creates a property with a fresh `adviverse-verify-…` verification token. `domain` is required; `kind` defaults to `website` and `verificationMethod` to `dns`. Website properties start `unverified`/`pending` and must be verified before they serve. With `kind: \"cli\"` the property is a terminal/AI-agent tool: `domain` is treated as a tool name and turned into a unique slug, and the row is created already `verified` and `approved` (no domain to prove).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param create_property_dto: (required)
         :type create_property_dto: CreatePropertyDto
@@ -1004,7 +1054,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1045,6 +1095,13 @@ class PublisherApi:
             _body_params = create_property_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1062,6 +1119,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1098,9 +1157,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_disable_signing
+    ) -> PublisherControllerDisableSigning200Response:
+        """Disable signed-tag enforcement
 
+        Removes the placement's signing secret so it goes back to unsigned serving, and republishes the index. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1135,7 +1195,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherControllerDisableSigning200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1164,9 +1224,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_disable_signing
+    ) -> ApiResponse[PublisherControllerDisableSigning200Response]:
+        """Disable signed-tag enforcement
 
+        Removes the placement's signing secret so it goes back to unsigned serving, and republishes the index. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1201,7 +1262,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherControllerDisableSigning200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1231,8 +1292,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_disable_signing
+        """Disable signed-tag enforcement
 
+        Removes the placement's signing secret so it goes back to unsigned serving, and republishes the index. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1267,7 +1329,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherControllerDisableSigning200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1308,10 +1370,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1348,9 +1419,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_domain_connect
+    ) -> PublisherControllerDomainConnect201Response:
+        """Get a DomainConnect one-click DNS setup URL
 
+        Discovers whether the property domain's DNS provider supports DomainConnect (TXT at `_domainconnect.<domain>`, then the provider settings `urlSyncUX`). If it does, returns `supported: true` with an `applyUrl` the user opens to approve writing the verification TXT record; afterwards call verify. On any discovery failure it returns `supported: false, method: \"manual\"` with the token so the publisher can add the TXT record by hand.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1385,7 +1457,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerDomainConnect201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1414,9 +1486,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_domain_connect
+    ) -> ApiResponse[PublisherControllerDomainConnect201Response]:
+        """Get a DomainConnect one-click DNS setup URL
 
+        Discovers whether the property domain's DNS provider supports DomainConnect (TXT at `_domainconnect.<domain>`, then the provider settings `urlSyncUX`). If it does, returns `supported: true` with an `applyUrl` the user opens to approve writing the verification TXT record; afterwards call verify. On any discovery failure it returns `supported: false, method: \"manual\"` with the token so the publisher can add the TXT record by hand.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1451,7 +1524,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerDomainConnect201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1481,8 +1554,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_domain_connect
+        """Get a DomainConnect one-click DNS setup URL
 
+        Discovers whether the property domain's DNS provider supports DomainConnect (TXT at `_domainconnect.<domain>`, then the provider settings `urlSyncUX`). If it does, returns `supported: true` with an `applyUrl` the user opens to approve writing the verification TXT record; afterwards call verify. On any discovery failure it returns `supported: false, method: \"manual\"` with the token so the publisher can add the TXT record by hand.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1517,7 +1591,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerDomainConnect201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1558,10 +1632,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1598,9 +1681,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_get_app
+    ) -> PubProperty:
+        """Get a mobile or CTV app
 
+        Returns one app/CTV property. 404 if it does not exist (or is a web property), 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1635,7 +1719,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1664,9 +1748,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_get_app
+    ) -> ApiResponse[PubProperty]:
+        """Get a mobile or CTV app
 
+        Returns one app/CTV property. 404 if it does not exist (or is a web property), 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1701,7 +1786,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1731,8 +1816,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_get_app
+        """Get a mobile or CTV app
 
+        Returns one app/CTV property. 404 if it does not exist (or is a web property), 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -1767,7 +1853,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1808,10 +1894,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1847,9 +1942,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_list_apps
+    ) -> List[PubProperty]:
+        """List your mobile and CTV apps
 
+        Returns the publisher's properties of kind `mobile_app` or `ctv`, newest first. Web properties are excluded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1881,7 +1977,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubProperty]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1909,9 +2005,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_list_apps
+    ) -> ApiResponse[List[PubProperty]]:
+        """List your mobile and CTV apps
 
+        Returns the publisher's properties of kind `mobile_app` or `ctv`, newest first. Web properties are excluded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1943,7 +2040,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubProperty]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1972,8 +2069,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_list_apps
+        """List your mobile and CTV apps
 
+        Returns the publisher's properties of kind `mobile_app` or `ctv`, newest first. Web properties are excluded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2005,7 +2103,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubProperty]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2043,10 +2141,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2082,9 +2189,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_list_placements
+    ) -> List[PubPlacement]:
+        """List your placements
 
+        Returns every non-deleted placement across all of the publisher's properties, newest first. Optional `limit`/`offset` paginate.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2116,7 +2224,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubPlacement]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2144,9 +2252,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_list_placements
+    ) -> ApiResponse[List[PubPlacement]]:
+        """List your placements
 
+        Returns every non-deleted placement across all of the publisher's properties, newest first. Optional `limit`/`offset` paginate.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2178,7 +2287,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubPlacement]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2207,8 +2316,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_list_placements
+        """List your placements
 
+        Returns every non-deleted placement across all of the publisher's properties, newest first. Optional `limit`/`offset` paginate.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2240,7 +2350,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubPlacement]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2278,10 +2388,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2317,9 +2436,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_list_properties
+    ) -> List[PubProperty]:
+        """List your properties
 
+        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2351,7 +2471,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubProperty]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2379,9 +2499,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_list_properties
+    ) -> ApiResponse[List[PubProperty]]:
+        """List your properties
 
+        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2413,7 +2534,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubProperty]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2442,8 +2563,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_list_properties
+        """List your properties
 
+        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2475,7 +2597,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PubProperty]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2513,15 +2635,286 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/publisher/properties',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def publisher_controller_property_ads_txt(
+        self,
+        id: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> str:
+        """Get the ads.txt lines for a property
+
+        Returns the plain-text ads.txt content to publish at `https://<domain>/ads.txt`: a comment line plus `adviverse.com, <publisherAccountId>, DIRECT` (the seller id matches sellers.json). 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+
+        :param id: (required)
+        :type id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._publisher_controller_property_ads_txt_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "str",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def publisher_controller_property_ads_txt_with_http_info(
+        self,
+        id: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[str]:
+        """Get the ads.txt lines for a property
+
+        Returns the plain-text ads.txt content to publish at `https://<domain>/ads.txt`: a comment line plus `adviverse.com, <publisherAccountId>, DIRECT` (the seller id matches sellers.json). 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+
+        :param id: (required)
+        :type id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._publisher_controller_property_ads_txt_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "str",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def publisher_controller_property_ads_txt_without_preload_content(
+        self,
+        id: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get the ads.txt lines for a property
+
+        Returns the plain-text ads.txt content to publish at `https://<domain>/ads.txt`: a comment line plus `adviverse.com, <publisherAccountId>, DIRECT` (the seller id matches sellers.json). 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+
+        :param id: (required)
+        :type id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._publisher_controller_property_ads_txt_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "str",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _publisher_controller_property_ads_txt_serialize(
+        self,
+        id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/publisher/properties/{id}/ads.txt',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2553,9 +2946,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_remove_property
+    ) -> AuthControllerResendVerification201Response:
+        """Delete a property
 
+        Soft-deletes the property and all of its placements, then republishes the serving index so ads stop promptly. 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -2590,7 +2984,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2619,9 +3013,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_remove_property
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Delete a property
 
+        Soft-deletes the property and all of its placements, then republishes the serving index so ads stop promptly. 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -2656,7 +3051,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2686,8 +3081,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_remove_property
+        """Delete a property
 
+        Soft-deletes the property and all of its placements, then republishes the serving index so ads stop promptly. 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -2722,7 +3118,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2763,10 +3159,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2803,9 +3208,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_remove_serving_domain
+    ) -> PubServingDomain:
+        """Remove the first-party serving domain
 
+        Clears the property's custom serving domain; tags fall back to the default serving edge and the edge stops issuing certificates for the old host. 404/403 if the property is not found or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -2840,7 +3246,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubServingDomain",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2869,9 +3275,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_remove_serving_domain
+    ) -> ApiResponse[PubServingDomain]:
+        """Remove the first-party serving domain
 
+        Clears the property's custom serving domain; tags fall back to the default serving edge and the edge stops issuing certificates for the old host. 404/403 if the property is not found or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -2906,7 +3313,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubServingDomain",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2936,8 +3343,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_remove_serving_domain
+        """Remove the first-party serving domain
 
+        Clears the property's custom serving domain; tags fall back to the default serving edge and the edge stops issuing certificates for the old host. 404/403 if the property is not found or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -2972,7 +3380,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubServingDomain",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3013,10 +3421,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3053,9 +3470,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_rotate_signing_secret
+    ) -> PublisherControllerRotateSigningSecret201Response:
+        """Generate or rotate a placement signing secret
 
+        Creates a new `tsk_…` HMAC secret for the placement, replacing any previous one, and republishes the index. With a secret set, the engine only serves terminal requests (and accepts integrity pings) that carry a valid signature, so embed it in your signing client. The secret is returned only once. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3090,7 +3508,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerRotateSigningSecret201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3119,9 +3537,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_rotate_signing_secret
+    ) -> ApiResponse[PublisherControllerRotateSigningSecret201Response]:
+        """Generate or rotate a placement signing secret
 
+        Creates a new `tsk_…` HMAC secret for the placement, replacing any previous one, and republishes the index. With a secret set, the engine only serves terminal requests (and accepts integrity pings) that carry a valid signature, so embed it in your signing client. The secret is returned only once. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3156,7 +3575,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerRotateSigningSecret201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3186,8 +3605,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_rotate_signing_secret
+        """Generate or rotate a placement signing secret
 
+        Creates a new `tsk_…` HMAC secret for the placement, replacing any previous one, and republishes the index. With a secret set, the engine only serves terminal requests (and accepts integrity pings) that carry a valid signature, so embed it in your signing client. The secret is returned only once. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3222,7 +3642,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerRotateSigningSecret201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3263,10 +3683,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3304,9 +3733,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_set_serving_domain
+    ) -> PubServingDomain:
+        """Set a first-party serving domain
 
+        Sets the property's custom ad-serving hostname (anti-adblock). Body `{ domain }` is normalized to a bare hostname; an empty/missing domain clears it. The domain starts unverified: the publisher must CNAME it to `cname_target` and call the verify endpoint before tags use it. 400 for an invalid hostname or one already held by another property.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3344,7 +3774,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubServingDomain",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3374,9 +3804,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_set_serving_domain
+    ) -> ApiResponse[PubServingDomain]:
+        """Set a first-party serving domain
 
+        Sets the property's custom ad-serving hostname (anti-adblock). Body `{ domain }` is normalized to a bare hostname; an empty/missing domain clears it. The domain starts unverified: the publisher must CNAME it to `cname_target` and call the verify endpoint before tags use it. 400 for an invalid hostname or one already held by another property.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3414,7 +3845,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubServingDomain",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3445,8 +3876,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_set_serving_domain
+        """Set a first-party serving domain
 
+        Sets the property's custom ad-serving hostname (anti-adblock). Body `{ domain }` is normalized to a bare hostname; an empty/missing domain clears it. The domain starts unverified: the publisher must CNAME it to `cname_target` and call the verify endpoint before tags use it. 400 for an invalid hostname or one already held by another property.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3484,7 +3916,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PubServingDomain",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3528,6 +3960,13 @@ class PublisherApi:
             _body_params = serving_domain_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3545,6 +3984,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3581,9 +4022,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_tag
+    ) -> PublisherControllerTag200Response:
+        """Get the embed code for a placement
 
+        Returns the integration snippet for the placement, shaped by format: `script` (SDK `<script>` loader) for web formats, `directUrl` for `direct_link`, `emailSnippet` (tracked image + link with a `{{RECIPIENT}}` merge field) for `email`, and an HTTP `endpoint` for `terminal`. If the property has a verified first-party serving domain the snippet points at it and `firstParty` is true. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3618,7 +4060,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherControllerTag200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3647,9 +4089,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_tag
+    ) -> ApiResponse[PublisherControllerTag200Response]:
+        """Get the embed code for a placement
 
+        Returns the integration snippet for the placement, shaped by format: `script` (SDK `<script>` loader) for web formats, `directUrl` for `direct_link`, `emailSnippet` (tracked image + link with a `{{RECIPIENT}}` merge field) for `email`, and an HTTP `endpoint` for `terminal`. If the property has a verified first-party serving domain the snippet points at it and `firstParty` is true. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3684,7 +4127,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherControllerTag200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3714,8 +4157,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_tag
+        """Get the embed code for a placement
 
+        Returns the integration snippet for the placement, shaped by format: `script` (SDK `<script>` loader) for web formats, `directUrl` for `direct_link`, `emailSnippet` (tracked image + link with a `{{RECIPIENT}}` merge field) for `email`, and an HTTP `endpoint` for `terminal`. If the property has a verified first-party serving domain the snippet points at it and `firstParty` is true. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3750,7 +4194,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherControllerTag200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3791,10 +4235,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3832,9 +4285,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_update_app
+    ) -> PubProperty:
+        """Update app-ads.txt, SKAdNetwork and CTV metadata
 
+        Patches only the fields sent: `appAdsTxt` (authorized-seller entries `{domain, sellerId, relationship?, certId?}`, normalized and invalid ones dropped), `skadnetworkIds`, `ctvMeta`, `storeUrl`, `platform`. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3872,7 +4326,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3902,9 +4356,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_update_app
+    ) -> ApiResponse[PubProperty]:
+        """Update app-ads.txt, SKAdNetwork and CTV metadata
 
+        Patches only the fields sent: `appAdsTxt` (authorized-seller entries `{domain, sellerId, relationship?, certId?}`, normalized and invalid ones dropped), `skadnetworkIds`, `ctvMeta`, `storeUrl`, `platform`. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -3942,7 +4397,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3973,8 +4428,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_update_app
+        """Update app-ads.txt, SKAdNetwork and CTV metadata
 
+        Patches only the fields sent: `appAdsTxt` (authorized-seller entries `{domain, sellerId, relationship?, certId?}`, normalized and invalid ones dropped), `skadnetworkIds`, `ctvMeta`, `storeUrl`, `platform`. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4012,7 +4468,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4056,6 +4512,13 @@ class PublisherApi:
             _body_params = update_app_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4073,6 +4536,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4110,9 +4575,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_update_placement
+    ) -> PubPlacement:
+        """Update a placement
 
+        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4150,7 +4616,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubPlacement",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4180,9 +4646,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_update_placement
+    ) -> ApiResponse[PubPlacement]:
+        """Update a placement
 
+        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4220,7 +4687,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubPlacement",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4251,8 +4718,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_update_placement
+        """Update a placement
 
+        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4290,7 +4758,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubPlacement",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4334,6 +4802,13 @@ class PublisherApi:
             _body_params = update_placement_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4351,6 +4826,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4388,9 +4865,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_update_property
+    ) -> PubProperty:
+        """Update a property
 
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4428,7 +4906,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4458,9 +4936,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_update_property
+    ) -> ApiResponse[PubProperty]:
+        """Update a property
 
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4498,7 +4977,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4529,8 +5008,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_update_property
+        """Update a property
 
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4568,7 +5048,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PubProperty",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4612,6 +5092,13 @@ class PublisherApi:
             _body_params = update_property_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4629,6 +5116,8 @@ class PublisherApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4665,9 +5154,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_verify
+    ) -> PublisherControllerVerify201Response:
+        """Verify property ownership
 
+        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4702,7 +5192,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerVerify201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4731,9 +5221,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_verify
+    ) -> ApiResponse[PublisherControllerVerify201Response]:
+        """Verify property ownership
 
+        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4768,7 +5259,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerVerify201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4798,8 +5289,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_verify
+        """Verify property ownership
 
+        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4834,7 +5326,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerVerify201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4875,10 +5367,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4915,9 +5416,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_controller_verify_serving_domain
+    ) -> PublisherControllerVerifyServingDomain201Response:
+        """Verify the first-party serving domain
 
+        Checks that the serving domain CNAMEs to the serving edge (or, for flattened CNAME/ALIAS records, resolves to the same A records). Stores the result and refreshes the edge router config; once verified, generated tags load from `https://<serving_domain>` and the edge will issue TLS for it. 400 if no serving domain is set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4952,7 +5454,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerVerifyServingDomain201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4981,9 +5483,10 @@ class PublisherApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_controller_verify_serving_domain
+    ) -> ApiResponse[PublisherControllerVerifyServingDomain201Response]:
+        """Verify the first-party serving domain
 
+        Checks that the serving domain CNAMEs to the serving edge (or, for flattened CNAME/ALIAS records, resolves to the same A records). Stores the result and refreshes the edge router config; once verified, generated tags load from `https://<serving_domain>` and the edge will issue TLS for it. 400 if no serving domain is set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5018,7 +5521,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerVerifyServingDomain201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5048,8 +5551,9 @@ class PublisherApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_controller_verify_serving_domain
+        """Verify the first-party serving domain
 
+        Checks that the serving domain CNAMEs to the serving edge (or, for flattened CNAME/ALIAS records, resolves to the same A records). Stores the result and refreshes the edge router config; once verified, generated tags load from `https://<serving_domain>` and the edge will issue TLS for it. 400 if no serving domain is set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5084,7 +5588,7 @@ class PublisherApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PublisherControllerVerifyServingDomain201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5125,10 +5629,19 @@ class PublisherApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

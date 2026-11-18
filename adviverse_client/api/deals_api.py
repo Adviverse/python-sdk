@@ -17,7 +17,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.create_deal_dto import CreateDealDto
+from adviverse_client.models.deal import Deal
+from adviverse_client.models.deals_controller_claim201_response import DealsControllerClaim201Response
+from adviverse_client.models.deals_controller_lookup_advertiser200_response import DealsControllerLookupAdvertiser200Response
+from adviverse_client.models.deals_controller_preview_claim200_response import DealsControllerPreviewClaim200Response
+from adviverse_client.models.deals_controller_status201_response import DealsControllerStatus201Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -53,9 +59,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_accept
+    ) -> DealsControllerClaim201Response:
+        """Accept a deal offered to you
 
+        The targeted advertiser accepts the deal, which becomes `active` and is published to the engine index; the publisher is emailed. Returns 403 if the caller is not the deal's advertiser and 404 if the deal is unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -90,7 +97,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerClaim201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -119,9 +126,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_accept
+    ) -> ApiResponse[DealsControllerClaim201Response]:
+        """Accept a deal offered to you
 
+        The targeted advertiser accepts the deal, which becomes `active` and is published to the engine index; the publisher is emailed. Returns 403 if the caller is not the deal's advertiser and 404 if the deal is unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -156,7 +164,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerClaim201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,8 +194,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_accept
+        """Accept a deal offered to you
 
+        The targeted advertiser accepts the deal, which becomes `active` and is published to the engine index; the publisher is emailed. Returns 403 if the caller is not the deal's advertiser and 404 if the deal is unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -222,7 +231,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerClaim201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -263,10 +272,19 @@ class DealsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -303,9 +321,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_claim
+    ) -> DealsControllerClaim201Response:
+        """Claim an open deal
 
+        The caller becomes the deal's advertiser; the deal goes `active`, the claim token is cleared and the publisher is emailed. Returns 400 if the deal already has an advertiser or the caller is its publisher, and 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -340,7 +359,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerClaim201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -369,9 +388,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_claim
+    ) -> ApiResponse[DealsControllerClaim201Response]:
+        """Claim an open deal
 
+        The caller becomes the deal's advertiser; the deal goes `active`, the claim token is cleared and the publisher is emailed. Returns 400 if the deal already has an advertiser or the caller is its publisher, and 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -406,7 +426,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerClaim201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -436,8 +456,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_claim
+        """Claim an open deal
 
+        The caller becomes the deal's advertiser; the deal goes `active`, the claim token is cleared and the publisher is emailed. Returns 400 if the deal already has an advertiser or the caller is its publisher, and 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -472,7 +493,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerClaim201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -513,10 +534,19 @@ class DealsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -553,9 +583,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_create
+    ) -> Deal:
+        """Create a deal
 
+        Creates a `pending` deal with `name` (required), `dealType` (`pmp` default, `preferred`, `guaranteed`), `floorCpm`, `currency` (USD), optional `placementId` and `startsAt`/`endsAt`. Fields are also accepted in snake_case. With `advertiserId` (must be an advertiser account) the advertiser is emailed an invite; without it the deal is open and gets a `claim_token` to share. The placement must belong to the creating publisher (403); its owner becomes the deal's publisher. Active deals are republished to the engine index.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param create_deal_dto: (required)
         :type create_deal_dto: CreateDealDto
@@ -590,7 +621,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "Deal",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -619,9 +650,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_create
+    ) -> ApiResponse[Deal]:
+        """Create a deal
 
+        Creates a `pending` deal with `name` (required), `dealType` (`pmp` default, `preferred`, `guaranteed`), `floorCpm`, `currency` (USD), optional `placementId` and `startsAt`/`endsAt`. Fields are also accepted in snake_case. With `advertiserId` (must be an advertiser account) the advertiser is emailed an invite; without it the deal is open and gets a `claim_token` to share. The placement must belong to the creating publisher (403); its owner becomes the deal's publisher. Active deals are republished to the engine index.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param create_deal_dto: (required)
         :type create_deal_dto: CreateDealDto
@@ -656,7 +688,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "Deal",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -686,8 +718,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_create
+        """Create a deal
 
+        Creates a `pending` deal with `name` (required), `dealType` (`pmp` default, `preferred`, `guaranteed`), `floorCpm`, `currency` (USD), optional `placementId` and `startsAt`/`endsAt`. Fields are also accepted in snake_case. With `advertiserId` (must be an advertiser account) the advertiser is emailed an invite; without it the deal is open and gets a `claim_token` to share. The placement must belong to the creating publisher (403); its owner becomes the deal's publisher. Active deals are republished to the engine index.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param create_deal_dto: (required)
         :type create_deal_dto: CreateDealDto
@@ -722,7 +755,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "Deal",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -763,6 +796,13 @@ class DealsApi:
             _body_params = create_deal_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -780,6 +820,8 @@ class DealsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -815,9 +857,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_list
+    ) -> List[Deal]:
+        """List deals
 
+        Lists private-marketplace deals for the caller. Accounts can act on both sides, so `role=publisher` returns deals the account sells and `role=advertiser` returns deals offered to it. Without `role` the account type decides. Admins see all deals (capped at 500 when unpaginated). Supports optional `limit`/`offset`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -849,7 +892,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Deal]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -877,9 +920,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_list
+    ) -> ApiResponse[List[Deal]]:
+        """List deals
 
+        Lists private-marketplace deals for the caller. Accounts can act on both sides, so `role=publisher` returns deals the account sells and `role=advertiser` returns deals offered to it. Without `role` the account type decides. Admins see all deals (capped at 500 when unpaginated). Supports optional `limit`/`offset`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -911,7 +955,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Deal]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -940,8 +984,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_list
+        """List deals
 
+        Lists private-marketplace deals for the caller. Accounts can act on both sides, so `role=publisher` returns deals the account sells and `role=advertiser` returns deals offered to it. Without `role` the account type decides. Admins see all deals (capped at 500 when unpaginated). Supports optional `limit`/`offset`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -973,7 +1018,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Deal]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1011,10 +1056,19 @@ class DealsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1051,9 +1105,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_lookup_advertiser
+    ) -> DealsControllerLookupAdvertiser200Response:
+        """Find an advertiser by email
 
+        Resolves an advertiser account by exact, case-insensitive `email` so a publisher can target a deal without knowing the account id. Exact match only, to avoid account enumeration. Returns 400 without an email and 404 when no advertiser matches.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param email: (required)
         :type email: str
@@ -1088,7 +1143,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "DealsControllerLookupAdvertiser200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1117,9 +1172,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_lookup_advertiser
+    ) -> ApiResponse[DealsControllerLookupAdvertiser200Response]:
+        """Find an advertiser by email
 
+        Resolves an advertiser account by exact, case-insensitive `email` so a publisher can target a deal without knowing the account id. Exact match only, to avoid account enumeration. Returns 400 without an email and 404 when no advertiser matches.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param email: (required)
         :type email: str
@@ -1154,7 +1210,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "DealsControllerLookupAdvertiser200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1184,8 +1240,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_lookup_advertiser
+        """Find an advertiser by email
 
+        Resolves an advertiser account by exact, case-insensitive `email` so a publisher can target a deal without knowing the account id. Exact match only, to avoid account enumeration. Returns 400 without an email and 404 when no advertiser matches.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param email: (required)
         :type email: str
@@ -1220,7 +1277,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "DealsControllerLookupAdvertiser200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1263,10 +1320,19 @@ class DealsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1303,9 +1369,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_preview_claim
+    ) -> DealsControllerPreviewClaim200Response:
+        """Preview an open deal from its claim link
 
+        Returns the deal behind a claim token (code, name, type, floor, currency, status and publisher company name) plus `claimable`, which is true while no advertiser is attached. 404 when the token is unknown or already used.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -1340,7 +1407,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "DealsControllerPreviewClaim200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1369,9 +1436,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_preview_claim
+    ) -> ApiResponse[DealsControllerPreviewClaim200Response]:
+        """Preview an open deal from its claim link
 
+        Returns the deal behind a claim token (code, name, type, floor, currency, status and publisher company name) plus `claimable`, which is true while no advertiser is attached. 404 when the token is unknown or already used.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -1406,7 +1474,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "DealsControllerPreviewClaim200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1436,8 +1504,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_preview_claim
+        """Preview an open deal from its claim link
 
+        Returns the deal behind a claim token (code, name, type, floor, currency, status and publisher company name) plus `claimable`, which is true while no advertiser is attached. 404 when the token is unknown or already used.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param token: (required)
         :type token: str
@@ -1472,7 +1541,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "DealsControllerPreviewClaim200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1513,10 +1582,19 @@ class DealsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1553,9 +1631,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """deals_controller_status
+    ) -> DealsControllerStatus201Response:
+        """Change a deal's status
 
+        Sets `status` to `active`, `paused`, `pending` or `expired`. Only the deal's publisher or an admin may do this (403 otherwise). The engine's active-deal index is republished, so pausing takes effect for serving right away.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -1590,7 +1669,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1619,9 +1698,10 @@ class DealsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """deals_controller_status
+    ) -> ApiResponse[DealsControllerStatus201Response]:
+        """Change a deal's status
 
+        Sets `status` to `active`, `paused`, `pending` or `expired`. Only the deal's publisher or an admin may do this (403 otherwise). The engine's active-deal index is republished, so pausing takes effect for serving right away.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -1656,7 +1736,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1686,8 +1766,9 @@ class DealsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """deals_controller_status
+        """Change a deal's status
 
+        Sets `status` to `active`, `paused`, `pending` or `expired`. Only the deal's publisher or an admin may do this (403 otherwise). The engine's active-deal index is republished, so pausing takes effect for serving right away.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param id: (required)
         :type id: str
@@ -1722,7 +1803,7 @@ class DealsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "DealsControllerStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1763,10 +1844,19 @@ class DealsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

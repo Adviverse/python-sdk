@@ -17,6 +17,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.billing_controller_generate201_response import BillingControllerGenerate201Response
+from adviverse_client.models.billing_controller_statement200_response import BillingControllerStatement200Response
+from adviverse_client.models.billing_invoice import BillingInvoice
+from adviverse_client.models.billing_invoice_with_lines import BillingInvoiceWithLines
 from adviverse_client.models.generate_invoice_dto import GenerateInvoiceDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -53,9 +58,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_generate
+    ) -> BillingControllerGenerate201Response:
+        """Generate a draft invoice for an account (admin)
 
+        Creates a draft invoice for `accountId` over `periodStart`..`periodEnd` (YYYY-MM-DD, inclusive). The charge equals the account's ledger 'spend' for the period; ClickHouse impression/click counts only label zero-amount detail lines. Tax comes from tax_rates for the account's tax_country (0 if none). Numbered INV-YYYY-NNNNNN. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param generate_invoice_dto: (required)
         :type generate_invoice_dto: GenerateInvoiceDto
@@ -90,7 +96,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingControllerGenerate201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -119,9 +125,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_generate
+    ) -> ApiResponse[BillingControllerGenerate201Response]:
+        """Generate a draft invoice for an account (admin)
 
+        Creates a draft invoice for `accountId` over `periodStart`..`periodEnd` (YYYY-MM-DD, inclusive). The charge equals the account's ledger 'spend' for the period; ClickHouse impression/click counts only label zero-amount detail lines. Tax comes from tax_rates for the account's tax_country (0 if none). Numbered INV-YYYY-NNNNNN. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param generate_invoice_dto: (required)
         :type generate_invoice_dto: GenerateInvoiceDto
@@ -156,7 +163,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingControllerGenerate201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,8 +193,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_generate
+        """Generate a draft invoice for an account (admin)
 
+        Creates a draft invoice for `accountId` over `periodStart`..`periodEnd` (YYYY-MM-DD, inclusive). The charge equals the account's ledger 'spend' for the period; ClickHouse impression/click counts only label zero-amount detail lines. Tax comes from tax_rates for the account's tax_country (0 if none). Numbered INV-YYYY-NNNNNN. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param generate_invoice_dto: (required)
         :type generate_invoice_dto: GenerateInvoiceDto
@@ -222,7 +230,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingControllerGenerate201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -263,6 +271,13 @@ class BillingApi:
             _body_params = generate_invoice_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -280,6 +295,8 @@ class BillingApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -316,9 +333,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_get
+    ) -> BillingInvoiceWithLines:
+        """Get an invoice with its line items
 
+        Returns one invoice by id with its lines. Advertisers may only read their own invoices (403 otherwise); 404 if not found.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -353,7 +371,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "BillingInvoiceWithLines",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -382,9 +400,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_get
+    ) -> ApiResponse[BillingInvoiceWithLines]:
+        """Get an invoice with its line items
 
+        Returns one invoice by id with its lines. Advertisers may only read their own invoices (403 otherwise); 404 if not found.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -419,7 +438,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "BillingInvoiceWithLines",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -449,8 +468,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_get
+        """Get an invoice with its line items
 
+        Returns one invoice by id with its lines. Advertisers may only read their own invoices (403 otherwise); 404 if not found.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -485,7 +505,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "BillingInvoiceWithLines",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -526,10 +546,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -566,9 +595,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_issue
+    ) -> BillingInvoice:
+        """Issue a draft invoice (admin)
 
+        Moves a draft invoice to 'issued', setting issued_at to now and due_date from the account's payment_terms_days. 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -603,7 +633,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -632,9 +662,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_issue
+    ) -> ApiResponse[BillingInvoice]:
+        """Issue a draft invoice (admin)
 
+        Moves a draft invoice to 'issued', setting issued_at to now and due_date from the account's payment_terms_days. 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -669,7 +700,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -699,8 +730,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_issue
+        """Issue a draft invoice (admin)
 
+        Moves a draft invoice to 'issued', setting issued_at to now and due_date from the account's payment_terms_days. 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -735,7 +767,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -776,10 +808,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -816,9 +857,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_list
+    ) -> List[BillingInvoice]:
+        """List invoices
 
+        Returns up to 500 invoices, newest first. Advertisers see only their own; admins see all and may filter with `?accountId=`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param account_id: (required)
         :type account_id: str
@@ -853,7 +895,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[BillingInvoice]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -882,9 +924,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_list
+    ) -> ApiResponse[List[BillingInvoice]]:
+        """List invoices
 
+        Returns up to 500 invoices, newest first. Advertisers see only their own; admins see all and may filter with `?accountId=`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param account_id: (required)
         :type account_id: str
@@ -919,7 +962,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[BillingInvoice]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -949,8 +992,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_list
+        """List invoices
 
+        Returns up to 500 invoices, newest first. Advertisers see only their own; admins see all and may filter with `?accountId=`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param account_id: (required)
         :type account_id: str
@@ -985,7 +1029,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[BillingInvoice]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1028,10 +1072,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1068,9 +1121,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_pay
+    ) -> BillingInvoice:
+        """Pay an issued invoice from the balance
 
+        Posts an 'invoice_payment' debit for the invoice total against the account's available balance (idempotent per invoice) and marks the invoice paid. Already-paid invoices are returned unchanged; other non-issued statuses return 400, and insufficient funds return 400. Advertisers may pay only their own invoices.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1105,7 +1159,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1134,9 +1188,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_pay
+    ) -> ApiResponse[BillingInvoice]:
+        """Pay an issued invoice from the balance
 
+        Posts an 'invoice_payment' debit for the invoice total against the account's available balance (idempotent per invoice) and marks the invoice paid. Already-paid invoices are returned unchanged; other non-issued statuses return 400, and insufficient funds return 400. Advertisers may pay only their own invoices.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1171,7 +1226,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1201,8 +1256,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_pay
+        """Pay an issued invoice from the balance
 
+        Posts an 'invoice_payment' debit for the invoice total against the account's available balance (idempotent per invoice) and marks the invoice paid. Already-paid invoices are returned unchanged; other non-issued statuses return 400, and insufficient funds return 400. Advertisers may pay only their own invoices.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1237,7 +1293,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1278,10 +1334,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1318,9 +1383,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_render
+    ) -> str:
+        """Render an invoice as HTML
 
+        Returns a self-contained printable HTML document for the invoice (number, status, period, dates, line items and totals). Same access rules as fetching the invoice.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1355,7 +1421,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1384,9 +1450,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_render
+    ) -> ApiResponse[str]:
+        """Render an invoice as HTML
 
+        Returns a self-contained printable HTML document for the invoice (number, status, period, dates, line items and totals). Same access rules as fetching the invoice.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1421,7 +1488,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1451,8 +1518,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_render
+        """Render an invoice as HTML
 
+        Returns a self-contained printable HTML document for the invoice (number, status, period, dates, line items and totals). Same access rules as fetching the invoice.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param id: (required)
         :type id: str
@@ -1487,7 +1555,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1528,10 +1596,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/html'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1567,9 +1644,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_statement
+    ) -> BillingControllerStatement200Response:
+        """Get an account statement from the ledger
 
+        Derives a statement over `from`..`to` (YYYY-MM-DD; defaults 2020-01-01 to today) from ledger entries that touched the available balance: opening balance, charges (debits), payments (credits), closing balance, and up to 1000 entries in the window. Admins may pass `?accountId=`; advertisers always get their own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1601,7 +1679,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "BillingControllerStatement200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1629,9 +1707,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_statement
+    ) -> ApiResponse[BillingControllerStatement200Response]:
+        """Get an account statement from the ledger
 
+        Derives a statement over `from`..`to` (YYYY-MM-DD; defaults 2020-01-01 to today) from ledger entries that touched the available balance: opening balance, charges (debits), payments (credits), closing balance, and up to 1000 entries in the window. Admins may pass `?accountId=`; advertisers always get their own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1663,7 +1742,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "BillingControllerStatement200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1692,8 +1771,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_statement
+        """Get an account statement from the ledger
 
+        Derives a statement over `from`..`to` (YYYY-MM-DD; defaults 2020-01-01 to today) from ledger entries that touched the available balance: opening balance, charges (debits), payments (credits), closing balance, and up to 1000 entries in the window. Admins may pass `?accountId=`; advertisers always get their own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1725,7 +1805,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "BillingControllerStatement200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1763,10 +1843,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1803,9 +1892,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """billing_controller_void
+    ) -> BillingInvoice:
+        """Void an invoice (admin)
 
+        Marks any unpaid invoice as 'void'. Paid invoices cannot be voided (400); an already-void invoice is returned unchanged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1840,7 +1930,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1869,9 +1959,10 @@ class BillingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """billing_controller_void
+    ) -> ApiResponse[BillingInvoice]:
+        """Void an invoice (admin)
 
+        Marks any unpaid invoice as 'void'. Paid invoices cannot be voided (400); an already-void invoice is returned unchanged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1906,7 +1997,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1936,8 +2027,9 @@ class BillingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """billing_controller_void
+        """Void an invoice (admin)
 
+        Marks any unpaid invoice as 'void'. Paid invoices cannot be voided (400); an already-void invoice is returned unchanged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1972,7 +2064,7 @@ class BillingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "BillingInvoice",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2013,10 +2105,19 @@ class BillingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

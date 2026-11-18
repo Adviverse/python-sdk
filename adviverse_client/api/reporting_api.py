@@ -17,10 +17,50 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr, field_validator
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Annotated
 from adviverse_client.models.create_saved_report_dto import CreateSavedReportDto
 from adviverse_client.models.create_scheduled_report_dto import CreateScheduledReportDto
+from adviverse_client.models.promote_campaign_reporting_controller_summary200_response import PromoteCampaignReportingControllerSummary200Response
+from adviverse_client.models.report_advertiser_stats_row import ReportAdvertiserStatsRow
+from adviverse_client.models.report_breakdown_row import ReportBreakdownRow
+from adviverse_client.models.report_placement_row import ReportPlacementRow
+from adviverse_client.models.report_promote_campaign_row import ReportPromoteCampaignRow
+from adviverse_client.models.report_publisher_stats_row import ReportPublisherStatsRow
+from adviverse_client.models.report_realtime import ReportRealtime
+from adviverse_client.models.report_saved_report import ReportSavedReport
+from adviverse_client.models.report_scheduled_report import ReportScheduledReport
+from adviverse_client.models.reporting_controller_affiliate200_response_inner import ReportingControllerAffiliate200ResponseInner
+from adviverse_client.models.reporting_controller_anti_adblock200_response import ReportingControllerAntiAdblock200Response
+from adviverse_client.models.reporting_controller_auction200_response import ReportingControllerAuction200Response
+from adviverse_client.models.reporting_controller_benchmark200_response import ReportingControllerBenchmark200Response
+from adviverse_client.models.reporting_controller_bid_landscape200_response import ReportingControllerBidLandscape200Response
+from adviverse_client.models.reporting_controller_carousel200_response_inner import ReportingControllerCarousel200ResponseInner
+from adviverse_client.models.reporting_controller_closed_loop200_response import ReportingControllerClosedLoop200Response
+from adviverse_client.models.reporting_controller_cohorts200_response import ReportingControllerCohorts200Response
+from adviverse_client.models.reporting_controller_consent_rate200_response import ReportingControllerConsentRate200Response
+from adviverse_client.models.reporting_controller_creatives200_response import ReportingControllerCreatives200Response
+from adviverse_client.models.reporting_controller_delete_saved200_response import ReportingControllerDeleteSaved200Response
+from adviverse_client.models.reporting_controller_delivery_funnel200_response import ReportingControllerDeliveryFunnel200Response
+from adviverse_client.models.reporting_controller_delivery_pacing200_response_inner import ReportingControllerDeliveryPacing200ResponseInner
+from adviverse_client.models.reporting_controller_fill200_response import ReportingControllerFill200Response
+from adviverse_client.models.reporting_controller_funnel200_response import ReportingControllerFunnel200Response
+from adviverse_client.models.reporting_controller_geo200_response_inner import ReportingControllerGeo200ResponseInner
+from adviverse_client.models.reporting_controller_incrementality200_response_inner import ReportingControllerIncrementality200ResponseInner
+from adviverse_client.models.reporting_controller_ivt200_response_inner import ReportingControllerIvt200ResponseInner
+from adviverse_client.models.reporting_controller_journey200_response_inner import ReportingControllerJourney200ResponseInner
+from adviverse_client.models.reporting_controller_liquidity200_response import ReportingControllerLiquidity200Response
+from adviverse_client.models.reporting_controller_marketplace200_response import ReportingControllerMarketplace200Response
+from adviverse_client.models.reporting_controller_personal_network200_response import ReportingControllerPersonalNetwork200Response
+from adviverse_client.models.reporting_controller_pivot200_response_inner import ReportingControllerPivot200ResponseInner
+from adviverse_client.models.reporting_controller_publisher_consent200_response import ReportingControllerPublisherConsent200Response
+from adviverse_client.models.reporting_controller_reach200_response import ReportingControllerReach200Response
+from adviverse_client.models.reporting_controller_roas200_response_inner import ReportingControllerRoas200ResponseInner
+from adviverse_client.models.reporting_controller_serve_latency200_response import ReportingControllerServeLatency200Response
+from adviverse_client.models.reporting_controller_sustainability200_response import ReportingControllerSustainability200Response
+from adviverse_client.models.reporting_controller_time_to_click200_response import ReportingControllerTimeToClick200Response
+from adviverse_client.models.reporting_controller_video200_response import ReportingControllerVideo200Response
+from adviverse_client.models.reporting_controller_viewability200_response_inner import ReportingControllerViewability200ResponseInner
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -57,9 +97,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """promote_campaign_reporting_controller_report
+    ) -> List[ReportPromoteCampaignRow]:
+        """Get per-promote-campaign performance
 
+        Returns one row for each of the caller's non-deleted promote (Sponsored Products) campaigns, including those with no traffic yet (zeros). Delivery and spend come from stats_hourly and revenue from attributed conversion_value, scoped to the caller's own promote campaign ids. Sorted by spend then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -97,7 +138,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPromoteCampaignRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -127,9 +168,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """promote_campaign_reporting_controller_report
+    ) -> ApiResponse[List[ReportPromoteCampaignRow]]:
+        """Get per-promote-campaign performance
 
+        Returns one row for each of the caller's non-deleted promote (Sponsored Products) campaigns, including those with no traffic yet (zeros). Delivery and spend come from stats_hourly and revenue from attributed conversion_value, scoped to the caller's own promote campaign ids. Sorted by spend then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -167,7 +209,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPromoteCampaignRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -198,8 +240,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """promote_campaign_reporting_controller_report
+        """Get per-promote-campaign performance
 
+        Returns one row for each of the caller's non-deleted promote (Sponsored Products) campaigns, including those with no traffic yet (zeros). Delivery and spend come from stats_hourly and revenue from attributed conversion_value, scoped to the caller's own promote campaign ids. Sorted by spend then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -237,7 +280,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPromoteCampaignRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -285,10 +328,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -326,9 +378,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """promote_campaign_reporting_controller_summary
+    ) -> PromoteCampaignReportingControllerSummary200Response:
+        """Get totals across promote campaigns
 
+        Rolls up the per-promote-campaign report into one totals object over the same window, with the campaign count and recomputed CTR and ROAS. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -366,7 +419,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PromoteCampaignReportingControllerSummary200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -396,9 +449,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """promote_campaign_reporting_controller_summary
+    ) -> ApiResponse[PromoteCampaignReportingControllerSummary200Response]:
+        """Get totals across promote campaigns
 
+        Rolls up the per-promote-campaign report into one totals object over the same window, with the campaign count and recomputed CTR and ROAS. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -436,7 +490,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PromoteCampaignReportingControllerSummary200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -467,8 +521,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """promote_campaign_reporting_controller_summary
+        """Get totals across promote campaigns
 
+        Rolls up the per-promote-campaign report into one totals object over the same window, with the campaign count and recomputed CTR and ROAS. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -506,7 +561,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PromoteCampaignReportingControllerSummary200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -554,10 +609,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -593,9 +657,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_advertiser
+    ) -> List[ReportAdvertiserStatsRow]:
+        """Get advertiser spend and performance by dimension
 
+        Aggregates the caller's advertiser delivery from adnet.stats_hourly, grouped by `dim` (day default, hour, geo, device, format, placement_id, campaign_id), with eCPM, eCPC, eCPA and CTR. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -627,7 +692,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportAdvertiserStatsRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -655,9 +720,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_advertiser
+    ) -> ApiResponse[List[ReportAdvertiserStatsRow]]:
+        """Get advertiser spend and performance by dimension
 
+        Aggregates the caller's advertiser delivery from adnet.stats_hourly, grouped by `dim` (day default, hour, geo, device, format, placement_id, campaign_id), with eCPM, eCPC, eCPA and CTR. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -689,7 +755,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportAdvertiserStatsRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -718,8 +784,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_advertiser
+        """Get advertiser spend and performance by dimension
 
+        Aggregates the caller's advertiser delivery from adnet.stats_hourly, grouped by `dim` (day default, hour, geo, device, format, placement_id, campaign_id), with eCPM, eCPC, eCPA and CTR. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -751,7 +818,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportAdvertiserStatsRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -789,10 +856,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -831,9 +907,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_affiliate
+    ) -> List[ReportingControllerAffiliate200ResponseInner]:
+        """Get affiliate sub-id funnel
 
+        Per sub-id value funnel (impressions, clicks, conversions) with CTR and CVR in percent, revenue (earnings or spend), CPA payout and conversion value. `sub` picks sub1..sub5 (default sub1). Conversions carry no publisher id, so publishers get impressions/clicks/revenue only. Top 100 by revenue. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param to:
         :type to: str
@@ -874,7 +951,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerAffiliate200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -905,9 +982,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_affiliate
+    ) -> ApiResponse[List[ReportingControllerAffiliate200ResponseInner]]:
+        """Get affiliate sub-id funnel
 
+        Per sub-id value funnel (impressions, clicks, conversions) with CTR and CVR in percent, revenue (earnings or spend), CPA payout and conversion value. `sub` picks sub1..sub5 (default sub1). Conversions carry no publisher id, so publishers get impressions/clicks/revenue only. Top 100 by revenue. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param to:
         :type to: str
@@ -948,7 +1026,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerAffiliate200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -980,8 +1058,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_affiliate
+        """Get affiliate sub-id funnel
 
+        Per sub-id value funnel (impressions, clicks, conversions) with CTR and CVR in percent, revenue (earnings or spend), CPA payout and conversion value. `sub` picks sub1..sub5 (default sub1). Conversions carry no publisher id, so publishers get impressions/clicks/revenue only. Top 100 by revenue. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param to:
         :type to: str
@@ -1022,7 +1101,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerAffiliate200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1075,10 +1154,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1114,9 +1202,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_anti_adblock
+    ) -> ReportingControllerAntiAdblock200Response:
+        """Get impressions recovered from adblock visitors
 
+        Reports valid impressions served to visitors the SDK detected as running an adblocker (for example via a first-party serving domain), as a daily series and a window total. recovered_pct is the share of valid impressions that came from adblock users. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1148,7 +1237,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerAntiAdblock200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1176,9 +1265,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_anti_adblock
+    ) -> ApiResponse[ReportingControllerAntiAdblock200Response]:
+        """Get impressions recovered from adblock visitors
 
+        Reports valid impressions served to visitors the SDK detected as running an adblocker (for example via a first-party serving domain), as a daily series and a window total. recovered_pct is the share of valid impressions that came from adblock users. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1210,7 +1300,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerAntiAdblock200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1239,8 +1329,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_anti_adblock
+        """Get impressions recovered from adblock visitors
 
+        Reports valid impressions served to visitors the SDK detected as running an adblocker (for example via a first-party serving domain), as a daily series and a window total. recovered_pct is the share of valid impressions that came from adblock users. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1272,7 +1363,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerAntiAdblock200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1310,10 +1401,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1349,9 +1449,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_auction
+    ) -> ReportingControllerAuction200Response:
+        """Get auction fill rate and top no-fill reasons
 
+        Request count, filled count and fill rate from adnet.ad_requests plus the top 10 no-fill reasons. Publishers see their own inventory; ad_requests has no advertiser column, so other accounts see network-wide auction health. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1383,7 +1484,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerAuction200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1411,9 +1512,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_auction
+    ) -> ApiResponse[ReportingControllerAuction200Response]:
+        """Get auction fill rate and top no-fill reasons
 
+        Request count, filled count and fill rate from adnet.ad_requests plus the top 10 no-fill reasons. Publishers see their own inventory; ad_requests has no advertiser column, so other accounts see network-wide auction health. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1445,7 +1547,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerAuction200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1474,8 +1576,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_auction
+        """Get auction fill rate and top no-fill reasons
 
+        Request count, filled count and fill rate from adnet.ad_requests plus the top 10 no-fill reasons. Publishers see their own inventory; ad_requests has no advertiser column, so other accounts see network-wide auction health. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1507,7 +1610,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerAuction200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1545,10 +1648,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1584,9 +1696,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_benchmark
+    ) -> ReportingControllerBenchmark200Response:
+        """Benchmark eCPM, fill and viewability against the network
 
+        Ranks the caller among publishers with enough volume in the window (>= 1000 impressions for eCPM, >= 1000 requests for fill, >= 500 measurable for viewability). Only the caller's own value plus the network median, percentile rank and sample size are returned, never another publisher's data. fillRate and viewableRate are percentages. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1618,7 +1731,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerBenchmark200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1646,9 +1759,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_benchmark
+    ) -> ApiResponse[ReportingControllerBenchmark200Response]:
+        """Benchmark eCPM, fill and viewability against the network
 
+        Ranks the caller among publishers with enough volume in the window (>= 1000 impressions for eCPM, >= 1000 requests for fill, >= 500 measurable for viewability). Only the caller's own value plus the network median, percentile rank and sample size are returned, never another publisher's data. fillRate and viewableRate are percentages. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1680,7 +1794,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerBenchmark200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1709,8 +1823,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_benchmark
+        """Benchmark eCPM, fill and viewability against the network
 
+        Ranks the caller among publishers with enough volume in the window (>= 1000 impressions for eCPM, >= 1000 requests for fill, >= 500 measurable for viewability). Only the caller's own value plus the network median, percentile rank and sample size are returned, never another publisher's data. fillRate and viewableRate are percentages. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1742,7 +1857,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerBenchmark200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1780,10 +1895,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1819,9 +1943,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_bid_landscape
+    ) -> ReportingControllerBidLandscape200Response:
+        """Get clearing-price percentiles and estimated win curve
 
+        From the caller's valid paid impressions over the last 30 days, returns clearing-price (price_paid) percentiles and a 10-point estimated win-rate curve: for each candidate bid, the fraction of observed won auctions that cleared at or below it. Only won auctions are seen, so the curve is optimistic at low bids. With no history the curve is empty and `note` is set.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1853,7 +1978,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerBidLandscape200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1881,9 +2006,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_bid_landscape
+    ) -> ApiResponse[ReportingControllerBidLandscape200Response]:
+        """Get clearing-price percentiles and estimated win curve
 
+        From the caller's valid paid impressions over the last 30 days, returns clearing-price (price_paid) percentiles and a 10-point estimated win-rate curve: for each candidate bid, the fraction of observed won auctions that cleared at or below it. Only won auctions are seen, so the curve is optimistic at low bids. With no history the curve is empty and `note` is set.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1915,7 +2041,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerBidLandscape200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1944,8 +2070,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_bid_landscape
+        """Get clearing-price percentiles and estimated win curve
 
+        From the caller's valid paid impressions over the last 30 days, returns clearing-price (price_paid) percentiles and a 10-point estimated win-rate curve: for each candidate bid, the fraction of observed won auctions that cleared at or below it. Only won auctions are seen, so the curve is optimistic at low bids. With no history the curve is empty and `note` is set.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1977,7 +2104,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerBidLandscape200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2015,10 +2142,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2057,9 +2193,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_breakdown
+    ) -> List[ReportBreakdownRow]:
+        """Break down delivery by OS, browser, deal, page, app or sub-id
 
+        Groups valid raw impressions (and matching clicks) by `bdim`: os (default), browser, deal, page (host), page_url (host+path), app, property, region, make, model or sub1..sub5. Unknown values fall back to os. Returns at most 50 rows ordered by revenue (impression-only dims) or impressions (os/browser). Revenue is publisher earnings for publishers and spend for other accounts. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -2100,7 +2237,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportBreakdownRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2131,9 +2268,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_breakdown
+    ) -> ApiResponse[List[ReportBreakdownRow]]:
+        """Break down delivery by OS, browser, deal, page, app or sub-id
 
+        Groups valid raw impressions (and matching clicks) by `bdim`: os (default), browser, deal, page (host), page_url (host+path), app, property, region, make, model or sub1..sub5. Unknown values fall back to os. Returns at most 50 rows ordered by revenue (impression-only dims) or impressions (os/browser). Revenue is publisher earnings for publishers and spend for other accounts. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -2174,7 +2312,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportBreakdownRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2206,8 +2344,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_breakdown
+        """Break down delivery by OS, browser, deal, page, app or sub-id
 
+        Groups valid raw impressions (and matching clicks) by `bdim`: os (default), browser, deal, page (host), page_url (host+path), app, property, region, make, model or sub1..sub5. Unknown values fall back to os. Returns at most 50 rows ordered by revenue (impression-only dims) or impressions (os/browser). Revenue is publisher earnings for publishers and spend for other accounts. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param to: ISO end (inclusive).
         :type to: str
@@ -2248,7 +2387,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportBreakdownRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2301,10 +2440,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2340,9 +2488,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_carousel
+    ) -> List[ReportingControllerCarousel200ResponseInner]:
+        """Get clicks per carousel card
 
+        Clicks per card (0-based index) of each of the caller's carousel creatives, with the card title and price taken from the creative's stored carousel_items (title defaults to 'Card N'). Top 500 by clicks. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2374,7 +2523,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerCarousel200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2402,9 +2551,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_carousel
+    ) -> ApiResponse[List[ReportingControllerCarousel200ResponseInner]]:
+        """Get clicks per carousel card
 
+        Clicks per card (0-based index) of each of the caller's carousel creatives, with the card title and price taken from the creative's stored carousel_items (title defaults to 'Card N'). Top 500 by clicks. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2436,7 +2586,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerCarousel200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2465,8 +2615,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_carousel
+        """Get clicks per carousel card
 
+        Clicks per card (0-based index) of each of the caller's carousel creatives, with the card title and price taken from the creative's stored carousel_items (title defaults to 'Card N'). Top 500 by clicks. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2498,7 +2649,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerCarousel200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2536,10 +2687,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2575,9 +2735,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_closed_loop
+    ) -> ReportingControllerClosedLoop200Response:
+        """Get funnel for the account's house campaigns
 
+        Impressions, clicks, conversions and spend (returned as `revenue`) across the caller's house-ad campaigns from stats_hourly, with CTR, CVR and impression-to-conversion rate in percent. Returns zeros (with houseCampaigns) when there are no house campaigns or the query fails. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2609,7 +2770,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerClosedLoop200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2637,9 +2798,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_closed_loop
+    ) -> ApiResponse[ReportingControllerClosedLoop200Response]:
+        """Get funnel for the account's house campaigns
 
+        Impressions, clicks, conversions and spend (returned as `revenue`) across the caller's house-ad campaigns from stats_hourly, with CTR, CVR and impression-to-conversion rate in percent. Returns zeros (with houseCampaigns) when there are no house campaigns or the query fails. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2671,7 +2833,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerClosedLoop200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2700,8 +2862,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_closed_loop
+        """Get funnel for the account's house campaigns
 
+        Impressions, clicks, conversions and spend (returned as `revenue`) across the caller's house-ad campaigns from stats_hourly, with CTR, CVR and impression-to-conversion rate in percent. Returns zeros (with houseCampaigns) when there are no house campaigns or the query fails. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2733,7 +2896,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerClosedLoop200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2771,10 +2934,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2810,9 +2982,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_cohorts
+    ) -> ReportingControllerCohorts200Response:
+        """Get cohort retention and LTV triangle (admin)
 
+        Groups accounts by signup month and, for months 0..12 after signup, reports retention (fraction of the cohort with delivery that month) and cumulative average revenue per account. `scope=advertiser` uses spend; anything else (default) uses publisher earnings. Only accounts ever active on the chosen side are counted; cells in the future are null. No date window.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2844,7 +3017,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerCohorts200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2872,9 +3045,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_cohorts
+    ) -> ApiResponse[ReportingControllerCohorts200Response]:
+        """Get cohort retention and LTV triangle (admin)
 
+        Groups accounts by signup month and, for months 0..12 after signup, reports retention (fraction of the cohort with delivery that month) and cumulative average revenue per account. `scope=advertiser` uses spend; anything else (default) uses publisher earnings. Only accounts ever active on the chosen side are counted; cells in the future are null. No date window.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2906,7 +3080,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerCohorts200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2935,8 +3109,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_cohorts
+        """Get cohort retention and LTV triangle (admin)
 
+        Groups accounts by signup month and, for months 0..12 after signup, reports retention (fraction of the cohort with delivery that month) and cumulative average revenue per account. `scope=advertiser` uses spend; anything else (default) uses publisher earnings. Only accounts ever active on the chosen side are counted; cells in the future are null. No date window.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2968,7 +3143,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerCohorts200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3006,10 +3181,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3045,9 +3229,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_consent_rate
+    ) -> ReportingControllerConsentRate200Response:
+        """Get pixel consent rate (personalized vs aggregate-only)
 
+        Share of the caller's pixel events (adnet.pixel_events) ingested in personalized mode (consent granted, no GPC) versus aggregate-only, as totals and a daily series. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3079,7 +3264,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerConsentRate200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3107,9 +3292,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_consent_rate
+    ) -> ApiResponse[ReportingControllerConsentRate200Response]:
+        """Get pixel consent rate (personalized vs aggregate-only)
 
+        Share of the caller's pixel events (adnet.pixel_events) ingested in personalized mode (consent granted, no GPC) versus aggregate-only, as totals and a daily series. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3141,7 +3327,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerConsentRate200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3170,8 +3356,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_consent_rate
+        """Get pixel consent rate (personalized vs aggregate-only)
 
+        Share of the caller's pixel events (adnet.pixel_events) ingested in personalized mode (consent granted, no GPC) versus aggregate-only, as totals and a daily series. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3203,7 +3390,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerConsentRate200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3241,10 +3428,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3281,9 +3477,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_create_saved
+    ) -> ReportSavedReport:
+        """Save a report definition
 
+        Stores a named report definition for the caller. Body: `name` (default 'Untitled report') and `config` (any JSON object, default {}).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param create_saved_report_dto: (required)
         :type create_saved_report_dto: CreateSavedReportDto
@@ -3318,7 +3515,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ReportSavedReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3347,9 +3544,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_create_saved
+    ) -> ApiResponse[ReportSavedReport]:
+        """Save a report definition
 
+        Stores a named report definition for the caller. Body: `name` (default 'Untitled report') and `config` (any JSON object, default {}).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param create_saved_report_dto: (required)
         :type create_saved_report_dto: CreateSavedReportDto
@@ -3384,7 +3582,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ReportSavedReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3414,8 +3612,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_create_saved
+        """Save a report definition
 
+        Stores a named report definition for the caller. Body: `name` (default 'Untitled report') and `config` (any JSON object, default {}).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param create_saved_report_dto: (required)
         :type create_saved_report_dto: CreateSavedReportDto
@@ -3450,7 +3649,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ReportSavedReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3491,6 +3690,13 @@ class ReportingApi:
             _body_params = create_saved_report_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3508,6 +3714,8 @@ class ReportingApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3544,9 +3752,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_create_scheduled
+    ) -> ReportScheduledReport:
+        """Schedule an emailed report
 
+        Creates a scheduled report. Body: `name`, `config` (JSON; `scope` 'advertiser'|'publisher' and `dim` select the stats query), `cadence` ('daily' default, or 'weekly') and `email`. next_run_at is set one day or one week from now; each run emails the stats for the last 1 or 7 days.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param create_scheduled_report_dto: (required)
         :type create_scheduled_report_dto: CreateScheduledReportDto
@@ -3581,7 +3790,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ReportScheduledReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3610,9 +3819,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_create_scheduled
+    ) -> ApiResponse[ReportScheduledReport]:
+        """Schedule an emailed report
 
+        Creates a scheduled report. Body: `name`, `config` (JSON; `scope` 'advertiser'|'publisher' and `dim` select the stats query), `cadence` ('daily' default, or 'weekly') and `email`. next_run_at is set one day or one week from now; each run emails the stats for the last 1 or 7 days.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param create_scheduled_report_dto: (required)
         :type create_scheduled_report_dto: CreateScheduledReportDto
@@ -3647,7 +3857,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ReportScheduledReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3677,8 +3887,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_create_scheduled
+        """Schedule an emailed report
 
+        Creates a scheduled report. Body: `name`, `config` (JSON; `scope` 'advertiser'|'publisher' and `dim` select the stats query), `cadence` ('daily' default, or 'weekly') and `email`. next_run_at is set one day or one week from now; each run emails the stats for the last 1 or 7 days.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param create_scheduled_report_dto: (required)
         :type create_scheduled_report_dto: CreateScheduledReportDto
@@ -3713,7 +3924,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ReportScheduledReport",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3754,6 +3965,13 @@ class ReportingApi:
             _body_params = create_scheduled_report_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3771,6 +3989,8 @@ class ReportingApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3806,9 +4026,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_creatives
+    ) -> ReportingControllerCreatives200Response:
+        """Get per-creative performance and fatigue
 
+        For the caller's creatives: valid impressions, clicks, CTR, conversions (attributed through the click that drove them) and CVR, sorted by impressions and capped at 50. Names come from the creative title or brand name. `fatigue` is the daily CTR series of the highest-volume creative so decay is visible. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3840,7 +4061,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerCreatives200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3868,9 +4089,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_creatives
+    ) -> ApiResponse[ReportingControllerCreatives200Response]:
+        """Get per-creative performance and fatigue
 
+        For the caller's creatives: valid impressions, clicks, CTR, conversions (attributed through the click that drove them) and CVR, sorted by impressions and capped at 50. Names come from the creative title or brand name. `fatigue` is the daily CTR series of the highest-volume creative so decay is visible. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3902,7 +4124,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerCreatives200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3931,8 +4153,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_creatives
+        """Get per-creative performance and fatigue
 
+        For the caller's creatives: valid impressions, clicks, CTR, conversions (attributed through the click that drove them) and CVR, sorted by impressions and capped at 50. Names come from the creative title or brand name. `fatigue` is the daily CTR series of the highest-volume creative so decay is visible. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3964,7 +4187,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerCreatives200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4002,10 +4225,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4042,9 +4274,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_delete_saved
+    ) -> ReportingControllerDeleteSaved200Response:
+        """Delete a saved report
 
+        Deletes one of the caller's saved reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param id: (required)
         :type id: str
@@ -4079,7 +4312,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeleteSaved200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4108,9 +4341,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_delete_saved
+    ) -> ApiResponse[ReportingControllerDeleteSaved200Response]:
+        """Delete a saved report
 
+        Deletes one of the caller's saved reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param id: (required)
         :type id: str
@@ -4145,7 +4379,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeleteSaved200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4175,8 +4409,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_delete_saved
+        """Delete a saved report
 
+        Deletes one of the caller's saved reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param id: (required)
         :type id: str
@@ -4211,7 +4446,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeleteSaved200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4252,10 +4487,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4292,9 +4536,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_delete_scheduled
+    ) -> ReportingControllerDeleteSaved200Response:
+        """Delete a scheduled report
 
+        Deletes one of the caller's scheduled reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param id: (required)
         :type id: str
@@ -4329,7 +4574,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeleteSaved200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4358,9 +4603,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_delete_scheduled
+    ) -> ApiResponse[ReportingControllerDeleteSaved200Response]:
+        """Delete a scheduled report
 
+        Deletes one of the caller's scheduled reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param id: (required)
         :type id: str
@@ -4395,7 +4641,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeleteSaved200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4425,8 +4671,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_delete_scheduled
+        """Delete a scheduled report
 
+        Deletes one of the caller's scheduled reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param id: (required)
         :type id: str
@@ -4461,7 +4708,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeleteSaved200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4502,10 +4749,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4541,9 +4797,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_delivery_funnel
+    ) -> ReportingControllerDeliveryFunnel200Response:
+        """Get publisher delivery waterfall
 
+        Requests and filled responses (ad_requests), rendered valid impressions (impressions) and measurable/viewable beacons (viewability) for the caller's inventory, with stage-to-stage rates. `discrepancy` is filled minus rendered (floored at 0). Rates are fractions 0..1. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4575,7 +4832,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeliveryFunnel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4603,9 +4860,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_delivery_funnel
+    ) -> ApiResponse[ReportingControllerDeliveryFunnel200Response]:
+        """Get publisher delivery waterfall
 
+        Requests and filled responses (ad_requests), rendered valid impressions (impressions) and measurable/viewable beacons (viewability) for the caller's inventory, with stage-to-stage rates. `discrepancy` is filled minus rendered (floored at 0). Rates are fractions 0..1. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4637,7 +4895,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeliveryFunnel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4666,8 +4924,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_delivery_funnel
+        """Get publisher delivery waterfall
 
+        Requests and filled responses (ad_requests), rendered valid impressions (impressions) and measurable/viewable beacons (viewability) for the caller's inventory, with stage-to-stage rates. `discrepancy` is filled minus rendered (floored at 0). Rates are fractions 0..1. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4699,7 +4958,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerDeliveryFunnel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4737,10 +4996,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4776,9 +5044,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_delivery_pacing
+    ) -> List[ReportingControllerDeliveryPacing200ResponseInner]:
+        """Get delivery pacing for booked and goal campaigns
 
+        For each of the caller's campaigns with a delivery_goal or a guaranteed/sponsorship priority tier: the goal, all-time valid delivered impressions or clicks (per goal_type), percent to goal, percent of the flight elapsed, and whether delivery is keeping up (pctToGoal >= flightProgressPct). Open-ended flights count as 100% elapsed once started. No query params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4810,7 +5079,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerDeliveryPacing200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4838,9 +5107,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_delivery_pacing
+    ) -> ApiResponse[List[ReportingControllerDeliveryPacing200ResponseInner]]:
+        """Get delivery pacing for booked and goal campaigns
 
+        For each of the caller's campaigns with a delivery_goal or a guaranteed/sponsorship priority tier: the goal, all-time valid delivered impressions or clicks (per goal_type), percent to goal, percent of the flight elapsed, and whether delivery is keeping up (pctToGoal >= flightProgressPct). Open-ended flights count as 100% elapsed once started. No query params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4872,7 +5142,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerDeliveryPacing200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4901,8 +5171,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_delivery_pacing
+        """Get delivery pacing for booked and goal campaigns
 
+        For each of the caller's campaigns with a delivery_goal or a guaranteed/sponsorship priority tier: the goal, all-time valid delivered impressions or clicks (per goal_type), percent to goal, percent of the flight elapsed, and whether delivery is keeping up (pctToGoal >= flightProgressPct). Open-ended flights count as 100% elapsed once started. No query params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4934,7 +5205,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerDeliveryPacing200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4972,10 +5243,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5011,9 +5291,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_fill
+    ) -> ReportingControllerFill200Response:
+        """Get publisher fill rate and no-fill reasons
 
+        Counts the caller's ad requests from adnet.ad_requests, how many were filled, and the fill rate, plus a map of unfilled requests by no-fill reason (empty reasons bucketed as 'unknown'). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5045,7 +5326,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerFill200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5073,9 +5354,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_fill
+    ) -> ApiResponse[ReportingControllerFill200Response]:
+        """Get publisher fill rate and no-fill reasons
 
+        Counts the caller's ad requests from adnet.ad_requests, how many were filled, and the fill rate, plus a map of unfilled requests by no-fill reason (empty reasons bucketed as 'unknown'). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5107,7 +5389,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerFill200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5136,8 +5418,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_fill
+        """Get publisher fill rate and no-fill reasons
 
+        Counts the caller's ad requests from adnet.ad_requests, how many were filled, and the fill rate, plus a map of unfilled requests by no-fill reason (empty reasons bucketed as 'unknown'). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5169,7 +5452,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerFill200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5207,10 +5490,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5246,9 +5538,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_funnel
+    ) -> ReportingControllerFunnel200Response:
+        """Get advertiser impression-click-conversion funnel
 
+        Totals impressions, clicks and conversions for the caller's campaigns from adnet.stats_hourly with CTR, CVR (conversions/clicks) and impression-to-conversion rate, all in percent. Returns zeros when there is no data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5280,7 +5573,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerFunnel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5308,9 +5601,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_funnel
+    ) -> ApiResponse[ReportingControllerFunnel200Response]:
+        """Get advertiser impression-click-conversion funnel
 
+        Totals impressions, clicks and conversions for the caller's campaigns from adnet.stats_hourly with CTR, CVR (conversions/clicks) and impression-to-conversion rate, all in percent. Returns zeros when there is no data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5342,7 +5636,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerFunnel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5371,8 +5665,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_funnel
+        """Get advertiser impression-click-conversion funnel
 
+        Totals impressions, clicks and conversions for the caller's campaigns from adnet.stats_hourly with CTR, CVR (conversions/clicks) and impression-to-conversion rate, all in percent. Returns zeros when there is no data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5404,7 +5699,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerFunnel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5442,10 +5737,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5481,9 +5785,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_geo
+    ) -> List[ReportingControllerGeo200ResponseInner]:
+        """Get per-country delivery breakdown
 
+        Impressions, clicks and amount per country from adnet.stats_hourly, ordered by amount. Amount is publisher earnings for publisher accounts and spend for other accounts; rows with an empty geo are skipped. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5515,7 +5820,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerGeo200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5543,9 +5848,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_geo
+    ) -> ApiResponse[List[ReportingControllerGeo200ResponseInner]]:
+        """Get per-country delivery breakdown
 
+        Impressions, clicks and amount per country from adnet.stats_hourly, ordered by amount. Amount is publisher earnings for publisher accounts and spend for other accounts; rows with an empty geo are skipped. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5577,7 +5883,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerGeo200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5606,8 +5912,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_geo
+        """Get per-country delivery breakdown
 
+        Impressions, clicks and amount per country from adnet.stats_hourly, ordered by amount. Amount is publisher earnings for publisher accounts and spend for other accounts; rows with an empty geo are skipped. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5639,7 +5946,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerGeo200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5677,10 +5984,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5716,9 +6032,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_incrementality
+    ) -> List[ReportingControllerIncrementality200ResponseInner]:
+        """Get per-campaign conversion lift vs holdout
 
+        For up to 200 of the caller's campaigns, compares the conversion rate of exposed users (served an impression) with a holdout group (adnet.holdouts). Conversions attribute to users via the click that drove them. lift = (exposedCvr - holdoutCvr) / holdoutCvr; holdout figures and lift are 0 when there is no holdout data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5750,7 +6067,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerIncrementality200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5778,9 +6095,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_incrementality
+    ) -> ApiResponse[List[ReportingControllerIncrementality200ResponseInner]]:
+        """Get per-campaign conversion lift vs holdout
 
+        For up to 200 of the caller's campaigns, compares the conversion rate of exposed users (served an impression) with a holdout group (adnet.holdouts). Conversions attribute to users via the click that drove them. lift = (exposedCvr - holdoutCvr) / holdoutCvr; holdout figures and lift are 0 when there is no holdout data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5812,7 +6130,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerIncrementality200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5841,8 +6159,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_incrementality
+        """Get per-campaign conversion lift vs holdout
 
+        For up to 200 of the caller's campaigns, compares the conversion rate of exposed users (served an impression) with a holdout group (adnet.holdouts). Conversions attribute to users via the click that drove them. lift = (exposedCvr - holdoutCvr) / holdoutCvr; holdout figures and lift are 0 when there is no holdout data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5874,7 +6193,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerIncrementality200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5912,10 +6231,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5951,9 +6279,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_ivt
+    ) -> List[ReportingControllerIvt200ResponseInner]:
+        """Get invalid-traffic breakdown by reason (last 30 days)
 
+        Counts impressions flagged invalid (is_valid = 0) in the last 30 days, grouped by IVT reason and ordered by count. Publishers see IVT on their inventory; every other account sees IVT on its campaigns. Takes no window params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5985,7 +6314,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerIvt200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6013,9 +6342,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_ivt
+    ) -> ApiResponse[List[ReportingControllerIvt200ResponseInner]]:
+        """Get invalid-traffic breakdown by reason (last 30 days)
 
+        Counts impressions flagged invalid (is_valid = 0) in the last 30 days, grouped by IVT reason and ordered by count. Publishers see IVT on their inventory; every other account sees IVT on its campaigns. Takes no window params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6047,7 +6377,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerIvt200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6076,8 +6406,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_ivt
+        """Get invalid-traffic breakdown by reason (last 30 days)
 
+        Counts impressions flagged invalid (is_valid = 0) in the last 30 days, grouped by IVT reason and ordered by count. Publishers see IVT on their inventory; every other account sees IVT on its campaigns. Takes no window params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6109,7 +6440,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerIvt200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6147,10 +6478,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -6186,9 +6526,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_journey
+    ) -> List[ReportingControllerJourney200ResponseInner]:
+        """Get top cross-site user paths
 
+        Builds each user's time-ordered sequence of placements (first 6) from the caller's valid impressions and counts the most common paths, joined with ' > '. `topN` sets the result size (default 20, max 50); at most 50,000 users are scanned. Returns an empty list on query failure. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6220,7 +6561,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerJourney200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6248,9 +6589,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_journey
+    ) -> ApiResponse[List[ReportingControllerJourney200ResponseInner]]:
+        """Get top cross-site user paths
 
+        Builds each user's time-ordered sequence of placements (first 6) from the caller's valid impressions and counts the most common paths, joined with ' > '. `topN` sets the result size (default 20, max 50); at most 50,000 users are scanned. Returns an empty list on query failure. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6282,7 +6624,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerJourney200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6311,8 +6653,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_journey
+        """Get top cross-site user paths
 
+        Builds each user's time-ordered sequence of placements (first 6) from the caller's valid impressions and counts the most common paths, joined with ' > '. `topN` sets the result size (default 20, max 50); at most 50,000 users are scanned. Returns an empty list on query failure. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6344,7 +6687,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerJourney200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6382,10 +6725,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -6421,9 +6773,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_liquidity
+    ) -> ReportingControllerLiquidity200Response:
+        """Get network-wide marketplace liquidity (admin)
 
+        Network-wide ad requests, filled and unmatched requests, fill rate, the top 12 no-fill reasons and a daily requests/filled series, from adnet.ad_requests. Not scoped to an account. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6455,7 +6808,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerLiquidity200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6483,9 +6836,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_liquidity
+    ) -> ApiResponse[ReportingControllerLiquidity200Response]:
+        """Get network-wide marketplace liquidity (admin)
 
+        Network-wide ad requests, filled and unmatched requests, fill rate, the top 12 no-fill reasons and a daily requests/filled series, from adnet.ad_requests. Not scoped to an account. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6517,7 +6871,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerLiquidity200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6546,8 +6900,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_liquidity
+        """Get network-wide marketplace liquidity (admin)
 
+        Network-wide ad requests, filled and unmatched requests, fill rate, the top 12 no-fill reasons and a daily requests/filled series, from adnet.ad_requests. Not scoped to an account. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6579,7 +6934,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerLiquidity200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6617,10 +6972,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -6656,9 +7020,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_list_saved
+    ) -> List[ReportSavedReport]:
+        """List saved reports
 
+        Returns the caller's saved report definitions, newest first. The config is opaque JSON stored for the dashboard.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6690,7 +7055,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportSavedReport]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6718,9 +7083,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_list_saved
+    ) -> ApiResponse[List[ReportSavedReport]]:
+        """List saved reports
 
+        Returns the caller's saved report definitions, newest first. The config is opaque JSON stored for the dashboard.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6752,7 +7118,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportSavedReport]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6781,8 +7147,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_list_saved
+        """List saved reports
 
+        Returns the caller's saved report definitions, newest first. The config is opaque JSON stored for the dashboard.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6814,7 +7181,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportSavedReport]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6852,10 +7219,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -6891,9 +7267,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_list_scheduled
+    ) -> List[ReportScheduledReport]:
+        """List scheduled email reports
 
+        Returns the caller's scheduled email reports with cadence, recipient and last/next run times, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6925,7 +7302,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportScheduledReport]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6953,9 +7330,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_list_scheduled
+    ) -> ApiResponse[List[ReportScheduledReport]]:
+        """List scheduled email reports
 
+        Returns the caller's scheduled email reports with cadence, recipient and last/next run times, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6987,7 +7365,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportScheduledReport]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7016,8 +7394,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_list_scheduled
+        """List scheduled email reports
 
+        Returns the caller's scheduled email reports with cadence, recipient and last/next run times, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7049,7 +7428,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportScheduledReport]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7087,10 +7466,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -7126,9 +7514,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_marketplace
+    ) -> ReportingControllerMarketplace200Response:
+        """Get marketplace economics and concentration (admin)
 
+        Gross advertiser spend, publisher payout, platform margin and take rate over the window (stats_hourly), the top 10 advertisers by spend and publishers by earnings with their share of the total, and monthly signup counts per account type from Postgres (cohorts ignore the window). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7160,7 +7549,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerMarketplace200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7188,9 +7577,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_marketplace
+    ) -> ApiResponse[ReportingControllerMarketplace200Response]:
+        """Get marketplace economics and concentration (admin)
 
+        Gross advertiser spend, publisher payout, platform margin and take rate over the window (stats_hourly), the top 10 advertisers by spend and publishers by earnings with their share of the total, and monthly signup counts per account type from Postgres (cohorts ignore the window). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7222,7 +7612,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerMarketplace200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7251,8 +7641,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_marketplace
+        """Get marketplace economics and concentration (admin)
 
+        Gross advertiser spend, publisher payout, platform margin and take rate over the window (stats_hourly), the top 10 advertisers by spend and publishers by earnings with their share of the total, and monthly signup counts per account type from Postgres (cohorts ignore the window). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7284,7 +7675,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerMarketplace200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7322,10 +7713,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -7361,9 +7761,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_personal_network
+    ) -> ReportingControllerPersonalNetwork200Response:
+        """Get Personal Network infra fees and house-ad delivery
 
+        Sums the 'infra_fee' ledger entries charged to the caller over the period (absolute value, total and per day) and counts valid impressions of the caller's house-ad campaigns. `from`/`to` are YYYY-MM-DD dates here (default: the last 30 days through today, inclusive). infraFeePct is read from platform_config (default 0.05).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7395,7 +7796,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerPersonalNetwork200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7423,9 +7824,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_personal_network
+    ) -> ApiResponse[ReportingControllerPersonalNetwork200Response]:
+        """Get Personal Network infra fees and house-ad delivery
 
+        Sums the 'infra_fee' ledger entries charged to the caller over the period (absolute value, total and per day) and counts valid impressions of the caller's house-ad campaigns. `from`/`to` are YYYY-MM-DD dates here (default: the last 30 days through today, inclusive). infraFeePct is read from platform_config (default 0.05).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7457,7 +7859,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerPersonalNetwork200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7486,8 +7888,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_personal_network
+        """Get Personal Network infra fees and house-ad delivery
 
+        Sums the 'infra_fee' ledger entries charged to the caller over the period (absolute value, total and per day) and counts valid impressions of the caller's house-ad campaigns. `from`/`to` are YYYY-MM-DD dates here (default: the last 30 days through today, inclusive). infraFeePct is read from platform_config (default 0.05).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7519,7 +7922,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerPersonalNetwork200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7557,10 +7960,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -7596,9 +8008,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_pivot
+    ) -> List[ReportingControllerPivot200ResponseInner]:
+        """Pivot delivery over two dimensions
 
+        Groups adnet.stats_hourly by `dim1` x `dim2`, each one of day, geo, device, os, browser, format, placement_id, campaign_id (os/browser are not in the rollup and resolve to a constant '(n/a)'). An unknown dimension returns 403 'invalid pivot dimension'. Amount is earnings (publisher) or spend (advertiser); max 1000 rows ordered by amount. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7630,7 +8043,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerPivot200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7658,9 +8071,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_pivot
+    ) -> ApiResponse[List[ReportingControllerPivot200ResponseInner]]:
+        """Pivot delivery over two dimensions
 
+        Groups adnet.stats_hourly by `dim1` x `dim2`, each one of day, geo, device, os, browser, format, placement_id, campaign_id (os/browser are not in the rollup and resolve to a constant '(n/a)'). An unknown dimension returns 403 'invalid pivot dimension'. Amount is earnings (publisher) or spend (advertiser); max 1000 rows ordered by amount. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7692,7 +8106,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerPivot200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7721,8 +8135,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_pivot
+        """Pivot delivery over two dimensions
 
+        Groups adnet.stats_hourly by `dim1` x `dim2`, each one of day, geo, device, os, browser, format, placement_id, campaign_id (os/browser are not in the rollup and resolve to a constant '(n/a)'). An unknown dimension returns 403 'invalid pivot dimension'. Amount is earnings (publisher) or spend (advertiser); max 1000 rows ordered by amount. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7754,7 +8169,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerPivot200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7792,10 +8207,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -7831,9 +8255,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_publisher
+    ) -> List[ReportPublisherStatsRow]:
+        """Get publisher earnings grouped by a dimension
 
+        Aggregates the caller's publisher earnings from the hourly rollup (adnet.stats_hourly). `dim` picks the grouping: day (default), hour, geo, device, format, placement_id or campaign_id; rows are ordered by the dimension. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7865,7 +8290,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPublisherStatsRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7893,9 +8318,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_publisher
+    ) -> ApiResponse[List[ReportPublisherStatsRow]]:
+        """Get publisher earnings grouped by a dimension
 
+        Aggregates the caller's publisher earnings from the hourly rollup (adnet.stats_hourly). `dim` picks the grouping: day (default), hour, geo, device, format, placement_id or campaign_id; rows are ordered by the dimension. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7927,7 +8353,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPublisherStatsRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7956,8 +8382,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_publisher
+        """Get publisher earnings grouped by a dimension
 
+        Aggregates the caller's publisher earnings from the hourly rollup (adnet.stats_hourly). `dim` picks the grouping: day (default), hour, geo, device, format, placement_id or campaign_id; rows are ordered by the dimension. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7989,7 +8416,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPublisherStatsRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8027,10 +8454,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -8066,9 +8502,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_publisher_consent
+    ) -> ReportingControllerPublisherConsent200Response:
+        """Get publisher ad-serving consent rate
 
+        Share of the caller's valid impressions served with personalized-processing consent (impressions.consented, set by the engine from the request's privacy signals), as totals and a daily series. Distinct from the advertiser pixel consent rate. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8100,7 +8537,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerPublisherConsent200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8128,9 +8565,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_publisher_consent
+    ) -> ApiResponse[ReportingControllerPublisherConsent200Response]:
+        """Get publisher ad-serving consent rate
 
+        Share of the caller's valid impressions served with personalized-processing consent (impressions.consented, set by the engine from the request's privacy signals), as totals and a daily series. Distinct from the advertiser pixel consent rate. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8162,7 +8600,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerPublisherConsent200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8191,8 +8629,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_publisher_consent
+        """Get publisher ad-serving consent rate
 
+        Share of the caller's valid impressions served with personalized-processing consent (impressions.consented, set by the engine from the request's privacy signals), as totals and a daily series. Distinct from the advertiser pixel consent rate. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8224,7 +8663,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerPublisherConsent200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8262,10 +8701,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -8301,9 +8749,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_publisher_placements
+    ) -> List[ReportPlacementRow]:
+        """Get per-placement earnings, fill and viewability
 
+        Joins three ClickHouse aggregations by placement_id: earnings (stats_hourly), fill (ad_requests) and viewability (adnet.viewability), then resolves placement names from Postgres. A placement appears if it has activity in any of the three. Sorted by revenue then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8335,7 +8784,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPlacementRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8363,9 +8812,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_publisher_placements
+    ) -> ApiResponse[List[ReportPlacementRow]]:
+        """Get per-placement earnings, fill and viewability
 
+        Joins three ClickHouse aggregations by placement_id: earnings (stats_hourly), fill (ad_requests) and viewability (adnet.viewability), then resolves placement names from Postgres. A placement appears if it has activity in any of the three. Sorted by revenue then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8397,7 +8847,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPlacementRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8426,8 +8876,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_publisher_placements
+        """Get per-placement earnings, fill and viewability
 
+        Joins three ClickHouse aggregations by placement_id: earnings (stats_hourly), fill (ad_requests) and viewability (adnet.viewability), then resolves placement names from Postgres. A placement appears if it has activity in any of the three. Sorted by revenue then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8459,7 +8910,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportPlacementRow]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8497,10 +8948,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -8536,9 +8996,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_reach
+    ) -> ReportingControllerReach200Response:
+        """Get reach and frequency (unique users)
 
+        Computes unique users (by user_id_hash) from valid raw impressions, average frequency, a frequency histogram (buckets 1, 2, 3, 4, 5, 6-10, 11+ in fixed order) and a daily reach series. Publishers measure their inventory's audience; other accounts their campaigns' reach. Impressions without a user hash are excluded. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8570,7 +9031,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerReach200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8598,9 +9059,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_reach
+    ) -> ApiResponse[ReportingControllerReach200Response]:
+        """Get reach and frequency (unique users)
 
+        Computes unique users (by user_id_hash) from valid raw impressions, average frequency, a frequency histogram (buckets 1, 2, 3, 4, 5, 6-10, 11+ in fixed order) and a daily reach series. Publishers measure their inventory's audience; other accounts their campaigns' reach. Impressions without a user hash are excluded. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8632,7 +9094,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerReach200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8661,8 +9123,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_reach
+        """Get reach and frequency (unique users)
 
+        Computes unique users (by user_id_hash) from valid raw impressions, average frequency, a frequency histogram (buckets 1, 2, 3, 4, 5, 6-10, 11+ in fixed order) and a daily reach series. Publishers measure their inventory's audience; other accounts their campaigns' reach. Impressions without a user hash are excluded. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8694,7 +9157,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerReach200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8732,10 +9195,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -8771,9 +9243,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_realtime
+    ) -> ReportRealtime:
+        """Get last-15-minute impressions, clicks and amount
 
+        Per-minute series of valid impressions and clicks over the last 15 minutes from the raw event tables, with totals. Publisher accounts see their inventory (earnings); other accounts their campaigns (spend).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8805,7 +9278,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportRealtime",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8833,9 +9306,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_realtime
+    ) -> ApiResponse[ReportRealtime]:
+        """Get last-15-minute impressions, clicks and amount
 
+        Per-minute series of valid impressions and clicks over the last 15 minutes from the raw event tables, with totals. Publisher accounts see their inventory (earnings); other accounts their campaigns (spend).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8867,7 +9341,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportRealtime",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8896,8 +9370,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_realtime
+        """Get last-15-minute impressions, clicks and amount
 
+        Per-minute series of valid impressions and clicks over the last 15 minutes from the raw event tables, with totals. Publisher accounts see their inventory (earnings); other accounts their campaigns (spend).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8929,7 +9404,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportRealtime",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8967,10 +9442,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -9007,9 +9491,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_realtime_stream
+    ) -> str:
+        """Stream the realtime report as Server-Sent Events
 
+        Pushes the same payload as GET /v1/reporting/realtime as an SSE `data:` event immediately on connect and then every ~3 seconds (a server-side poll, not a sub-second event stream). Because EventSource cannot set headers, this route authenticates with the session token in `?access_token=`. `scope=advertiser|publisher` selects the side of a dual-sided account; it defaults to the account type.  Auth: public, no credentials required. Additionally checked by SseAuthGuard.
 
         :param scope: (required)
         :type scope: str
@@ -9044,7 +9529,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9073,9 +9558,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_realtime_stream
+    ) -> ApiResponse[str]:
+        """Stream the realtime report as Server-Sent Events
 
+        Pushes the same payload as GET /v1/reporting/realtime as an SSE `data:` event immediately on connect and then every ~3 seconds (a server-side poll, not a sub-second event stream). Because EventSource cannot set headers, this route authenticates with the session token in `?access_token=`. `scope=advertiser|publisher` selects the side of a dual-sided account; it defaults to the account type.  Auth: public, no credentials required. Additionally checked by SseAuthGuard.
 
         :param scope: (required)
         :type scope: str
@@ -9110,7 +9596,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9140,8 +9626,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_realtime_stream
+        """Stream the realtime report as Server-Sent Events
 
+        Pushes the same payload as GET /v1/reporting/realtime as an SSE `data:` event immediately on connect and then every ~3 seconds (a server-side poll, not a sub-second event stream). Because EventSource cannot set headers, this route authenticates with the session token in `?access_token=`. `scope=advertiser|publisher` selects the side of a dual-sided account; it defaults to the account type.  Auth: public, no credentials required. Additionally checked by SseAuthGuard.
 
         :param scope: (required)
         :type scope: str
@@ -9176,7 +9663,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9219,6 +9706,13 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/event-stream'
+                ]
+            )
 
 
         # authentication setting
@@ -9258,9 +9752,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_roas
+    ) -> List[ReportingControllerRoas200ResponseInner]:
+        """Get daily ROAS and conversion-value trend
 
+        Per-day spend (stats_hourly) joined to attributed conversion count and conversion_value (adnet.conversions), with ROAS = conversionValue / spend. Days present in either source are included, sorted ascending. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -9292,7 +9787,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerRoas200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9320,9 +9815,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_roas
+    ) -> ApiResponse[List[ReportingControllerRoas200ResponseInner]]:
+        """Get daily ROAS and conversion-value trend
 
+        Per-day spend (stats_hourly) joined to attributed conversion count and conversion_value (adnet.conversions), with ROAS = conversionValue / spend. Days present in either source are included, sorted ascending. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -9354,7 +9850,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerRoas200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9383,8 +9879,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_roas
+        """Get daily ROAS and conversion-value trend
 
+        Per-day spend (stats_hourly) joined to attributed conversion count and conversion_value (adnet.conversions), with ROAS = conversionValue / spend. Days present in either source are included, sorted ascending. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -9416,7 +9913,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerRoas200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9454,10 +9951,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -9493,9 +9999,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_serve_latency
+    ) -> ReportingControllerServeLatency200Response:
+        """Get ad-serving decision and render latency
 
+        Engine decision latency percentiles (from ad_requests.decision_us, reported in milliseconds) with the share of requests over the 100 ms soft SLA and a daily p95 series. Also returns client render latency from SDK beacons (null if the tag has not reported any) and client-side load failures (client_timeout/client_error) as a share of all requests. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -9527,7 +10034,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerServeLatency200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9555,9 +10062,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_serve_latency
+    ) -> ApiResponse[ReportingControllerServeLatency200Response]:
+        """Get ad-serving decision and render latency
 
+        Engine decision latency percentiles (from ad_requests.decision_us, reported in milliseconds) with the share of requests over the 100 ms soft SLA and a daily p95 series. Also returns client render latency from SDK beacons (null if the tag has not reported any) and client-side load failures (client_timeout/client_error) as a share of all requests. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -9589,7 +10097,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerServeLatency200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9618,8 +10126,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_serve_latency
+        """Get ad-serving decision and render latency
 
+        Engine decision latency percentiles (from ad_requests.decision_us, reported in milliseconds) with the share of requests over the 100 ms soft SLA and a daily p95 series. Also returns client render latency from SDK beacons (null if the tag has not reported any) and client-side load failures (client_timeout/client_error) as a share of all requests. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -9651,7 +10160,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerServeLatency200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9689,10 +10198,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -9729,9 +10247,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_sustainability
+    ) -> ReportingControllerSustainability200Response:
+        """Estimate energy and carbon footprint of ad delivery
 
+        Counts valid impressions over the last `periodDays` days (default 30, min 1) and converts them to kWh and kg CO2e using configurable factors (SUSTAINABILITY_KWH_PER_1K, default 0.0009 kWh per 1000 impressions; SUSTAINABILITY_GRID_GCO2_PER_KWH, default 475). Admins get a network-wide figure; publishers their inventory; other accounts their campaigns.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param period_days: (required)
         :type period_days: str
@@ -9766,7 +10285,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerSustainability200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9795,9 +10314,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_sustainability
+    ) -> ApiResponse[ReportingControllerSustainability200Response]:
+        """Estimate energy and carbon footprint of ad delivery
 
+        Counts valid impressions over the last `periodDays` days (default 30, min 1) and converts them to kWh and kg CO2e using configurable factors (SUSTAINABILITY_KWH_PER_1K, default 0.0009 kWh per 1000 impressions; SUSTAINABILITY_GRID_GCO2_PER_KWH, default 475). Admins get a network-wide figure; publishers their inventory; other accounts their campaigns.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param period_days: (required)
         :type period_days: str
@@ -9832,7 +10352,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerSustainability200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9862,8 +10382,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_sustainability
+        """Estimate energy and carbon footprint of ad delivery
 
+        Counts valid impressions over the last `periodDays` days (default 30, min 1) and converts them to kWh and kg CO2e using configurable factors (SUSTAINABILITY_KWH_PER_1K, default 0.0009 kWh per 1000 impressions; SUSTAINABILITY_GRID_GCO2_PER_KWH, default 475). Admins get a network-wide figure; publishers their inventory; other accounts their campaigns.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param period_days: (required)
         :type period_days: str
@@ -9898,7 +10419,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerSustainability200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -9941,10 +10462,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -9980,9 +10510,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_time_to_click
+    ) -> ReportingControllerTimeToClick200Response:
+        """Get time-to-click latency distribution
 
+        Average and median milliseconds between render and click for valid clicks with a recorded time_to_click_ms, plus counts in fixed buckets (<1s, 1-3s, 3-10s, 10-30s, 30s+). Publishers see clicks on their inventory; other accounts on their campaigns. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10014,7 +10545,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerTimeToClick200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10042,9 +10573,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_time_to_click
+    ) -> ApiResponse[ReportingControllerTimeToClick200Response]:
+        """Get time-to-click latency distribution
 
+        Average and median milliseconds between render and click for valid clicks with a recorded time_to_click_ms, plus counts in fixed buckets (<1s, 1-3s, 3-10s, 10-30s, 30s+). Publishers see clicks on their inventory; other accounts on their campaigns. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10076,7 +10608,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerTimeToClick200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10105,8 +10637,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_time_to_click
+        """Get time-to-click latency distribution
 
+        Average and median milliseconds between render and click for valid clicks with a recorded time_to_click_ms, plus counts in fixed buckets (<1s, 1-3s, 3-10s, 10-30s, 30s+). Publishers see clicks on their inventory; other accounts on their campaigns. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10138,7 +10671,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerTimeToClick200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10176,10 +10709,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -10215,9 +10757,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_video
+    ) -> ReportingControllerVideo200Response:
+        """Get video completion funnel and breakdown
 
+        Overall video funnel (starts, quartiles, completes, skips, errors and rates) from adnet.video_events, plus the same metrics per placement (publisher accounts) or per campaign (other accounts), top 100 by starts. Only exact VAST quartile events count toward the funnel. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10249,7 +10792,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerVideo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10277,9 +10820,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_video
+    ) -> ApiResponse[ReportingControllerVideo200Response]:
+        """Get video completion funnel and breakdown
 
+        Overall video funnel (starts, quartiles, completes, skips, errors and rates) from adnet.video_events, plus the same metrics per placement (publisher accounts) or per campaign (other accounts), top 100 by starts. Only exact VAST quartile events count toward the funnel. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10311,7 +10855,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerVideo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10340,8 +10884,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_video
+        """Get video completion funnel and breakdown
 
+        Overall video funnel (starts, quartiles, completes, skips, errors and rates) from adnet.video_events, plus the same metrics per placement (publisher accounts) or per campaign (other accounts), top 100 by starts. Only exact VAST quartile events count toward the funnel. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10373,7 +10918,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ReportingControllerVideo200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10411,10 +10956,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -10450,9 +11004,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """reporting_controller_viewability
+    ) -> List[ReportingControllerViewability200ResponseInner]:
+        """Get viewability by placement or campaign
 
+        Measurable and viewable beacon counts, viewable rate, and average in-view percent and duration (of viewable events) from adnet.viewability. `groupBy=campaign` groups by campaign, anything else by placement. Advertisers see their own campaigns, publishers their own inventory, admins the whole network. Max 1000 rows ordered by measurable. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10484,7 +11039,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerViewability200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10512,9 +11067,10 @@ class ReportingApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """reporting_controller_viewability
+    ) -> ApiResponse[List[ReportingControllerViewability200ResponseInner]]:
+        """Get viewability by placement or campaign
 
+        Measurable and viewable beacon counts, viewable rate, and average in-view percent and duration (of viewable events) from adnet.viewability. `groupBy=campaign` groups by campaign, anything else by placement. Advertisers see their own campaigns, publishers their own inventory, admins the whole network. Max 1000 rows ordered by measurable. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10546,7 +11102,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerViewability200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10575,8 +11131,9 @@ class ReportingApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """reporting_controller_viewability
+        """Get viewability by placement or campaign
 
+        Measurable and viewable beacon counts, viewable rate, and average in-view percent and duration (of viewable events) from adnet.viewability. `groupBy=campaign` groups by campaign, anything else by placement. Advertisers see their own campaigns, publishers their own inventory, admins the whole network. Max 1000 rows ordered by measurable. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -10608,7 +11165,7 @@ class ReportingApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ReportingControllerViewability200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -10646,10 +11203,19 @@ class ReportingApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

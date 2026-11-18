@@ -17,10 +17,22 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
+from adviverse_client.models.api_key import ApiKey
+from adviverse_client.models.api_key_created import ApiKeyCreated
 from adviverse_client.models.brand_safety_dto import BrandSafetyDto
 from adviverse_client.models.create_key_dto import CreateKeyDto
 from adviverse_client.models.create_terminal_token_dto import CreateTerminalTokenDto
 from adviverse_client.models.network_settings_dto import NetworkSettingsDto
+from adviverse_client.models.segments_controller_revoke201_response import SegmentsControllerRevoke201Response
+from adviverse_client.models.settings_controller_bid_rec200_response import SettingsControllerBidRec200Response
+from adviverse_client.models.settings_controller_create_terminal_token201_response import SettingsControllerCreateTerminalToken201Response
+from adviverse_client.models.settings_controller_list_terminal_tokens200_response_inner import SettingsControllerListTerminalTokens200ResponseInner
+from adviverse_client.models.settings_controller_revoke_key200_response import SettingsControllerRevokeKey200Response
+from adviverse_client.models.settings_controller_rotate_terminal_token201_response import SettingsControllerRotateTerminalToken201Response
+from adviverse_client.models.settings_controller_set_terminal_token_policy200_response import SettingsControllerSetTerminalTokenPolicy200Response
+from adviverse_client.models.settings_controller_update_network200_response import SettingsControllerUpdateNetwork200Response
 from adviverse_client.models.terminal_switch_dto import TerminalSwitchDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -58,9 +70,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_bid_rec
+    ) -> SettingsControllerBidRec200Response:
+        """Get a bid recommendation
 
+        Recommends a CPM bid for `format` (and optional `geo`) from the last 7 days of valid winning impressions in ClickHouse. `recommendedCpm` is the 60th percentile of clearing CPM, `floorObserved` the median and `competitiveCpm` the 90th percentile, as 4-decimal strings. If the query fails it returns zeros with `note: \"insufficient data\"`.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -98,7 +111,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerBidRec200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -128,9 +141,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_bid_rec
+    ) -> ApiResponse[SettingsControllerBidRec200Response]:
+        """Get a bid recommendation
 
+        Recommends a CPM bid for `format` (and optional `geo`) from the last 7 days of valid winning impressions in ClickHouse. `recommendedCpm` is the 60th percentile of clearing CPM, `floorObserved` the median and `competitiveCpm` the 90th percentile, as 4-decimal strings. If the query fails it returns zeros with `note: \"insufficient data\"`.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -168,7 +182,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerBidRec200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -199,8 +213,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_bid_rec
+        """Get a bid recommendation
 
+        Recommends a CPM bid for `format` (and optional `geo`) from the last 7 days of valid winning impressions in ClickHouse. `recommendedCpm` is the 60th percentile of clearing CPM, `floorObserved` the median and `competitiveCpm` the 90th percentile, as 4-decimal strings. If the query fails it returns zeros with `note: \"insufficient data\"`.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param format: (required)
         :type format: str
@@ -238,7 +253,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerBidRec200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -286,10 +301,19 @@ class SettingsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -327,9 +351,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_brand_safety
+    ) -> AdminControllerSetStatus201Response:
+        """Set campaign brand-safety controls
 
+        Stores brand-safety settings (`categories`, `keywords`, `domains`, `sensitivity`, free-form `options`) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -367,7 +392,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -397,9 +422,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_brand_safety
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Set campaign brand-safety controls
 
+        Stores brand-safety settings (`categories`, `keywords`, `domains`, `sensitivity`, free-form `options`) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -437,7 +463,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -468,8 +494,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_brand_safety
+        """Set campaign brand-safety controls
 
+        Stores brand-safety settings (`categories`, `keywords`, `domains`, `sensitivity`, free-form `options`) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -507,7 +534,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -551,6 +578,13 @@ class SettingsApi:
             _body_params = brand_safety_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -568,6 +602,8 @@ class SettingsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -604,9 +640,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_create_key
+    ) -> ApiKeyCreated:
+        """Create an API key
 
+        Creates a scoped API key with `name`, optional `scopes` (default `[\"read\"]`) and optional `expiresInDays` (1-365; omitted = never expires). The full `key` (`ak_<prefix>.<secret>`) is returned exactly once; only its SHA-256 hash is stored. The key is projected to Redis immediately so the ad-engine accepts it without waiting for a resync.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param create_key_dto: (required)
         :type create_key_dto: CreateKeyDto
@@ -641,7 +678,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ApiKeyCreated",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -670,9 +707,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_create_key
+    ) -> ApiResponse[ApiKeyCreated]:
+        """Create an API key
 
+        Creates a scoped API key with `name`, optional `scopes` (default `[\"read\"]`) and optional `expiresInDays` (1-365; omitted = never expires). The full `key` (`ak_<prefix>.<secret>`) is returned exactly once; only its SHA-256 hash is stored. The key is projected to Redis immediately so the ad-engine accepts it without waiting for a resync.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param create_key_dto: (required)
         :type create_key_dto: CreateKeyDto
@@ -707,7 +745,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ApiKeyCreated",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -737,8 +775,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_create_key
+        """Create an API key
 
+        Creates a scoped API key with `name`, optional `scopes` (default `[\"read\"]`) and optional `expiresInDays` (1-365; omitted = never expires). The full `key` (`ak_<prefix>.<secret>`) is returned exactly once; only its SHA-256 hash is stored. The key is projected to Redis immediately so the ad-engine accepts it without waiting for a resync.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param create_key_dto: (required)
         :type create_key_dto: CreateKeyDto
@@ -773,7 +812,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ApiKeyCreated",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -814,6 +853,13 @@ class SettingsApi:
             _body_params = create_key_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -831,6 +877,8 @@ class SettingsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -867,9 +915,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_create_terminal_token
+    ) -> SettingsControllerCreateTerminalToken201Response:
+        """Create a terminal serve token
 
+        Mints a public `ts_` token for shipping inside a terminal client, with optional `name`, `campaignId` (must be one of your `terminal`-format campaigns) and `switch` policy. A switch policy (`flipAfter` / `flipOnClick`) requires a pinned campaign, and `fallbackTag` must be one of your own placement tags, otherwise 400. The token is projected to Redis so the engine resolves it on the serve path.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_terminal_token_dto: (required)
         :type create_terminal_token_dto: CreateTerminalTokenDto
@@ -904,7 +953,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SettingsControllerCreateTerminalToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -933,9 +982,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_create_terminal_token
+    ) -> ApiResponse[SettingsControllerCreateTerminalToken201Response]:
+        """Create a terminal serve token
 
+        Mints a public `ts_` token for shipping inside a terminal client, with optional `name`, `campaignId` (must be one of your `terminal`-format campaigns) and `switch` policy. A switch policy (`flipAfter` / `flipOnClick`) requires a pinned campaign, and `fallbackTag` must be one of your own placement tags, otherwise 400. The token is projected to Redis so the engine resolves it on the serve path.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_terminal_token_dto: (required)
         :type create_terminal_token_dto: CreateTerminalTokenDto
@@ -970,7 +1020,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SettingsControllerCreateTerminalToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1000,8 +1050,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_create_terminal_token
+        """Create a terminal serve token
 
+        Mints a public `ts_` token for shipping inside a terminal client, with optional `name`, `campaignId` (must be one of your `terminal`-format campaigns) and `switch` policy. A switch policy (`flipAfter` / `flipOnClick`) requires a pinned campaign, and `fallbackTag` must be one of your own placement tags, otherwise 400. The token is projected to Redis so the engine resolves it on the serve path.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_terminal_token_dto: (required)
         :type create_terminal_token_dto: CreateTerminalTokenDto
@@ -1036,7 +1087,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SettingsControllerCreateTerminalToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1077,6 +1128,13 @@ class SettingsApi:
             _body_params = create_terminal_token_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1094,6 +1152,8 @@ class SettingsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1129,9 +1189,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_list_keys
+    ) -> List[ApiKey]:
+        """List API keys
 
+        Lists the account's live (non-revoked) API keys, newest first. Only the public `key_prefix` is returned; the secret is never shown again after creation. `expired` is true once `expires_at` has passed.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1163,7 +1224,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ApiKey]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1191,9 +1252,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_list_keys
+    ) -> ApiResponse[List[ApiKey]]:
+        """List API keys
 
+        Lists the account's live (non-revoked) API keys, newest first. Only the public `key_prefix` is returned; the secret is never shown again after creation. `expired` is true once `expires_at` has passed.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1225,7 +1287,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ApiKey]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1254,8 +1316,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_list_keys
+        """List API keys
 
+        Lists the account's live (non-revoked) API keys, newest first. Only the public `key_prefix` is returned; the secret is never shown again after creation. `expired` is true once `expires_at` has passed.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1287,7 +1350,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[ApiKey]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1325,10 +1388,19 @@ class SettingsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1364,9 +1436,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_list_terminal_tokens
+    ) -> List[SettingsControllerListTerminalTokens200ResponseInner]:
+        """List terminal serve tokens
 
+        Lists the account's live public terminal serve tokens (`ts_...`), newest first, including any adaptive switch policy columns. These tokens are serve-only and safe to embed in distributed CLIs, so the full value is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1398,7 +1471,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SettingsControllerListTerminalTokens200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1426,9 +1499,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_list_terminal_tokens
+    ) -> ApiResponse[List[SettingsControllerListTerminalTokens200ResponseInner]]:
+        """List terminal serve tokens
 
+        Lists the account's live public terminal serve tokens (`ts_...`), newest first, including any adaptive switch policy columns. These tokens are serve-only and safe to embed in distributed CLIs, so the full value is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1460,7 +1534,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SettingsControllerListTerminalTokens200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1489,8 +1563,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_list_terminal_tokens
+        """List terminal serve tokens
 
+        Lists the account's live public terminal serve tokens (`ts_...`), newest first, including any adaptive switch policy columns. These tokens are serve-only and safe to embed in distributed CLIs, so the full value is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1522,7 +1597,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[SettingsControllerListTerminalTokens200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1560,10 +1635,19 @@ class SettingsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1600,9 +1684,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_revoke_key
+    ) -> SettingsControllerRevokeKey200Response:
+        """Revoke an API key
 
+        Marks the key revoked and removes it from the engine's Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1637,7 +1722,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerRevokeKey200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1666,9 +1751,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_revoke_key
+    ) -> ApiResponse[SettingsControllerRevokeKey200Response]:
+        """Revoke an API key
 
+        Marks the key revoked and removes it from the engine's Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1703,7 +1789,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerRevokeKey200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1733,8 +1819,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_revoke_key
+        """Revoke an API key
 
+        Marks the key revoked and removes it from the engine's Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1769,7 +1856,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerRevokeKey200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1810,10 +1897,19 @@ class SettingsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1850,9 +1946,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_revoke_terminal_token
+    ) -> SegmentsControllerRevoke201Response:
+        """Revoke a terminal serve token
 
+        Marks the token revoked and deletes its Redis projection so the engine stops serving it. Unknown ids are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1887,7 +1984,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerRevoke201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1916,9 +2013,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_revoke_terminal_token
+    ) -> ApiResponse[SegmentsControllerRevoke201Response]:
+        """Revoke a terminal serve token
 
+        Marks the token revoked and deletes its Redis projection so the engine stops serving it. Unknown ids are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1953,7 +2051,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerRevoke201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1983,8 +2081,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_revoke_terminal_token
+        """Revoke a terminal serve token
 
+        Marks the token revoked and deletes its Redis projection so the engine stops serving it. Unknown ids are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2019,7 +2118,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SegmentsControllerRevoke201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2060,10 +2159,19 @@ class SettingsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2100,9 +2208,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_rotate_terminal_token
+    ) -> SettingsControllerRotateTerminalToken201Response:
+        """Rotate a terminal serve token
 
+        Replaces the token value with a new `ts_` string, keeping its campaign and switch policy. The old value is removed from Redis and stops serving immediately. Returns 400 if the token is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2137,7 +2246,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SettingsControllerRotateTerminalToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2166,9 +2275,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_rotate_terminal_token
+    ) -> ApiResponse[SettingsControllerRotateTerminalToken201Response]:
+        """Rotate a terminal serve token
 
+        Replaces the token value with a new `ts_` string, keeping its campaign and switch policy. The old value is removed from Redis and stops serving immediately. Returns 400 if the token is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2203,7 +2313,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SettingsControllerRotateTerminalToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2233,8 +2343,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_rotate_terminal_token
+        """Rotate a terminal serve token
 
+        Replaces the token value with a new `ts_` string, keeping its campaign and switch policy. The old value is removed from Redis and stops serving immediately. Returns 400 if the token is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2269,7 +2380,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "SettingsControllerRotateTerminalToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2310,10 +2421,19 @@ class SettingsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2351,9 +2471,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_set_terminal_token_policy
+    ) -> SettingsControllerSetTerminalTokenPolicy200Response:
+        """Update a terminal token switch policy
 
+        Arms, changes or disables (`flipAfter: 0`, `flipOnClick: false`) adaptive mode-switching on an existing token without changing its `ts_` value. Same validation as creation; 400 if the token is not found or the policy is invalid. The new policy is re-projected to Redis.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2391,7 +2512,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerSetTerminalTokenPolicy200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2421,9 +2542,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_set_terminal_token_policy
+    ) -> ApiResponse[SettingsControllerSetTerminalTokenPolicy200Response]:
+        """Update a terminal token switch policy
 
+        Arms, changes or disables (`flipAfter: 0`, `flipOnClick: false`) adaptive mode-switching on an existing token without changing its `ts_` value. Same validation as creation; 400 if the token is not found or the policy is invalid. The new policy is re-projected to Redis.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2461,7 +2583,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerSetTerminalTokenPolicy200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2492,8 +2614,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_set_terminal_token_policy
+        """Update a terminal token switch policy
 
+        Arms, changes or disables (`flipAfter: 0`, `flipOnClick: false`) adaptive mode-switching on an existing token without changing its `ts_` value. Same validation as creation; 400 if the token is not found or the policy is invalid. The new policy is re-projected to Redis.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -2531,7 +2654,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerSetTerminalTokenPolicy200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2575,6 +2698,13 @@ class SettingsApi:
             _body_params = terminal_switch_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2592,6 +2722,8 @@ class SettingsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2628,9 +2760,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """settings_controller_update_network
+    ) -> SettingsControllerUpdateNetwork200Response:
+        """Update network membership and cross-fill
 
+        Sets the account's tenant `networkId` (null or empty = the general open pool) and/or `crossFill` opt-in to transact with other networks. Only provided fields change. Because these flags are projected onto every campaign and placement in the serving index, the indexer republishes after a change.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param network_settings_dto: (required)
         :type network_settings_dto: NetworkSettingsDto
@@ -2665,7 +2798,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerUpdateNetwork200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2694,9 +2827,10 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """settings_controller_update_network
+    ) -> ApiResponse[SettingsControllerUpdateNetwork200Response]:
+        """Update network membership and cross-fill
 
+        Sets the account's tenant `networkId` (null or empty = the general open pool) and/or `crossFill` opt-in to transact with other networks. Only provided fields change. Because these flags are projected onto every campaign and placement in the serving index, the indexer republishes after a change.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param network_settings_dto: (required)
         :type network_settings_dto: NetworkSettingsDto
@@ -2731,7 +2865,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerUpdateNetwork200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2761,8 +2895,9 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """settings_controller_update_network
+        """Update network membership and cross-fill
 
+        Sets the account's tenant `networkId` (null or empty = the general open pool) and/or `crossFill` opt-in to transact with other networks. Only provided fields change. Because these flags are projected onto every campaign and placement in the serving index, the indexer republishes after a change.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param network_settings_dto: (required)
         :type network_settings_dto: NetworkSettingsDto
@@ -2797,7 +2932,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "SettingsControllerUpdateNetwork200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2838,6 +2973,13 @@ class SettingsApi:
             _body_params = network_settings_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2855,6 +2997,8 @@ class SettingsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

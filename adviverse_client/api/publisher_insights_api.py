@@ -17,6 +17,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from adviverse_client.models.publisher_insights_controller_clearing200_response import PublisherInsightsControllerClearing200Response
+from adviverse_client.models.publisher_insights_controller_deals200_response import PublisherInsightsControllerDeals200Response
+from adviverse_client.models.publisher_insights_controller_floor_recommendation200_response import PublisherInsightsControllerFloorRecommendation200Response
+from adviverse_client.models.publisher_insights_controller_no_fill200_response import PublisherInsightsControllerNoFill200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -52,9 +56,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_insights_controller_clearing
+    ) -> PublisherInsightsControllerClearing200Response:
+        """Get the clearing-price distribution for a placement
 
+        For about 10 candidate floors across the placement's observed clearing range, returns `fillRate` (share of bids clearing at or above the floor) and `expectedRevenue` (floor x fillRate), plus clearing p50/p90 and sample size. Requires `?placementId=`; only your own revenue data is exposed. 404 if the placement is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -89,7 +94,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerClearing200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -118,9 +123,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_insights_controller_clearing
+    ) -> ApiResponse[PublisherInsightsControllerClearing200Response]:
+        """Get the clearing-price distribution for a placement
 
+        For about 10 candidate floors across the placement's observed clearing range, returns `fillRate` (share of bids clearing at or above the floor) and `expectedRevenue` (floor x fillRate), plus clearing p50/p90 and sample size. Requires `?placementId=`; only your own revenue data is exposed. 404 if the placement is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -155,7 +161,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerClearing200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -185,8 +191,9 @@ class PublisherInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_insights_controller_clearing
+        """Get the clearing-price distribution for a placement
 
+        For about 10 candidate floors across the placement's observed clearing range, returns `fillRate` (share of bids clearing at or above the floor) and `expectedRevenue` (floor x fillRate), plus clearing p50/p90 and sample size. Requires `?placementId=`; only your own revenue data is exposed. 404 if the placement is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -221,7 +228,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerClearing200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -264,10 +271,19 @@ class PublisherInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -303,9 +319,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_insights_controller_deals
+    ) -> PublisherInsightsControllerDeals200Response:
+        """Get performance of your deals
 
+        Returns every deal you own with attributed impressions, clicks, revenue and eCPM, sorted by revenue. Deals with no delivery show zeros; if analytics is unavailable metrics fall back to zero rather than failing.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -337,7 +354,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerDeals200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -365,9 +382,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_insights_controller_deals
+    ) -> ApiResponse[PublisherInsightsControllerDeals200Response]:
+        """Get performance of your deals
 
+        Returns every deal you own with attributed impressions, clicks, revenue and eCPM, sorted by revenue. Deals with no delivery show zeros; if analytics is unavailable metrics fall back to zero rather than failing.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -399,7 +417,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerDeals200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -428,8 +446,9 @@ class PublisherInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_insights_controller_deals
+        """Get performance of your deals
 
+        Returns every deal you own with attributed impressions, clicks, revenue and eCPM, sorted by revenue. Deals with no delivery show zeros; if analytics is unavailable metrics fall back to zero rather than failing.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -461,7 +480,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerDeals200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -499,10 +518,19 @@ class PublisherInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -539,9 +567,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_insights_controller_floor_recommendation
+    ) -> PublisherInsightsControllerFloorRecommendation200Response:
+        """Get a revenue-maximizing floor recommendation
 
+        Picks the floor that maximizes expected revenue on the placement's empirical fill curve and a matching soft reserve, with the expected revenue lift versus the current floor. With fewer than 500 recent cleared impressions it keeps the current floor and explains why in `note`. Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -576,7 +605,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerFloorRecommendation200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -605,9 +634,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_insights_controller_floor_recommendation
+    ) -> ApiResponse[PublisherInsightsControllerFloorRecommendation200Response]:
+        """Get a revenue-maximizing floor recommendation
 
+        Picks the floor that maximizes expected revenue on the placement's empirical fill curve and a matching soft reserve, with the expected revenue lift versus the current floor. With fewer than 500 recent cleared impressions it keeps the current floor and explains why in `note`. Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -642,7 +672,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerFloorRecommendation200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -672,8 +702,9 @@ class PublisherInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_insights_controller_floor_recommendation
+        """Get a revenue-maximizing floor recommendation
 
+        Picks the floor that maximizes expected revenue on the placement's empirical fill curve and a matching soft reserve, with the expected revenue lift versus the current floor. With fewer than 500 recent cleared impressions it keeps the current floor and explains why in `note`. Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -708,7 +739,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerFloorRecommendation200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -751,10 +782,19 @@ class PublisherInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -791,9 +831,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """publisher_insights_controller_no_fill
+    ) -> PublisherInsightsControllerNoFill200Response:
+        """Get no-fill reasons for a placement
 
+        Breaks down the placement's last 30 days of requests into filled vs. no-fill, with each no-fill reason's count and percentage share. `fillRate` and `pct` are percentages (0-100). Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -828,7 +869,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerNoFill200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -857,9 +898,10 @@ class PublisherInsightsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """publisher_insights_controller_no_fill
+    ) -> ApiResponse[PublisherInsightsControllerNoFill200Response]:
+        """Get no-fill reasons for a placement
 
+        Breaks down the placement's last 30 days of requests into filled vs. no-fill, with each no-fill reason's count and percentage share. `fillRate` and `pct` are percentages (0-100). Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -894,7 +936,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerNoFill200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -924,8 +966,9 @@ class PublisherInsightsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """publisher_insights_controller_no_fill
+        """Get no-fill reasons for a placement
 
+        Breaks down the placement's last 30 days of requests into filled vs. no-fill, with each no-fill reason's count and percentage share. `fillRate` and `pct` are percentages (0-100). Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param placement_id: (required)
         :type placement_id: str
@@ -960,7 +1003,7 @@ class PublisherInsightsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PublisherInsightsControllerNoFill200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1003,10 +1046,19 @@ class PublisherInsightsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

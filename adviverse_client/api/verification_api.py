@@ -16,7 +16,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from typing import List
 from adviverse_client.models.put_settings_dto import PutSettingsDto
+from adviverse_client.models.rew_verification_settings import RewVerificationSettings
+from adviverse_client.models.verification_controller_categories200_response_inner import VerificationControllerCategories200ResponseInner
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -51,9 +54,10 @@ class VerificationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """verification_controller_categories
+    ) -> List[VerificationControllerCategories200ResponseInner]:
+        """List brand-safety categories
 
+        Returns the static brand-safety category catalog (ids such as `adult`, `violence`, `hate`) accepted in verification settings.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -85,7 +89,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[VerificationControllerCategories200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -113,9 +117,10 @@ class VerificationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """verification_controller_categories
+    ) -> ApiResponse[List[VerificationControllerCategories200ResponseInner]]:
+        """List brand-safety categories
 
+        Returns the static brand-safety category catalog (ids such as `adult`, `violence`, `hate`) accepted in verification settings.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -147,7 +152,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[VerificationControllerCategories200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,8 +181,9 @@ class VerificationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """verification_controller_categories
+        """List brand-safety categories
 
+        Returns the static brand-safety category catalog (ids such as `adult`, `violence`, `hate`) accepted in verification settings.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -209,7 +215,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[VerificationControllerCategories200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,10 +253,19 @@ class VerificationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -286,9 +301,10 @@ class VerificationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """verification_controller_get_settings
+    ) -> RewVerificationSettings:
+        """Get your verification and brand-safety settings
 
+        Returns your measurement vendor, viewability target, blocked brand-safety categories, blocked domains and keywords, falling back to the global defaults when you have not saved settings. The vendor API key is never returned, only `apiKeySet`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -320,7 +336,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewVerificationSettings",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -348,9 +364,10 @@ class VerificationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """verification_controller_get_settings
+    ) -> ApiResponse[RewVerificationSettings]:
+        """Get your verification and brand-safety settings
 
+        Returns your measurement vendor, viewability target, blocked brand-safety categories, blocked domains and keywords, falling back to the global defaults when you have not saved settings. The vendor API key is never returned, only `apiKeySet`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -382,7 +399,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewVerificationSettings",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -411,8 +428,9 @@ class VerificationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """verification_controller_get_settings
+        """Get your verification and brand-safety settings
 
+        Returns your measurement vendor, viewability target, blocked brand-safety categories, blocked domains and keywords, falling back to the global defaults when you have not saved settings. The vendor API key is never returned, only `apiKeySet`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -444,7 +462,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewVerificationSettings",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -482,10 +500,19 @@ class VerificationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -522,9 +549,10 @@ class VerificationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """verification_controller_put_settings
+    ) -> RewVerificationSettings:
+        """Save your verification and brand-safety settings
 
+        Replaces your settings: `vendor` (none, ias, doubleverify, moat; default none), `measurementEnabled`, `viewabilityTarget` (0-1, default 0.7), `brandSafetyCategories` (unknown ids dropped), `blockedDomains` (normalized to bare hosts) and `blockedKeywords` (lowercased tokens), all enforced at serve time. `apiKey` is encrypted at rest; omit it to keep the stored key, send an empty string to clear it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param put_settings_dto: (required)
         :type put_settings_dto: PutSettingsDto
@@ -559,7 +587,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewVerificationSettings",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -588,9 +616,10 @@ class VerificationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """verification_controller_put_settings
+    ) -> ApiResponse[RewVerificationSettings]:
+        """Save your verification and brand-safety settings
 
+        Replaces your settings: `vendor` (none, ias, doubleverify, moat; default none), `measurementEnabled`, `viewabilityTarget` (0-1, default 0.7), `brandSafetyCategories` (unknown ids dropped), `blockedDomains` (normalized to bare hosts) and `blockedKeywords` (lowercased tokens), all enforced at serve time. `apiKey` is encrypted at rest; omit it to keep the stored key, send an empty string to clear it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param put_settings_dto: (required)
         :type put_settings_dto: PutSettingsDto
@@ -625,7 +654,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewVerificationSettings",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -655,8 +684,9 @@ class VerificationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """verification_controller_put_settings
+        """Save your verification and brand-safety settings
 
+        Replaces your settings: `vendor` (none, ias, doubleverify, moat; default none), `measurementEnabled`, `viewabilityTarget` (0-1, default 0.7), `brandSafetyCategories` (unknown ids dropped), `blockedDomains` (normalized to bare hosts) and `blockedKeywords` (lowercased tokens), all enforced at serve time. `apiKey` is encrypted at rest; omit it to keep the stored key, send an empty string to clear it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param put_settings_dto: (required)
         :type put_settings_dto: PutSettingsDto
@@ -691,7 +721,7 @@ class VerificationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewVerificationSettings",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -732,6 +762,13 @@ class VerificationApi:
             _body_params = put_settings_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -749,6 +786,8 @@ class VerificationApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

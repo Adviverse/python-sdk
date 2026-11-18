@@ -17,6 +17,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.capi_controller_events201_response import CapiControllerEvents201Response
+from adviverse_client.models.capi_controller_recent200_response_inner import CapiControllerRecent200ResponseInner
+from adviverse_client.models.capi_controller_token201_response import CapiControllerToken201Response
 from adviverse_client.models.capi_events_dto import CapiEventsDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -53,9 +57,10 @@ class CapiApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """capi_controller_events
+    ) -> CapiControllerEvents201Response:
+        """Ingest server-side conversion events (CAPI)
 
+        Server-to-server batch ingest authenticated by the advertiser's CAPI token in the `X-CAPI-Token` header, not a session; a missing or invalid token returns 401. Each item in `events` needs `eventId` and `eventName`, plus optional `value`, `currency`, `clickId`, hashed `identifiers` (emailHash, phoneHash, externalId), `eventTime` and `customData`. Events are deduplicated per advertiser on `eventId` and attributed by click id first, then by the identity graph's most recent eligible click or impression. Results are per event and a failing event never fails the batch.  Auth: public, no credentials required.
 
         :param capi_events_dto: (required)
         :type capi_events_dto: CapiEventsDto
@@ -90,7 +95,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "CapiControllerEvents201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -119,9 +124,10 @@ class CapiApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """capi_controller_events
+    ) -> ApiResponse[CapiControllerEvents201Response]:
+        """Ingest server-side conversion events (CAPI)
 
+        Server-to-server batch ingest authenticated by the advertiser's CAPI token in the `X-CAPI-Token` header, not a session; a missing or invalid token returns 401. Each item in `events` needs `eventId` and `eventName`, plus optional `value`, `currency`, `clickId`, hashed `identifiers` (emailHash, phoneHash, externalId), `eventTime` and `customData`. Events are deduplicated per advertiser on `eventId` and attributed by click id first, then by the identity graph's most recent eligible click or impression. Results are per event and a failing event never fails the batch.  Auth: public, no credentials required.
 
         :param capi_events_dto: (required)
         :type capi_events_dto: CapiEventsDto
@@ -156,7 +162,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "CapiControllerEvents201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,8 +192,9 @@ class CapiApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """capi_controller_events
+        """Ingest server-side conversion events (CAPI)
 
+        Server-to-server batch ingest authenticated by the advertiser's CAPI token in the `X-CAPI-Token` header, not a session; a missing or invalid token returns 401. Each item in `events` needs `eventId` and `eventName`, plus optional `value`, `currency`, `clickId`, hashed `identifiers` (emailHash, phoneHash, externalId), `eventTime` and `customData`. Events are deduplicated per advertiser on `eventId` and attributed by click id first, then by the identity graph's most recent eligible click or impression. Results are per event and a failing event never fails the batch.  Auth: public, no credentials required.
 
         :param capi_events_dto: (required)
         :type capi_events_dto: CapiEventsDto
@@ -222,7 +229,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "CapiControllerEvents201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -263,6 +270,13 @@ class CapiApi:
             _body_params = capi_events_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -316,9 +330,10 @@ class CapiApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """capi_controller_recent
+    ) -> List[CapiControllerRecent200ResponseInner]:
+        """List recent CAPI events
 
+        Returns the advertiser's most recent CAPI-sourced postback log rows, newest first. `limit` defaults to 100 and is capped at 500. `attributed` shows whether the event was matched to a campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param limit: (required)
         :type limit: str
@@ -353,7 +368,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[CapiControllerRecent200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -382,9 +397,10 @@ class CapiApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """capi_controller_recent
+    ) -> ApiResponse[List[CapiControllerRecent200ResponseInner]]:
+        """List recent CAPI events
 
+        Returns the advertiser's most recent CAPI-sourced postback log rows, newest first. `limit` defaults to 100 and is capped at 500. `attributed` shows whether the event was matched to a campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param limit: (required)
         :type limit: str
@@ -419,7 +435,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[CapiControllerRecent200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -449,8 +465,9 @@ class CapiApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """capi_controller_recent
+        """List recent CAPI events
 
+        Returns the advertiser's most recent CAPI-sourced postback log rows, newest first. `limit` defaults to 100 and is capped at 500. `attributed` shows whether the event was matched to a campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param limit: (required)
         :type limit: str
@@ -485,7 +502,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[CapiControllerRecent200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -528,10 +545,19 @@ class CapiApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -567,9 +593,10 @@ class CapiApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """capi_controller_token
+    ) -> CapiControllerToken201Response:
+        """Rotate the CAPI access token
 
+        Revokes any active CAPI token for the advertiser and issues a new one. The full token (`<prefix>.<secret>`) is returned only in this response; the server stores only its hash. Use it as the `X-CAPI-Token` header on POST /v1/capi/events.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -601,7 +628,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "CapiControllerToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -629,9 +656,10 @@ class CapiApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """capi_controller_token
+    ) -> ApiResponse[CapiControllerToken201Response]:
+        """Rotate the CAPI access token
 
+        Revokes any active CAPI token for the advertiser and issues a new one. The full token (`<prefix>.<secret>`) is returned only in this response; the server stores only its hash. Use it as the `X-CAPI-Token` header on POST /v1/capi/events.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -663,7 +691,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "CapiControllerToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -692,8 +720,9 @@ class CapiApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """capi_controller_token
+        """Rotate the CAPI access token
 
+        Revokes any active CAPI token for the advertiser and issues a new one. The full token (`<prefix>.<secret>`) is returned only in this response; the server stores only its hash. Use it as the `X-CAPI-Token` header on POST /v1/capi/events.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -725,7 +754,7 @@ class CapiApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "CapiControllerToken201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -763,10 +792,19 @@ class CapiApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

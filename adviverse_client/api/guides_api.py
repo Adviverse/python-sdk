@@ -17,7 +17,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
 from adviverse_client.models.create_guide_dto import CreateGuideDto
+from adviverse_client.models.guide import Guide
+from adviverse_client.models.guides_controller_get200_response import GuidesControllerGet200Response
 from adviverse_client.models.update_guide_dto import UpdateGuideDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -54,9 +58,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_admin_list
+    ) -> List[Guide]:
+        """List all guides
 
+        Returns every guide, including unpublished ones, optionally filtered by `locale`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param locale: (required)
         :type locale: str
@@ -91,7 +96,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Guide]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -120,9 +125,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_admin_list
+    ) -> ApiResponse[List[Guide]]:
+        """List all guides
 
+        Returns every guide, including unpublished ones, optionally filtered by `locale`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param locale: (required)
         :type locale: str
@@ -157,7 +163,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Guide]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -187,8 +193,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_admin_list
+        """List all guides
 
+        Returns every guide, including unpublished ones, optionally filtered by `locale`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param locale: (required)
         :type locale: str
@@ -223,7 +230,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Guide]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -266,10 +273,19 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -306,9 +322,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_create
+    ) -> Guide:
+        """Create or replace a guide
 
+        Creates a guide from `slug` and `title` with optional `locale` (`en`), `category` (`Guides`), `summary`, Markdown `body`, `position` (0) and `published` (true). An existing guide with the same slug and locale is overwritten (upsert). Clears the public read cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param create_guide_dto: (required)
         :type create_guide_dto: CreateGuideDto
@@ -343,7 +360,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "Guide",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -372,9 +389,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_create
+    ) -> ApiResponse[Guide]:
+        """Create or replace a guide
 
+        Creates a guide from `slug` and `title` with optional `locale` (`en`), `category` (`Guides`), `summary`, Markdown `body`, `position` (0) and `published` (true). An existing guide with the same slug and locale is overwritten (upsert). Clears the public read cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param create_guide_dto: (required)
         :type create_guide_dto: CreateGuideDto
@@ -409,7 +427,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "Guide",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -439,8 +457,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_create
+        """Create or replace a guide
 
+        Creates a guide from `slug` and `title` with optional `locale` (`en`), `category` (`Guides`), `summary`, Markdown `body`, `position` (0) and `published` (true). An existing guide with the same slug and locale is overwritten (upsert). Clears the public read cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param create_guide_dto: (required)
         :type create_guide_dto: CreateGuideDto
@@ -475,7 +494,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "Guide",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -516,6 +535,13 @@ class GuidesApi:
             _body_params = create_guide_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -533,6 +559,8 @@ class GuidesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -570,9 +598,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_get
+    ) -> GuidesControllerGet200Response:
+        """Get a published guide
 
+        Public. Returns a published guide by `slug` and `locale` (default `en`). An unknown or unpublished slug returns HTTP 200 with `{ error: \"not_found\" }`, not 404.  Auth: public, no credentials required.
 
         :param slug: (required)
         :type slug: str
@@ -610,7 +639,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "GuidesControllerGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -640,9 +669,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_get
+    ) -> ApiResponse[GuidesControllerGet200Response]:
+        """Get a published guide
 
+        Public. Returns a published guide by `slug` and `locale` (default `en`). An unknown or unpublished slug returns HTTP 200 with `{ error: \"not_found\" }`, not 404.  Auth: public, no credentials required.
 
         :param slug: (required)
         :type slug: str
@@ -680,7 +710,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "GuidesControllerGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -711,8 +741,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_get
+        """Get a published guide
 
+        Public. Returns a published guide by `slug` and `locale` (default `en`). An unknown or unpublished slug returns HTTP 200 with `{ error: \"not_found\" }`, not 404.  Auth: public, no credentials required.
 
         :param slug: (required)
         :type slug: str
@@ -750,7 +781,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "GuidesControllerGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -796,6 +827,13 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -835,9 +873,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_index_html
+    ) -> str:
+        """Render the public docs index page
 
+        Public, server-rendered HTML for /guides: a card per published English guide plus category navigation. Cached (max-age 300, s-maxage 3600) for search engines.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -869,7 +908,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -897,9 +936,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_index_html
+    ) -> ApiResponse[str]:
+        """Render the public docs index page
 
+        Public, server-rendered HTML for /guides: a card per published English guide plus category navigation. Cached (max-age 300, s-maxage 3600) for search engines.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -931,7 +971,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -960,8 +1000,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_index_html
+        """Render the public docs index page
 
+        Public, server-rendered HTML for /guides: a card per published English guide plus category navigation. Cached (max-age 300, s-maxage 3600) for search engines.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -993,7 +1034,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1031,6 +1072,13 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/html'
+                ]
+            )
 
 
         # authentication setting
@@ -1072,9 +1120,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_list
+    ) -> List[Guide]:
+        """List published guides
 
+        Public. Returns published guides for `locale` (default `en`), ordered by category, position and title, optionally filtered by `category`. Reads are cached in Redis for 60 seconds. This is the in-app docs feed, separate from the OpenAPI reference at /v1/docs.  Auth: public, no credentials required.
 
         :param locale: (required)
         :type locale: str
@@ -1112,7 +1161,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Guide]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1142,9 +1191,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_list
+    ) -> ApiResponse[List[Guide]]:
+        """List published guides
 
+        Public. Returns published guides for `locale` (default `en`), ordered by category, position and title, optionally filtered by `category`. Reads are cached in Redis for 60 seconds. This is the in-app docs feed, separate from the OpenAPI reference at /v1/docs.  Auth: public, no credentials required.
 
         :param locale: (required)
         :type locale: str
@@ -1182,7 +1232,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Guide]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1213,8 +1263,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_list
+        """List published guides
 
+        Public. Returns published guides for `locale` (default `en`), ordered by category, position and title, optionally filtered by `category`. Reads are cached in Redis for 60 seconds. This is the in-app docs feed, separate from the OpenAPI reference at /v1/docs.  Auth: public, no credentials required.
 
         :param locale: (required)
         :type locale: str
@@ -1252,7 +1303,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[Guide]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1300,6 +1351,13 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1340,9 +1398,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_page_html
+    ) -> str:
+        """Render a public guide page
 
+        Public, server-rendered HTML for one English guide, with its Markdown body rendered escape-first (raw HTML is neutralized), TechArticle JSON-LD and canonical URL. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
 
         :param slug: (required)
         :type slug: str
@@ -1377,7 +1436,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1406,9 +1465,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_page_html
+    ) -> ApiResponse[str]:
+        """Render a public guide page
 
+        Public, server-rendered HTML for one English guide, with its Markdown body rendered escape-first (raw HTML is neutralized), TechArticle JSON-LD and canonical URL. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
 
         :param slug: (required)
         :type slug: str
@@ -1443,7 +1503,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1473,8 +1533,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_page_html
+        """Render a public guide page
 
+        Public, server-rendered HTML for one English guide, with its Markdown body rendered escape-first (raw HTML is neutralized), TechArticle JSON-LD and canonical URL. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
 
         :param slug: (required)
         :type slug: str
@@ -1509,7 +1570,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1550,6 +1611,13 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/html'
+                ]
+            )
 
 
         # authentication setting
@@ -1590,9 +1658,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_remove
+    ) -> AdminControllerSetStatus201Response:
+        """Delete a guide
 
+        Deletes the guide and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1627,7 +1696,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1656,9 +1725,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_remove
+    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+        """Delete a guide
 
+        Deletes the guide and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1693,7 +1763,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1723,8 +1793,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_remove
+        """Delete a guide
 
+        Deletes the guide and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1759,7 +1830,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AdminControllerSetStatus201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1800,10 +1871,19 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1839,9 +1919,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_sitemap
+    ) -> str:
+        """Get the docs sitemap
 
+        Public XML sitemap listing /guides and every published English guide page.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1873,7 +1954,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1901,9 +1982,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_sitemap
+    ) -> ApiResponse[str]:
+        """Get the docs sitemap
 
+        Public XML sitemap listing /guides and every published English guide page.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1935,7 +2017,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1964,8 +2046,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_sitemap
+        """Get the docs sitemap
 
+        Public XML sitemap listing /guides and every published English guide page.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1997,7 +2080,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2035,6 +2118,13 @@ class GuidesApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/xml'
+                ]
+            )
 
 
         # authentication setting
@@ -2076,9 +2166,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """guides_controller_update
+    ) -> Guide:
+        """Update a guide
 
+        Partially updates any of slug, locale, title, category, summary, body, position and published, and clears the public cache. Returns the updated guide, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -2116,7 +2207,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "Guide",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2146,9 +2237,10 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """guides_controller_update
+    ) -> ApiResponse[Guide]:
+        """Update a guide
 
+        Partially updates any of slug, locale, title, category, summary, body, position and published, and clears the public cache. Returns the updated guide, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -2186,7 +2278,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "Guide",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2217,8 +2309,9 @@ class GuidesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """guides_controller_update
+        """Update a guide
 
+        Partially updates any of slug, locale, title, category, summary, body, position and published, and clears the public cache. Returns the updated guide, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -2256,7 +2349,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "Guide",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2300,6 +2393,13 @@ class GuidesApi:
             _body_params = update_guide_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2317,6 +2417,8 @@ class GuidesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

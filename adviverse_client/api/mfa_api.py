@@ -17,6 +17,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.mfa_controller_own200_response import MfaControllerOwn200Response
+from adviverse_client.models.mfa_controller_ranked200_response_inner import MfaControllerRanked200ResponseInner
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -52,9 +55,10 @@ class MfaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """mfa_controller_own
+    ) -> MfaControllerOwn200Response:
+        """Get my property's MFA score
 
+        Returns the latest MFA score for one of the caller's properties, whether it crosses the flag threshold, the reasons, raw signals and improvement tips. If no score has been stored yet it is computed on the fly (not persisted) and `computedAt` is null. Returns 404 for an unknown property and 403 if it belongs to another publisher.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -89,7 +93,7 @@ class MfaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "MfaControllerOwn200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -118,9 +122,10 @@ class MfaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """mfa_controller_own
+    ) -> ApiResponse[MfaControllerOwn200Response]:
+        """Get my property's MFA score
 
+        Returns the latest MFA score for one of the caller's properties, whether it crosses the flag threshold, the reasons, raw signals and improvement tips. If no score has been stored yet it is computed on the fly (not persisted) and `computedAt` is null. Returns 404 for an unknown property and 403 if it belongs to another publisher.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -155,7 +160,7 @@ class MfaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "MfaControllerOwn200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -185,8 +190,9 @@ class MfaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """mfa_controller_own
+        """Get my property's MFA score
 
+        Returns the latest MFA score for one of the caller's properties, whether it crosses the flag threshold, the reasons, raw signals and improvement tips. If no score has been stored yet it is computed on the fly (not persisted) and `computedAt` is null. Returns 404 for an unknown property and 403 if it belongs to another publisher.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -221,7 +227,7 @@ class MfaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "MfaControllerOwn200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -262,10 +268,19 @@ class MfaApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -302,9 +317,10 @@ class MfaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """mfa_controller_ranked
+    ) -> List[MfaControllerRanked200ResponseInner]:
+        """Rank properties by MFA score (admin)
 
+        Lists properties with their latest made-for-advertising (MFA) score, highest first, including the stored signal breakdown and manual `mfa_flag`. `limit` defaults to 200 (max 1000). Properties never scored are omitted.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param limit: (required)
         :type limit: str
@@ -339,7 +355,7 @@ class MfaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MfaControllerRanked200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -368,9 +384,10 @@ class MfaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """mfa_controller_ranked
+    ) -> ApiResponse[List[MfaControllerRanked200ResponseInner]]:
+        """Rank properties by MFA score (admin)
 
+        Lists properties with their latest made-for-advertising (MFA) score, highest first, including the stored signal breakdown and manual `mfa_flag`. `limit` defaults to 200 (max 1000). Properties never scored are omitted.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param limit: (required)
         :type limit: str
@@ -405,7 +422,7 @@ class MfaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MfaControllerRanked200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -435,8 +452,9 @@ class MfaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """mfa_controller_ranked
+        """Rank properties by MFA score (admin)
 
+        Lists properties with their latest made-for-advertising (MFA) score, highest first, including the stored signal breakdown and manual `mfa_flag`. `limit` defaults to 200 (max 1000). Properties never scored are omitted.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param limit: (required)
         :type limit: str
@@ -471,7 +489,7 @@ class MfaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[MfaControllerRanked200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -514,10 +532,19 @@ class MfaApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

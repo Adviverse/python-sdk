@@ -17,7 +17,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from adviverse_client.models.auth_controller_resend_verification201_response import AuthControllerResendVerification201Response
 from adviverse_client.models.client_ping_dto import ClientPingDto
+from adviverse_client.models.integrity_controller_liveness200_response import IntegrityControllerLiveness200Response
+from adviverse_client.models.integrity_controller_report200_response import IntegrityControllerReport200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -54,9 +57,10 @@ class IntegrityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """integrity_controller_liveness
+    ) -> IntegrityControllerLiveness200Response:
+        """Get per-install liveness for your tags
 
+        Lists up to 500 installs that pinged any of your tags in the last `days` (default 7, max 30), with last-seen time, latest tag/uid, whether ads are enabled, and `alive` (pinged within ~95 minutes). Optional `?client=` scopes to one client id. The summary counts alive-and-enabled, alive-but-disabled, and stale installs.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param client: (required)
         :type client: str
@@ -94,7 +98,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IntegrityControllerLiveness200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -124,9 +128,10 @@ class IntegrityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """integrity_controller_liveness
+    ) -> ApiResponse[IntegrityControllerLiveness200Response]:
+        """Get per-install liveness for your tags
 
+        Lists up to 500 installs that pinged any of your tags in the last `days` (default 7, max 30), with last-seen time, latest tag/uid, whether ads are enabled, and `alive` (pinged within ~95 minutes). Optional `?client=` scopes to one client id. The summary counts alive-and-enabled, alive-but-disabled, and stale installs.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param client: (required)
         :type client: str
@@ -164,7 +169,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IntegrityControllerLiveness200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -195,8 +200,9 @@ class IntegrityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """integrity_controller_liveness
+        """Get per-install liveness for your tags
 
+        Lists up to 500 installs that pinged any of your tags in the last `days` (default 7, max 30), with last-seen time, latest tag/uid, whether ads are enabled, and `alive` (pinged within ~95 minutes). Optional `?client=` scopes to one client id. The summary counts alive-and-enabled, alive-but-disabled, and stale installs.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param client: (required)
         :type client: str
@@ -234,7 +240,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IntegrityControllerLiveness200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -282,10 +288,19 @@ class IntegrityApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -322,9 +337,10 @@ class IntegrityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """integrity_controller_ping
+    ) -> AuthControllerResendVerification201Response:
+        """Report a client integrity ping
 
+        Public, rate-limited endpoint the terminal SDK calls about hourly per install with the `tag` it serves, its `client` id, `install_id`/`installId`, machine `uid` and `enabled` state. The ping is recorded against the tag's publisher for integrity and liveness reports. For placements with a signing secret, `ts` and `sig` (HMAC-SHA256 of `tag|uid|ts`, within 300s) are required or the ping is ignored. Always returns `{ ok: true }`, even for unknown tags or failures, so it never affects serving.  Auth: public, no credentials required.
 
         :param client_ping_dto: (required)
         :type client_ping_dto: ClientPingDto
@@ -359,7 +375,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -388,9 +404,10 @@ class IntegrityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """integrity_controller_ping
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Report a client integrity ping
 
+        Public, rate-limited endpoint the terminal SDK calls about hourly per install with the `tag` it serves, its `client` id, `install_id`/`installId`, machine `uid` and `enabled` state. The ping is recorded against the tag's publisher for integrity and liveness reports. For placements with a signing secret, `ts` and `sig` (HMAC-SHA256 of `tag|uid|ts`, within 300s) are required or the ping is ignored. Always returns `{ ok: true }`, even for unknown tags or failures, so it never affects serving.  Auth: public, no credentials required.
 
         :param client_ping_dto: (required)
         :type client_ping_dto: ClientPingDto
@@ -425,7 +442,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -455,8 +472,9 @@ class IntegrityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """integrity_controller_ping
+        """Report a client integrity ping
 
+        Public, rate-limited endpoint the terminal SDK calls about hourly per install with the `tag` it serves, its `client` id, `install_id`/`installId`, machine `uid` and `enabled` state. The ping is recorded against the tag's publisher for integrity and liveness reports. For placements with a signing secret, `ts` and `sig` (HMAC-SHA256 of `tag|uid|ts`, within 300s) are required or the ping is ignored. Always returns `{ ok: true }`, even for unknown tags or failures, so it never affects serving.  Auth: public, no credentials required.
 
         :param client_ping_dto: (required)
         :type client_ping_dto: ClientPingDto
@@ -491,7 +509,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -532,6 +550,13 @@ class IntegrityApi:
             _body_params = client_ping_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -586,9 +611,10 @@ class IntegrityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """integrity_controller_report
+    ) -> IntegrityControllerReport200Response:
+        """Get the terminal integrity report
 
+        Over the last `days` (default 7, max 30) of client pings, lists machines running one of your tags that also run a foreign tag (`competing`), and, when `?client=` is given, installs reporting your client id while serving a tag you don't own (`swapped`). Also returns your tag keys and distinct install/machine counts. Empty result if you have no placements.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param client: (required)
         :type client: str
@@ -626,7 +652,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IntegrityControllerReport200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -656,9 +682,10 @@ class IntegrityApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """integrity_controller_report
+    ) -> ApiResponse[IntegrityControllerReport200Response]:
+        """Get the terminal integrity report
 
+        Over the last `days` (default 7, max 30) of client pings, lists machines running one of your tags that also run a foreign tag (`competing`), and, when `?client=` is given, installs reporting your client id while serving a tag you don't own (`swapped`). Also returns your tag keys and distinct install/machine counts. Empty result if you have no placements.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param client: (required)
         :type client: str
@@ -696,7 +723,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IntegrityControllerReport200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -727,8 +754,9 @@ class IntegrityApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """integrity_controller_report
+        """Get the terminal integrity report
 
+        Over the last `days` (default 7, max 30) of client pings, lists machines running one of your tags that also run a foreign tag (`competing`), and, when `?client=` is given, installs reporting your client id while serving a tag you don't own (`swapped`). Also returns your tag keys and distinct install/machine counts. Empty result if you have no placements.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
 
         :param client: (required)
         :type client: str
@@ -766,7 +794,7 @@ class IntegrityApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "IntegrityControllerReport200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -814,10 +842,19 @@ class IntegrityApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

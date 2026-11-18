@@ -16,6 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from adviverse_client.models.conversions_controller_track_get200_response import ConversionsControllerTrackGet200Response
+from adviverse_client.models.conversions_controller_track_post201_response import ConversionsControllerTrackPost201Response
+from adviverse_client.models.conversions_controller_track_refund201_response import ConversionsControllerTrackRefund201Response
 from adviverse_client.models.refund_dto import RefundDto
 from adviverse_client.models.track_conversion_dto import TrackConversionDto
 
@@ -53,8 +56,9 @@ class ConversionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """conversions_controller_track_audience
+        """Retargeting pixel: add the visitor to an audience
 
+        Adds the visitor's `adnet_uid` first-party cookie (minted on first contact) to audience `aud`, plus an advertiser-supplied `uid` when given. Only existing audiences accept members, and each audience has a size cap. GPC or `ac=0`/`ac=n` opts the visitor out: no cookie is set and no membership is recorded. Always responds with a 1x1 GIF.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -115,8 +119,9 @@ class ConversionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """conversions_controller_track_audience
+        """Retargeting pixel: add the visitor to an audience
 
+        Adds the visitor's `adnet_uid` first-party cookie (minted on first contact) to audience `aud`, plus an advertiser-supplied `uid` when given. Only existing audiences accept members, and each audience has a size cap. GPC or `ac=0`/`ac=n` opts the visitor out: no cookie is set and no membership is recorded. Always responds with a 1x1 GIF.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -177,8 +182,9 @@ class ConversionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """conversions_controller_track_audience
+        """Retargeting pixel: add the visitor to an audience
 
+        Adds the visitor's `adnet_uid` first-party cookie (minted on first contact) to audience `aud`, plus an advertiser-supplied `uid` when given. Only existing audiences accept members, and each audience has a size cap. GPC or `ac=0`/`ac=n` opts the visitor out: no cookie is set and no membership is recorded. Always responds with a 1x1 GIF.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -287,9 +293,10 @@ class ConversionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """conversions_controller_track_get
+    ) -> ConversionsControllerTrackGet200Response:
+        """Record an S2S conversion postback (GET)
 
+        Advertiser server-to-server postback keyed by `click_id`, with optional `value`, `order_id` and `order_value` query params. The click context cached by the ad engine resolves the campaign; the billed payout always comes from the campaign's server-side CPA config (flat or percent of order), never from the request. One conversion per click and one per (advertiser, order_id); orders below the configured minimum are rejected, and sponsored CPC clicks are skipped because they bill on the click. A recorded conversion emits the conversion event and fires the advertiser's outbound postback if one is configured.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -321,7 +328,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ConversionsControllerTrackGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -349,9 +356,10 @@ class ConversionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """conversions_controller_track_get
+    ) -> ApiResponse[ConversionsControllerTrackGet200Response]:
+        """Record an S2S conversion postback (GET)
 
+        Advertiser server-to-server postback keyed by `click_id`, with optional `value`, `order_id` and `order_value` query params. The click context cached by the ad engine resolves the campaign; the billed payout always comes from the campaign's server-side CPA config (flat or percent of order), never from the request. One conversion per click and one per (advertiser, order_id); orders below the configured minimum are rejected, and sponsored CPC clicks are skipped because they bill on the click. A recorded conversion emits the conversion event and fires the advertiser's outbound postback if one is configured.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -383,7 +391,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ConversionsControllerTrackGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -412,8 +420,9 @@ class ConversionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """conversions_controller_track_get
+        """Record an S2S conversion postback (GET)
 
+        Advertiser server-to-server postback keyed by `click_id`, with optional `value`, `order_id` and `order_value` query params. The click context cached by the ad engine resolves the campaign; the billed payout always comes from the campaign's server-side CPA config (flat or percent of order), never from the request. One conversion per click and one per (advertiser, order_id); orders below the configured minimum are rejected, and sponsored CPC clicks are skipped because they bill on the click. A recorded conversion emits the conversion event and fires the advertiser's outbound postback if one is configured.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -445,7 +454,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ConversionsControllerTrackGet200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -483,6 +492,13 @@ class ConversionsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -523,9 +539,10 @@ class ConversionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """conversions_controller_track_post
+    ) -> ConversionsControllerTrackPost201Response:
+        """Record an S2S conversion postback (POST)
 
+        JSON form of the conversion postback. Accepts `clickId`/`click_id`, `value`, `orderId`/`order_id` and `orderValue`/`order_value`, in camelCase or snake_case. Behaviour matches the GET form: dedup per click and per order, payout from the server-side CPA config, minimum-order check, and a `postbackId` returned when recorded. Unknown body fields are rejected with 400.  Auth: public, no credentials required.
 
         :param track_conversion_dto: (required)
         :type track_conversion_dto: TrackConversionDto
@@ -560,7 +577,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ConversionsControllerTrackPost201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -589,9 +606,10 @@ class ConversionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """conversions_controller_track_post
+    ) -> ApiResponse[ConversionsControllerTrackPost201Response]:
+        """Record an S2S conversion postback (POST)
 
+        JSON form of the conversion postback. Accepts `clickId`/`click_id`, `value`, `orderId`/`order_id` and `orderValue`/`order_value`, in camelCase or snake_case. Behaviour matches the GET form: dedup per click and per order, payout from the server-side CPA config, minimum-order check, and a `postbackId` returned when recorded. Unknown body fields are rejected with 400.  Auth: public, no credentials required.
 
         :param track_conversion_dto: (required)
         :type track_conversion_dto: TrackConversionDto
@@ -626,7 +644,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ConversionsControllerTrackPost201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -656,8 +674,9 @@ class ConversionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """conversions_controller_track_post
+        """Record an S2S conversion postback (POST)
 
+        JSON form of the conversion postback. Accepts `clickId`/`click_id`, `value`, `orderId`/`order_id` and `orderValue`/`order_value`, in camelCase or snake_case. Behaviour matches the GET form: dedup per click and per order, payout from the server-side CPA config, minimum-order check, and a `postbackId` returned when recorded. Unknown body fields are rejected with 400.  Auth: public, no credentials required.
 
         :param track_conversion_dto: (required)
         :type track_conversion_dto: TrackConversionDto
@@ -692,7 +711,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ConversionsControllerTrackPost201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -733,6 +752,13 @@ class ConversionsApi:
             _body_params = track_conversion_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -786,9 +812,10 @@ class ConversionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """conversions_controller_track_refund
+    ) -> ConversionsControllerTrackRefund201Response:
+        """Report a refund or chargeback for an order
 
+        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
 
         :param refund_dto: (required)
         :type refund_dto: RefundDto
@@ -823,7 +850,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ConversionsControllerTrackRefund201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -852,9 +879,10 @@ class ConversionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """conversions_controller_track_refund
+    ) -> ApiResponse[ConversionsControllerTrackRefund201Response]:
+        """Report a refund or chargeback for an order
 
+        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
 
         :param refund_dto: (required)
         :type refund_dto: RefundDto
@@ -889,7 +917,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ConversionsControllerTrackRefund201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -919,8 +947,9 @@ class ConversionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """conversions_controller_track_refund
+        """Report a refund or chargeback for an order
 
+        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
 
         :param refund_dto: (required)
         :type refund_dto: RefundDto
@@ -955,7 +984,7 @@ class ConversionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ConversionsControllerTrackRefund201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -996,6 +1025,13 @@ class ConversionsApi:
             _body_params = refund_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

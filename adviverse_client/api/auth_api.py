@@ -17,6 +17,19 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.auth_controller_connections200_response_inner import AuthControllerConnections200ResponseInner
+from adviverse_client.models.auth_controller_enable2fa201_response import AuthControllerEnable2fa201Response
+from adviverse_client.models.auth_controller_github_start201_response import AuthControllerGithubStart201Response
+from adviverse_client.models.auth_controller_oauth_discord201_response import AuthControllerOauthDiscord201Response
+from adviverse_client.models.auth_controller_resend_verification201_response import AuthControllerResendVerification201Response
+from adviverse_client.models.auth_controller_set_password201_response import AuthControllerSetPassword201Response
+from adviverse_client.models.auth_controller_setup2fa201_response import AuthControllerSetup2fa201Response
+from adviverse_client.models.auth_controller_signup201_response import AuthControllerSignup201Response
+from adviverse_client.models.auth_controller_sso_config200_response import AuthControllerSsoConfig200Response
+from adviverse_client.models.auth_controller_verify201_response import AuthControllerVerify201Response
+from adviverse_client.models.auth_me import AuthMe
+from adviverse_client.models.auth_session import AuthSession
 from adviverse_client.models.email_dto import EmailDto
 from adviverse_client.models.login_dto import LoginDto
 from adviverse_client.models.oauth_discord_dto import OauthDiscordDto
@@ -59,9 +72,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_connections
+    ) -> List[AuthControllerConnections200ResponseInner]:
+        """List linked SSO providers
 
+        Lists the social sign-in providers connected to the current account, oldest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -93,7 +107,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AuthControllerConnections200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -121,9 +135,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_connections
+    ) -> ApiResponse[List[AuthControllerConnections200ResponseInner]]:
+        """List linked SSO providers
 
+        Lists the social sign-in providers connected to the current account, oldest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -155,7 +170,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AuthControllerConnections200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -184,8 +199,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_connections
+        """List linked SSO providers
 
+        Lists the social sign-in providers connected to the current account, oldest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -217,7 +233,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AuthControllerConnections200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -255,10 +271,19 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -295,9 +320,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_disconnect
+    ) -> AuthControllerResendVerification201Response:
+        """Disconnect an SSO provider
 
+        Removes the connection for `provider` from the current account. Refuses with 400 when the account has no password and this is its only connection, so the user cannot lock themselves out. Unknown providers are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param provider: (required)
         :type provider: str
@@ -332,7 +358,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -361,9 +387,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_disconnect
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Disconnect an SSO provider
 
+        Removes the connection for `provider` from the current account. Refuses with 400 when the account has no password and this is its only connection, so the user cannot lock themselves out. Unknown providers are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param provider: (required)
         :type provider: str
@@ -398,7 +425,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -428,8 +455,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_disconnect
+        """Disconnect an SSO provider
 
+        Removes the connection for `provider` from the current account. Refuses with 400 when the account has no password and this is its only connection, so the user cannot lock themselves out. Unknown providers are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param provider: (required)
         :type provider: str
@@ -464,7 +492,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -505,10 +533,19 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -544,9 +581,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_enable2fa
+    ) -> AuthControllerEnable2fa201Response:
+        """Confirm and enable TOTP 2FA
 
+        Verifies `totp` against the secret from the setup step and turns on 2FA, after which login requires a code. Returns 400 `run setup first` if no secret exists, or `invalid code`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -578,7 +616,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerEnable2fa201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -606,9 +644,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_enable2fa
+    ) -> ApiResponse[AuthControllerEnable2fa201Response]:
+        """Confirm and enable TOTP 2FA
 
+        Verifies `totp` against the secret from the setup step and turns on 2FA, after which login requires a code. Returns 400 `run setup first` if no secret exists, or `invalid code`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -640,7 +679,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerEnable2fa201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -669,8 +708,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_enable2fa
+        """Confirm and enable TOTP 2FA
 
+        Verifies `totp` against the secret from the setup step and turns on 2FA, after which login requires a code. Returns 400 `run setup first` if no secret exists, or `invalid code`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -702,7 +742,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerEnable2fa201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -740,10 +780,19 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -780,9 +829,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_forgot_password
+    ) -> AuthControllerResendVerification201Response:
+        """Start a password reset
 
+        Emails a one-hour password reset link to `email` when an account exists. Always returns `{ ok: true }` to avoid account enumeration. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param email_dto: (required)
         :type email_dto: EmailDto
@@ -817,7 +867,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -846,9 +896,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_forgot_password
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Start a password reset
 
+        Emails a one-hour password reset link to `email` when an account exists. Always returns `{ ok: true }` to avoid account enumeration. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param email_dto: (required)
         :type email_dto: EmailDto
@@ -883,7 +934,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -913,8 +964,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_forgot_password
+        """Start a password reset
 
+        Emails a one-hour password reset link to `email` when an account exists. Always returns `{ ok: true }` to avoid account enumeration. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param email_dto: (required)
         :type email_dto: EmailDto
@@ -949,7 +1001,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -990,6 +1042,13 @@ class AuthApi:
             _body_params = email_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1045,8 +1104,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """auth_controller_github_callback
+        """GitHub OAuth callback
 
+        Browser redirect target for GitHub. Exchanges `code`, verifies `state`, then 302-redirects to the dashboard: `/settings#sso=connected` after linking, `/login#sso_token=<token>` after login/signup, or `/login#sso_error=github` on any failure. The session token is passed in the URL fragment so it never reaches a server. Callbacks carrying a state issued by the Atlas identity service are forwarded there instead.  Auth: public, no credentials required.
 
         :param code: (required)
         :type code: str
@@ -1115,8 +1175,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """auth_controller_github_callback
+        """GitHub OAuth callback
 
+        Browser redirect target for GitHub. Exchanges `code`, verifies `state`, then 302-redirects to the dashboard: `/settings#sso=connected` after linking, `/login#sso_token=<token>` after login/signup, or `/login#sso_error=github` on any failure. The session token is passed in the URL fragment so it never reaches a server. Callbacks carrying a state issued by the Atlas identity service are forwarded there instead.  Auth: public, no credentials required.
 
         :param code: (required)
         :type code: str
@@ -1185,8 +1246,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_github_callback
+        """GitHub OAuth callback
 
+        Browser redirect target for GitHub. Exchanges `code`, verifies `state`, then 302-redirects to the dashboard: `/settings#sso=connected` after linking, `/login#sso_token=<token>` after login/signup, or `/login#sso_error=github` on any failure. The session token is passed in the URL fragment so it never reaches a server. Callbacks carrying a state issued by the Atlas identity service are forwarded there instead.  Auth: public, no credentials required.
 
         :param code: (required)
         :type code: str
@@ -1313,9 +1375,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_github_start
+    ) -> AuthControllerGithubStart201Response:
+        """Start GitHub sign-in
 
+        Returns the GitHub authorize URL with a signed state carrying the optional signup `type` and, if a bearer token was sent, a \"connect to this account\" intent. POST is used so the session token never appears in a URL. Returns 401 if GitHub SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -1353,7 +1416,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerGithubStart201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1383,9 +1446,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_github_start
+    ) -> ApiResponse[AuthControllerGithubStart201Response]:
+        """Start GitHub sign-in
 
+        Returns the GitHub authorize URL with a signed state carrying the optional signup `type` and, if a bearer token was sent, a \"connect to this account\" intent. POST is used so the session token never appears in a URL. Returns 401 if GitHub SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -1423,7 +1487,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerGithubStart201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1454,8 +1518,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_github_start
+        """Start GitHub sign-in
 
+        Returns the GitHub authorize URL with a signed state carrying the optional signup `type` and, if a bearer token was sent, a \"connect to this account\" intent. POST is used so the session token never appears in a URL. Returns 401 if GitHub SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -1493,7 +1558,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerGithubStart201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1537,6 +1602,13 @@ class AuthApi:
             _body_params = oauth_start_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1590,9 +1662,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_login
+    ) -> AuthSession:
+        """Log in with email and password
 
+        Exchanges `email` + `password` for a session bearer token. When 2FA is enabled a `totp` code is required; without one the call fails with 401 `2fa_required`. Emails not found on an account are tried as agency team-member seats, in which case the session is bound to the agency account and `account.member` is set. Returns 401 for bad credentials, banned/suspended accounts, or SSO-only accounts without a password. A Turnstile token is checked when configured; rate-limited per IP.  Auth: public, no credentials required.
 
         :param login_dto: (required)
         :type login_dto: LoginDto
@@ -1627,7 +1700,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthSession",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1656,9 +1729,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_login
+    ) -> ApiResponse[AuthSession]:
+        """Log in with email and password
 
+        Exchanges `email` + `password` for a session bearer token. When 2FA is enabled a `totp` code is required; without one the call fails with 401 `2fa_required`. Emails not found on an account are tried as agency team-member seats, in which case the session is bound to the agency account and `account.member` is set. Returns 401 for bad credentials, banned/suspended accounts, or SSO-only accounts without a password. A Turnstile token is checked when configured; rate-limited per IP.  Auth: public, no credentials required.
 
         :param login_dto: (required)
         :type login_dto: LoginDto
@@ -1693,7 +1767,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthSession",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1723,8 +1797,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_login
+        """Log in with email and password
 
+        Exchanges `email` + `password` for a session bearer token. When 2FA is enabled a `totp` code is required; without one the call fails with 401 `2fa_required`. Emails not found on an account are tried as agency team-member seats, in which case the session is bound to the agency account and `account.member` is set. Returns 401 for bad credentials, banned/suspended accounts, or SSO-only accounts without a password. A Turnstile token is checked when configured; rate-limited per IP.  Auth: public, no credentials required.
 
         :param login_dto: (required)
         :type login_dto: LoginDto
@@ -1759,7 +1834,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthSession",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1800,6 +1875,13 @@ class AuthApi:
             _body_params = login_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1853,9 +1935,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_logout
+    ) -> AuthControllerResendVerification201Response:
+        """Log out
 
+        Revokes the session identified by the bearer token in the Authorization header. Always returns `{ ok: true }`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param authorization: (required)
         :type authorization: str
@@ -1890,7 +1973,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1919,9 +2002,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_logout
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Log out
 
+        Revokes the session identified by the bearer token in the Authorization header. Always returns `{ ok: true }`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param authorization: (required)
         :type authorization: str
@@ -1956,7 +2040,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1986,8 +2070,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_logout
+        """Log out
 
+        Revokes the session identified by the bearer token in the Authorization header. Always returns `{ ok: true }`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param authorization: (required)
         :type authorization: str
@@ -2022,7 +2107,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2063,10 +2148,19 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2102,9 +2196,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_me
+    ) -> AuthMe:
+        """Get the current session account
 
+        Returns the account behind the current session or API key. `roles` is `[\"admin\"]` for admins and `[\"publisher\",\"advertiser\"]` for every other account, since all accounts are dual-sided; `type` is only the signup choice. For agency team-member sessions `email` is the member email and `member` describes the seat role and pixel grant; otherwise `member` is null.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2136,7 +2231,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthMe",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2164,9 +2259,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_me
+    ) -> ApiResponse[AuthMe]:
+        """Get the current session account
 
+        Returns the account behind the current session or API key. `roles` is `[\"admin\"]` for admins and `[\"publisher\",\"advertiser\"]` for every other account, since all accounts are dual-sided; `type` is only the signup choice. For agency team-member sessions `email` is the member email and `member` describes the seat role and pixel grant; otherwise `member` is null.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2198,7 +2294,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthMe",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2227,8 +2323,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_me
+        """Get the current session account
 
+        Returns the account behind the current session or API key. `roles` is `[\"admin\"]` for admins and `[\"publisher\",\"advertiser\"]` for every other account, since all accounts are dual-sided; `type` is only the signup choice. For agency team-member sessions `email` is the member email and `member` describes the seat role and pixel grant; otherwise `member` is null.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2260,7 +2357,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthMe",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2298,10 +2395,19 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2340,8 +2446,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """auth_controller_microsoft_callback
+        """Microsoft OAuth callback
 
+        Browser redirect target for Microsoft. Completes the code flow and 302-redirects to the dashboard with `#sso=connected`, `#sso_token=<token>` or `#sso_error=microsoft`, same as the GitHub callback. Atlas-issued states are forwarded to Atlas.  Auth: public, no credentials required.
 
         :param code: (required)
         :type code: str
@@ -2410,8 +2517,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """auth_controller_microsoft_callback
+        """Microsoft OAuth callback
 
+        Browser redirect target for Microsoft. Completes the code flow and 302-redirects to the dashboard with `#sso=connected`, `#sso_token=<token>` or `#sso_error=microsoft`, same as the GitHub callback. Atlas-issued states are forwarded to Atlas.  Auth: public, no credentials required.
 
         :param code: (required)
         :type code: str
@@ -2480,8 +2588,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_microsoft_callback
+        """Microsoft OAuth callback
 
+        Browser redirect target for Microsoft. Completes the code flow and 302-redirects to the dashboard with `#sso=connected`, `#sso_token=<token>` or `#sso_error=microsoft`, same as the GitHub callback. Atlas-issued states are forwarded to Atlas.  Auth: public, no credentials required.
 
         :param code: (required)
         :type code: str
@@ -2608,9 +2717,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_microsoft_start
+    ) -> AuthControllerGithubStart201Response:
+        """Start Microsoft sign-in
 
+        Returns the Microsoft (Entra) authorize URL with a signed state, exactly like the GitHub start endpoint. An optional bearer token marks a connect intent; `type` sets the account type for a new signup. Returns 401 if Microsoft SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -2648,7 +2758,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerGithubStart201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2678,9 +2788,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_microsoft_start
+    ) -> ApiResponse[AuthControllerGithubStart201Response]:
+        """Start Microsoft sign-in
 
+        Returns the Microsoft (Entra) authorize URL with a signed state, exactly like the GitHub start endpoint. An optional bearer token marks a connect intent; `type` sets the account type for a new signup. Returns 401 if Microsoft SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -2718,7 +2829,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerGithubStart201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2749,8 +2860,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_microsoft_start
+        """Start Microsoft sign-in
 
+        Returns the Microsoft (Entra) authorize URL with a signed state, exactly like the GitHub start endpoint. An optional bearer token marks a connect intent; `type` sets the account type for a new signup. Returns 401 if Microsoft SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -2788,7 +2900,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerGithubStart201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2832,6 +2944,13 @@ class AuthApi:
             _body_params = oauth_start_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2886,9 +3005,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_oauth_discord
+    ) -> AuthControllerOauthDiscord201Response:
+        """Sign in or connect with Discord
 
+        Verifies a single-use RestoreHub widget `token` and resolves the Discord identity. Without a bearer token it logs in the account already connected to that identity, else attaches it to an account with the same provider-verified email, else creates a new passwordless account of `type`. With a valid bearer token the identity is linked to the current account instead and `{ linked: true }` is returned. Returns 400 when the email belongs to an existing account but is not verified by the provider, or no email is shared.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -2926,7 +3046,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerOauthDiscord201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2956,9 +3076,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_oauth_discord
+    ) -> ApiResponse[AuthControllerOauthDiscord201Response]:
+        """Sign in or connect with Discord
 
+        Verifies a single-use RestoreHub widget `token` and resolves the Discord identity. Without a bearer token it logs in the account already connected to that identity, else attaches it to an account with the same provider-verified email, else creates a new passwordless account of `type`. With a valid bearer token the identity is linked to the current account instead and `{ linked: true }` is returned. Returns 400 when the email belongs to an existing account but is not verified by the provider, or no email is shared.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -2996,7 +3117,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerOauthDiscord201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3027,8 +3148,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_oauth_discord
+        """Sign in or connect with Discord
 
+        Verifies a single-use RestoreHub widget `token` and resolves the Discord identity. Without a bearer token it logs in the account already connected to that identity, else attaches it to an account with the same provider-verified email, else creates a new passwordless account of `type`. With a valid bearer token the identity is linked to the current account instead and `{ linked: true }` is returned. Returns 400 when the email belongs to an existing account but is not verified by the provider, or no email is shared.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -3066,7 +3188,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerOauthDiscord201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3110,6 +3232,13 @@ class AuthApi:
             _body_params = oauth_discord_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3164,9 +3293,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_oauth_google
+    ) -> AuthControllerOauthDiscord201Response:
+        """Sign in or connect with Google
 
+        Validates a Google Identity Services ID token (`credential`) against Google tokeninfo, checking that the audience is the Adviverse client id and the issuer is Google. Login, auto-link and signup behave as for Discord; with a bearer token the Google identity is linked to the current account. Returns 401 `verification_failed` for an invalid token, or when Google SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -3204,7 +3334,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerOauthDiscord201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3234,9 +3364,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_oauth_google
+    ) -> ApiResponse[AuthControllerOauthDiscord201Response]:
+        """Sign in or connect with Google
 
+        Validates a Google Identity Services ID token (`credential`) against Google tokeninfo, checking that the audience is the Adviverse client id and the issuer is Google. Login, auto-link and signup behave as for Discord; with a bearer token the Google identity is linked to the current account. Returns 401 `verification_failed` for an invalid token, or when Google SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -3274,7 +3405,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerOauthDiscord201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3305,8 +3436,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_oauth_google
+        """Sign in or connect with Google
 
+        Validates a Google Identity Services ID token (`credential`) against Google tokeninfo, checking that the audience is the Adviverse client id and the issuer is Google. Login, auto-link and signup behave as for Discord; with a bearer token the Google identity is linked to the current account. Returns 401 `verification_failed` for an invalid token, or when Google SSO is not configured.  Auth: public, no credentials required.
 
         :param authorization: (required)
         :type authorization: str
@@ -3344,7 +3476,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerOauthDiscord201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3388,6 +3520,13 @@ class AuthApi:
             _body_params = oauth_google_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3441,9 +3580,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_resend_verification
+    ) -> AuthControllerResendVerification201Response:
+        """Resend the verification email
 
+        Sends a fresh verification link to `email` if an account exists and is not yet verified. Always returns `{ ok: true }` so the response does not reveal whether the email is registered. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param email_dto: (required)
         :type email_dto: EmailDto
@@ -3478,7 +3618,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3507,9 +3647,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_resend_verification
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Resend the verification email
 
+        Sends a fresh verification link to `email` if an account exists and is not yet verified. Always returns `{ ok: true }` so the response does not reveal whether the email is registered. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param email_dto: (required)
         :type email_dto: EmailDto
@@ -3544,7 +3685,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3574,8 +3715,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_resend_verification
+        """Resend the verification email
 
+        Sends a fresh verification link to `email` if an account exists and is not yet verified. Always returns `{ ok: true }` so the response does not reveal whether the email is registered. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param email_dto: (required)
         :type email_dto: EmailDto
@@ -3610,7 +3752,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3651,6 +3793,13 @@ class AuthApi:
             _body_params = email_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3704,9 +3853,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_reset_password
+    ) -> AuthControllerResendVerification201Response:
+        """Complete a password reset
 
+        Sets a new `password` (min 8 chars) using the single-use reset `token` from the email. On success the token is consumed and every active session of the account is revoked, so the user must log in again. Returns 400 for an invalid or expired token. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param reset_password_dto: (required)
         :type reset_password_dto: ResetPasswordDto
@@ -3741,7 +3891,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3770,9 +3920,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_reset_password
+    ) -> ApiResponse[AuthControllerResendVerification201Response]:
+        """Complete a password reset
 
+        Sets a new `password` (min 8 chars) using the single-use reset `token` from the email. On success the token is consumed and every active session of the account is revoked, so the user must log in again. Returns 400 for an invalid or expired token. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param reset_password_dto: (required)
         :type reset_password_dto: ResetPasswordDto
@@ -3807,7 +3958,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3837,8 +3988,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_reset_password
+        """Complete a password reset
 
+        Sets a new `password` (min 8 chars) using the single-use reset `token` from the email. On success the token is consumed and every active session of the account is revoked, so the user must log in again. Returns 400 for an invalid or expired token. Rate-limited per IP.  Auth: public, no credentials required.
 
         :param reset_password_dto: (required)
         :type reset_password_dto: ResetPasswordDto
@@ -3873,7 +4025,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerResendVerification201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3914,6 +4066,13 @@ class AuthApi:
             _body_params = reset_password_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3967,9 +4126,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_set_password
+    ) -> AuthControllerSetPassword201Response:
+        """Set or change the password
 
+        Sets `newPassword` (min 8 chars). If the account already has a password, `currentPassword` is required and must match (400 if missing, 401 if wrong); SSO-only accounts can set a first password without it, which enables email login. Team-member seats get 403. `hadPassword` tells whether this was a change or a first set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param set_password_dto: (required)
         :type set_password_dto: SetPasswordDto
@@ -4004,7 +4164,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSetPassword201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4033,9 +4193,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_set_password
+    ) -> ApiResponse[AuthControllerSetPassword201Response]:
+        """Set or change the password
 
+        Sets `newPassword` (min 8 chars). If the account already has a password, `currentPassword` is required and must match (400 if missing, 401 if wrong); SSO-only accounts can set a first password without it, which enables email login. Team-member seats get 403. `hadPassword` tells whether this was a change or a first set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param set_password_dto: (required)
         :type set_password_dto: SetPasswordDto
@@ -4070,7 +4231,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSetPassword201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4100,8 +4261,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_set_password
+        """Set or change the password
 
+        Sets `newPassword` (min 8 chars). If the account already has a password, `currentPassword` is required and must match (400 if missing, 401 if wrong); SSO-only accounts can set a first password without it, which enables email login. Team-member seats get 403. `hadPassword` tells whether this was a change or a first set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param set_password_dto: (required)
         :type set_password_dto: SetPasswordDto
@@ -4136,7 +4298,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSetPassword201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4177,6 +4339,13 @@ class AuthApi:
             _body_params = set_password_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4194,6 +4363,8 @@ class AuthApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4229,9 +4400,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_setup2fa
+    ) -> AuthControllerSetup2fa201Response:
+        """Begin TOTP 2FA setup
 
+        Generates a new TOTP secret, stores it on the account and returns it with an `otpauth://` URI for authenticator apps. 2FA is not active until confirmed with the enable endpoint. Calling again replaces any unconfirmed secret.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4263,7 +4435,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSetup2fa201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4291,9 +4463,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_setup2fa
+    ) -> ApiResponse[AuthControllerSetup2fa201Response]:
+        """Begin TOTP 2FA setup
 
+        Generates a new TOTP secret, stores it on the account and returns it with an `otpauth://` URI for authenticator apps. 2FA is not active until confirmed with the enable endpoint. Calling again replaces any unconfirmed secret.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4325,7 +4498,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSetup2fa201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4354,8 +4527,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_setup2fa
+        """Begin TOTP 2FA setup
 
+        Generates a new TOTP secret, stores it on the account and returns it with an `otpauth://` URI for authenticator apps. 2FA is not active until confirmed with the enable endpoint. Calling again replaces any unconfirmed secret.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4387,7 +4561,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSetup2fa201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4425,10 +4599,19 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4465,9 +4648,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_signup
+    ) -> AuthControllerSignup201Response:
+        """Create an account
 
+        Registers a new account from `email` and `password` (min 8 chars), with optional `type` (advertiser|publisher, default advertiser; only the default landing side, every account is dual-sided), `companyName`, `country` and `referredByCode`. A Turnstile token (`turnstileToken`) is checked first when Turnstile is configured. Creates a zero balance, records the referral if the code matches, emails a 48-hour verification link and returns a session token so the client is logged in immediately. The account starts in `pending` status until the email is verified. Returns 400 if the email is already registered.  Auth: public, no credentials required.
 
         :param signup_dto: (required)
         :type signup_dto: SignupDto
@@ -4502,7 +4686,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSignup201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4531,9 +4715,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_signup
+    ) -> ApiResponse[AuthControllerSignup201Response]:
+        """Create an account
 
+        Registers a new account from `email` and `password` (min 8 chars), with optional `type` (advertiser|publisher, default advertiser; only the default landing side, every account is dual-sided), `companyName`, `country` and `referredByCode`. A Turnstile token (`turnstileToken`) is checked first when Turnstile is configured. Creates a zero balance, records the referral if the code matches, emails a 48-hour verification link and returns a session token so the client is logged in immediately. The account starts in `pending` status until the email is verified. Returns 400 if the email is already registered.  Auth: public, no credentials required.
 
         :param signup_dto: (required)
         :type signup_dto: SignupDto
@@ -4568,7 +4753,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSignup201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4598,8 +4783,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_signup
+        """Create an account
 
+        Registers a new account from `email` and `password` (min 8 chars), with optional `type` (advertiser|publisher, default advertiser; only the default landing side, every account is dual-sided), `companyName`, `country` and `referredByCode`. A Turnstile token (`turnstileToken`) is checked first when Turnstile is configured. Creates a zero balance, records the referral if the code matches, emails a 48-hour verification link and returns a session token so the client is logged in immediately. The account starts in `pending` status until the email is verified. Returns 400 if the email is already registered.  Auth: public, no credentials required.
 
         :param signup_dto: (required)
         :type signup_dto: SignupDto
@@ -4634,7 +4820,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerSignup201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4675,6 +4861,13 @@ class AuthApi:
             _body_params = signup_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4727,9 +4920,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_sso_config
+    ) -> AuthControllerSsoConfig200Response:
+        """Get public SSO and Turnstile config
 
+        Returns the public settings the login page needs to render SSO buttons and the Turnstile widget: the Google client id (or null), whether GitHub and Microsoft SSO are configured, and the Turnstile site key (or null). No secrets are returned.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4761,7 +4955,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerSsoConfig200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4789,9 +4983,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_sso_config
+    ) -> ApiResponse[AuthControllerSsoConfig200Response]:
+        """Get public SSO and Turnstile config
 
+        Returns the public settings the login page needs to render SSO buttons and the Turnstile widget: the Google client id (or null), whether GitHub and Microsoft SSO are configured, and the Turnstile site key (or null). No secrets are returned.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4823,7 +5018,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerSsoConfig200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4852,8 +5047,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_sso_config
+        """Get public SSO and Turnstile config
 
+        Returns the public settings the login page needs to render SSO buttons and the Turnstile widget: the Google client id (or null), whether GitHub and Microsoft SSO are configured, and the Turnstile site key (or null). No secrets are returned.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4885,7 +5081,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AuthControllerSsoConfig200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4923,6 +5119,13 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -4962,9 +5165,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """auth_controller_verify
+    ) -> AuthControllerVerify201Response:
+        """Verify an email address
 
+        Consumes the single-use `token` from the verification email. Marks the account email as verified and moves a `pending` account to `active`. Returns 400 if the token is unknown, already used or expired (tokens live 48 hours).  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4996,7 +5200,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerVerify201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5024,9 +5228,10 @@ class AuthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """auth_controller_verify
+    ) -> ApiResponse[AuthControllerVerify201Response]:
+        """Verify an email address
 
+        Consumes the single-use `token` from the verification email. Marks the account email as verified and moves a `pending` account to `active`. Returns 400 if the token is unknown, already used or expired (tokens live 48 hours).  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5058,7 +5263,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerVerify201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5087,8 +5292,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """auth_controller_verify
+        """Verify an email address
 
+        Consumes the single-use `token` from the verification email. Marks the account email as verified and moves a `pending` account to `active`. Returns 400 if the token is unknown, already used or expired (tokens live 48 hours).  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5120,7 +5326,7 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AuthControllerVerify201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5158,6 +5364,13 @@ class AuthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting

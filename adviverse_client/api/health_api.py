@@ -16,6 +16,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from pydantic import StrictStr
+from adviverse_client.models.health_controller_health200_response import HealthControllerHealth200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -50,9 +52,10 @@ class HealthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """health_controller_health
+    ) -> HealthControllerHealth200Response:
+        """Control-plane health check
 
+        Liveness check that also runs `SELECT 1` against Postgres. Returns `status: \"ok\"` when the database answers, otherwise `degraded` with `db: false` (still HTTP 200). No authentication.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -84,7 +87,7 @@ class HealthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "HealthControllerHealth200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -112,9 +115,10 @@ class HealthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """health_controller_health
+    ) -> ApiResponse[HealthControllerHealth200Response]:
+        """Control-plane health check
 
+        Liveness check that also runs `SELECT 1` against Postgres. Returns `status: \"ok\"` when the database answers, otherwise `degraded` with `db: false` (still HTTP 200). No authentication.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -146,7 +150,7 @@ class HealthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "HealthControllerHealth200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -175,8 +179,9 @@ class HealthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """health_controller_health
+        """Control-plane health check
 
+        Liveness check that also runs `SELECT 1` against Postgres. Returns `status: \"ok\"` when the database answers, otherwise `degraded` with `db: false` (still HTTP 200). No authentication.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -208,7 +213,7 @@ class HealthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "HealthControllerHealth200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -246,6 +251,13 @@ class HealthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -285,9 +297,10 @@ class HealthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """health_controller_metrics
+    ) -> str:
+        """Prometheus metrics
 
+        Prometheus text exposition of control-plane process metrics (prefixed `control_plane_`). When the server has a metrics token configured it must be sent as a Bearer token or `?token=`, otherwise 403; without one the endpoint is open.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -319,7 +332,7 @@ class HealthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -347,9 +360,10 @@ class HealthApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """health_controller_metrics
+    ) -> ApiResponse[str]:
+        """Prometheus metrics
 
+        Prometheus text exposition of control-plane process metrics (prefixed `control_plane_`). When the server has a metrics token configured it must be sent as a Bearer token or `?token=`, otherwise 403; without one the endpoint is open.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -381,7 +395,7 @@ class HealthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -410,8 +424,9 @@ class HealthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """health_controller_metrics
+        """Prometheus metrics
 
+        Prometheus text exposition of control-plane process metrics (prefixed `control_plane_`). When the server has a metrics token configured it must be sent as a Bearer token or `?token=`, otherwise 403; without one the endpoint is open.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -443,7 +458,7 @@ class HealthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -481,6 +496,13 @@ class HealthApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain'
+                ]
+            )
 
 
         # authentication setting

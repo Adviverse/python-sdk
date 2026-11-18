@@ -39,7 +39,8 @@ class UpdatePlacementDto(BaseModel):
     floor_fallback: Optional[StrictBool] = Field(default=None, alias="floorFallback")
     floor_auto: Optional[StrictBool] = Field(default=None, alias="floorAuto")
     floor_soft: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, alias="floorSoft")
-    __properties: ClassVar[List[str]] = ["name", "floorCpm", "revShare", "auctionType", "passbackUrl", "status", "houseOnly", "houseShare", "houseBackfill", "floorFallback", "floorAuto", "floorSoft"]
+    auto_ads: Optional[Dict[str, Any]] = Field(default=None, alias="autoAds")
+    __properties: ClassVar[List[str]] = ["name", "floorCpm", "revShare", "auctionType", "passbackUrl", "status", "houseOnly", "houseShare", "houseBackfill", "floorFallback", "floorAuto", "floorSoft", "autoAds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +81,11 @@ class UpdatePlacementDto(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if auto_ads (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_ads is None and "auto_ads" in self.model_fields_set:
+            _dict['autoAds'] = None
+
         return _dict
 
     @classmethod
@@ -103,7 +109,8 @@ class UpdatePlacementDto(BaseModel):
             "houseBackfill": obj.get("houseBackfill"),
             "floorFallback": obj.get("floorFallback"),
             "floorAuto": obj.get("floorAuto"),
-            "floorSoft": obj.get("floorSoft")
+            "floorSoft": obj.get("floorSoft"),
+            "autoAds": obj.get("autoAds")
         })
         return _obj
 

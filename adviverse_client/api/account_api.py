@@ -17,6 +17,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from adviverse_client.models.account_controller_didit_webhook201_response import AccountControllerDiditWebhook201Response
+from adviverse_client.models.account_controller_kyc_status200_response import AccountControllerKycStatus200Response
+from adviverse_client.models.account_controller_start_didit201_response import AccountControllerStartDidit201Response
+from adviverse_client.models.onboarding_controller_save_profile201_response import OnboardingControllerSaveProfile201Response
+from adviverse_client.models.onboarding_controller_status200_response import OnboardingControllerStatus200Response
 from adviverse_client.models.profile_dto import ProfileDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -55,9 +60,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """account_controller_didit_webhook
+    ) -> AccountControllerDiditWebhook201Response:
+        """Receive Didit verification webhooks
 
+        Public callback for Didit, authenticated by HMAC signature (`x-signature-simple`, `x-signature-v2` or `x-signature` over the raw body) plus a `created_at` within 5 minutes. Updates the KYC session and maps the decision onto the account's KYC status, never downgrading a verified account. Returns 401 on a bad or stale signature, otherwise 200 so Didit does not retry.  Auth: public, no credentials required.
 
         :param x_signature_simple: (required)
         :type x_signature_simple: str
@@ -98,7 +104,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AccountControllerDiditWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -129,9 +135,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """account_controller_didit_webhook
+    ) -> ApiResponse[AccountControllerDiditWebhook201Response]:
+        """Receive Didit verification webhooks
 
+        Public callback for Didit, authenticated by HMAC signature (`x-signature-simple`, `x-signature-v2` or `x-signature` over the raw body) plus a `created_at` within 5 minutes. Updates the KYC session and maps the decision onto the account's KYC status, never downgrading a verified account. Returns 401 on a bad or stale signature, otherwise 200 so Didit does not retry.  Auth: public, no credentials required.
 
         :param x_signature_simple: (required)
         :type x_signature_simple: str
@@ -172,7 +179,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AccountControllerDiditWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -204,8 +211,9 @@ class AccountApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """account_controller_didit_webhook
+        """Receive Didit verification webhooks
 
+        Public callback for Didit, authenticated by HMAC signature (`x-signature-simple`, `x-signature-v2` or `x-signature` over the raw body) plus a `created_at` within 5 minutes. Updates the KYC session and maps the decision onto the account's KYC status, never downgrading a verified account. Returns 401 on a bad or stale signature, otherwise 200 so Didit does not retry.  Auth: public, no credentials required.
 
         :param x_signature_simple: (required)
         :type x_signature_simple: str
@@ -246,7 +254,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AccountControllerDiditWebhook201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -293,6 +301,13 @@ class AccountApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -332,9 +347,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """account_controller_kyc_status
+    ) -> AccountControllerKycStatus200Response:
+        """Get KYC verification status
 
+        Returns the account's identity verification status (`none`, `submitted`, `verified` or `rejected`) and `instantProvider`, which is `didit` when hosted verification is configured and null otherwise. There is no manual document upload path.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -366,7 +382,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AccountControllerKycStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -394,9 +410,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """account_controller_kyc_status
+    ) -> ApiResponse[AccountControllerKycStatus200Response]:
+        """Get KYC verification status
 
+        Returns the account's identity verification status (`none`, `submitted`, `verified` or `rejected`) and `instantProvider`, which is `didit` when hosted verification is configured and null otherwise. There is no manual document upload path.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -428,7 +445,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AccountControllerKycStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -457,8 +474,9 @@ class AccountApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """account_controller_kyc_status
+        """Get KYC verification status
 
+        Returns the account's identity verification status (`none`, `submitted`, `verified` or `rejected`) and `instantProvider`, which is `didit` when hosted verification is configured and null otherwise. There is no manual document upload path.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -490,7 +508,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AccountControllerKycStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -528,10 +546,19 @@ class AccountApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -567,9 +594,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """account_controller_start_didit
+    ) -> AccountControllerStartDidit201Response:
+        """Start a hosted KYC session
 
+        Creates a Didit verification session and returns the URL to send the user to. Documents are captured and reviewed by Didit; Adviverse never receives them. Records the session and sets the account to `submitted` unless already verified. Returns 400 if the provider is not configured or the session could not be created.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -601,7 +629,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AccountControllerStartDidit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -629,9 +657,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """account_controller_start_didit
+    ) -> ApiResponse[AccountControllerStartDidit201Response]:
+        """Start a hosted KYC session
 
+        Creates a Didit verification session and returns the URL to send the user to. Documents are captured and reviewed by Didit; Adviverse never receives them. Records the session and sets the account to `submitted` unless already verified. Returns 400 if the provider is not configured or the session could not be created.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -663,7 +692,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AccountControllerStartDidit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -692,8 +721,9 @@ class AccountApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """account_controller_start_didit
+        """Start a hosted KYC session
 
+        Creates a Didit verification session and returns the URL to send the user to. Documents are captured and reviewed by Didit; Adviverse never receives them. Records the session and sets the account to `submitted` unless already verified. Returns 400 if the provider is not configured or the session could not be created.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -725,7 +755,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AccountControllerStartDidit201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -763,10 +793,19 @@ class AccountApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -803,9 +842,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """onboarding_controller_save_profile
+    ) -> OnboardingControllerSaveProfile201Response:
+        """Save onboarding profile answers
 
+        Stores the onboarding wizard answers. `company` and `country` (2 letters) update the account columns; `currency` updates the account currency when it is a 2-12 character code; `goal` (advertiser|publisher|both, default both) sets the default landing side. `name`, `timezone`, `marketingOptIn` and an onboarding-completed flag are merged into account metadata. Idempotent.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param profile_dto: (required)
         :type profile_dto: ProfileDto
@@ -840,7 +880,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "OnboardingControllerSaveProfile201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -869,9 +909,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """onboarding_controller_save_profile
+    ) -> ApiResponse[OnboardingControllerSaveProfile201Response]:
+        """Save onboarding profile answers
 
+        Stores the onboarding wizard answers. `company` and `country` (2 letters) update the account columns; `currency` updates the account currency when it is a 2-12 character code; `goal` (advertiser|publisher|both, default both) sets the default landing side. `name`, `timezone`, `marketingOptIn` and an onboarding-completed flag are merged into account metadata. Idempotent.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param profile_dto: (required)
         :type profile_dto: ProfileDto
@@ -906,7 +947,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "OnboardingControllerSaveProfile201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -936,8 +977,9 @@ class AccountApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """onboarding_controller_save_profile
+        """Save onboarding profile answers
 
+        Stores the onboarding wizard answers. `company` and `country` (2 letters) update the account columns; `currency` updates the account currency when it is a 2-12 character code; `goal` (advertiser|publisher|both, default both) sets the default landing side. `name`, `timezone`, `marketingOptIn` and an onboarding-completed flag are merged into account metadata. Idempotent.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
 
         :param profile_dto: (required)
         :type profile_dto: ProfileDto
@@ -972,7 +1014,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "OnboardingControllerSaveProfile201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1013,6 +1055,13 @@ class AccountApi:
             _body_params = profile_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1030,6 +1079,8 @@ class AccountApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1065,9 +1116,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """onboarding_controller_status
+    ) -> OnboardingControllerStatus200Response:
+        """Get onboarding checklist progress
 
+        Returns onboarding checklist booleans for both sides, derived from real account state in one query: properties, verified properties, placements and tax form for the publisher side; a completed deposit, campaigns, creatives and an active campaign for the advertiser side.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1099,7 +1151,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "OnboardingControllerStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1127,9 +1179,10 @@ class AccountApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """onboarding_controller_status
+    ) -> ApiResponse[OnboardingControllerStatus200Response]:
+        """Get onboarding checklist progress
 
+        Returns onboarding checklist booleans for both sides, derived from real account state in one query: properties, verified properties, placements and tax form for the publisher side; a completed deposit, campaigns, creatives and an active campaign for the advertiser side.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1161,7 +1214,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "OnboardingControllerStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1190,8 +1243,9 @@ class AccountApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """onboarding_controller_status
+        """Get onboarding checklist progress
 
+        Returns onboarding checklist booleans for both sides, derived from real account state in one query: properties, verified properties, placements and tax form for the publisher side; a completed deposit, campaigns, creatives and an active campaign for the advertiser side.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1223,7 +1277,7 @@ class AccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "OnboardingControllerStatus200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1261,10 +1315,19 @@ class AccountApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

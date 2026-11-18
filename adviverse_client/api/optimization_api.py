@@ -17,7 +17,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
+from adviverse_client.models.audience_automation_rule import AudienceAutomationRule
 from adviverse_client.models.create_automation_rule_dto import CreateAutomationRuleDto
+from adviverse_client.models.optimization_controller_ack_alert201_response import OptimizationControllerAckAlert201Response
+from adviverse_client.models.optimization_controller_list_alerts200_response_inner import OptimizationControllerListAlerts200ResponseInner
+from adviverse_client.models.optimization_controller_optimizer_log200_response_inner import OptimizationControllerOptimizerLog200ResponseInner
+from adviverse_client.models.pixel_controller_delete_pixel200_response import PixelControllerDeletePixel200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -53,9 +59,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_ack_alert
+    ) -> OptimizationControllerAckAlert201Response:
+        """Acknowledge an alert
 
+        Marks alert `id` as acknowledged. Ids not owned by the account are silently ignored, and the response is the same either way.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -90,7 +97,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "OptimizationControllerAckAlert201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -119,9 +126,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_ack_alert
+    ) -> ApiResponse[OptimizationControllerAckAlert201Response]:
+        """Acknowledge an alert
 
+        Marks alert `id` as acknowledged. Ids not owned by the account are silently ignored, and the response is the same either way.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -156,7 +164,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "OptimizationControllerAckAlert201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,8 +194,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_ack_alert
+        """Acknowledge an alert
 
+        Marks alert `id` as acknowledged. Ids not owned by the account are silently ignored, and the response is the same either way.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -222,7 +231,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "OptimizationControllerAckAlert201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -263,10 +272,19 @@ class OptimizationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -303,9 +321,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_create_rule
+    ) -> AudienceAutomationRule:
+        """Create an automation rule
 
+        Creates a rule of the form \"when `metric` (cpa, ctr, spend, conversions, fill_rate) is `operator` (gt or lt) `threshold` over `windowHours`, apply `action`\" (pause, resume, notify or adjust_bid). `name`, `metric`, `operator`, `threshold` and `action` are required. `scope` is campaign (the default, which requires `targetId`) or all. `windowHours` defaults to 24 and is clamped to 1-720. `actionValue` is kept only for adjust_bid. Invalid input returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_automation_rule_dto: (required)
         :type create_automation_rule_dto: CreateAutomationRuleDto
@@ -340,7 +359,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudienceAutomationRule",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -369,9 +388,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_create_rule
+    ) -> ApiResponse[AudienceAutomationRule]:
+        """Create an automation rule
 
+        Creates a rule of the form \"when `metric` (cpa, ctr, spend, conversions, fill_rate) is `operator` (gt or lt) `threshold` over `windowHours`, apply `action`\" (pause, resume, notify or adjust_bid). `name`, `metric`, `operator`, `threshold` and `action` are required. `scope` is campaign (the default, which requires `targetId`) or all. `windowHours` defaults to 24 and is clamped to 1-720. `actionValue` is kept only for adjust_bid. Invalid input returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_automation_rule_dto: (required)
         :type create_automation_rule_dto: CreateAutomationRuleDto
@@ -406,7 +426,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudienceAutomationRule",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -436,8 +456,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_create_rule
+        """Create an automation rule
 
+        Creates a rule of the form \"when `metric` (cpa, ctr, spend, conversions, fill_rate) is `operator` (gt or lt) `threshold` over `windowHours`, apply `action`\" (pause, resume, notify or adjust_bid). `name`, `metric`, `operator`, `threshold` and `action` are required. `scope` is campaign (the default, which requires `targetId`) or all. `windowHours` defaults to 24 and is clamped to 1-720. `actionValue` is kept only for adjust_bid. Invalid input returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param create_automation_rule_dto: (required)
         :type create_automation_rule_dto: CreateAutomationRuleDto
@@ -472,7 +493,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "AudienceAutomationRule",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -513,6 +534,13 @@ class OptimizationApi:
             _body_params = create_automation_rule_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -530,6 +558,8 @@ class OptimizationApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -565,9 +595,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_list_alerts
+    ) -> List[OptimizationControllerListAlerts200ResponseInner]:
+        """List anomaly alerts
 
+        Returns up to 200 of the account's anomaly alerts, newest first. Alerts are raised by the hourly anomaly detector. Kinds include spend and CPA spikes, CTR and CVR drops, fill-rate drops and no-fill spikes.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -599,7 +630,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[OptimizationControllerListAlerts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -627,9 +658,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_list_alerts
+    ) -> ApiResponse[List[OptimizationControllerListAlerts200ResponseInner]]:
+        """List anomaly alerts
 
+        Returns up to 200 of the account's anomaly alerts, newest first. Alerts are raised by the hourly anomaly detector. Kinds include spend and CPA spikes, CTR and CVR drops, fill-rate drops and no-fill spikes.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -661,7 +693,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[OptimizationControllerListAlerts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -690,8 +722,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_list_alerts
+        """List anomaly alerts
 
+        Returns up to 200 of the account's anomaly alerts, newest first. Alerts are raised by the hourly anomaly detector. Kinds include spend and CPA spikes, CTR and CVR drops, fill-rate drops and no-fill spikes.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -723,7 +756,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[OptimizationControllerListAlerts200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -761,10 +794,19 @@ class OptimizationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -800,9 +842,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_list_rules
+    ) -> List[AudienceAutomationRule]:
+        """List automation rules
 
+        Returns the account's automation rules, newest first. A background job evaluates each enabled rule's metric over its window and applies the action when the condition holds.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -834,7 +877,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceAutomationRule]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -862,9 +905,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_list_rules
+    ) -> ApiResponse[List[AudienceAutomationRule]]:
+        """List automation rules
 
+        Returns the account's automation rules, newest first. A background job evaluates each enabled rule's metric over its window and applies the action when the condition holds.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -896,7 +940,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceAutomationRule]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -925,8 +969,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_list_rules
+        """List automation rules
 
+        Returns the account's automation rules, newest first. A background job evaluates each enabled rule's metric over its window and applies the action when the condition holds.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -958,7 +1003,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[AudienceAutomationRule]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -996,10 +1041,19 @@ class OptimizationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1036,9 +1090,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_optimizer_log
+    ) -> List[OptimizationControllerOptimizerLog200ResponseInner]:
+        """List budget-optimizer reallocations
 
+        Audit log of the automatic budget reallocator. For auto-strategy campaigns it moves daily budget toward lower-CPA performers, keeps the advertiser's total budget unchanged and limits how far each campaign can move. Each row records the old and new budget and the CPA, conversions and spend that drove the change. `limit` defaults to 100 and is clamped to 1-500; newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param limit: (required)
         :type limit: str
@@ -1073,7 +1128,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[OptimizationControllerOptimizerLog200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1102,9 +1157,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_optimizer_log
+    ) -> ApiResponse[List[OptimizationControllerOptimizerLog200ResponseInner]]:
+        """List budget-optimizer reallocations
 
+        Audit log of the automatic budget reallocator. For auto-strategy campaigns it moves daily budget toward lower-CPA performers, keeps the advertiser's total budget unchanged and limits how far each campaign can move. Each row records the old and new budget and the CPA, conversions and spend that drove the change. `limit` defaults to 100 and is clamped to 1-500; newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param limit: (required)
         :type limit: str
@@ -1139,7 +1195,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[OptimizationControllerOptimizerLog200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1169,8 +1225,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_optimizer_log
+        """List budget-optimizer reallocations
 
+        Audit log of the automatic budget reallocator. For auto-strategy campaigns it moves daily budget toward lower-CPA performers, keeps the advertiser's total budget unchanged and limits how far each campaign can move. Each row records the old and new budget and the CPA, conversions and spend that drove the change. `limit` defaults to 100 and is clamped to 1-500; newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
 
         :param limit: (required)
         :type limit: str
@@ -1205,7 +1262,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[OptimizationControllerOptimizerLog200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1248,10 +1305,19 @@ class OptimizationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1288,9 +1354,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_remove_rule
+    ) -> PixelControllerDeletePixel200Response:
+        """Delete an automation rule
 
+        Deletes rule `id` if it belongs to the account. Deleting an id the account does not own is a silent no-op that still returns `{deleted:true}`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1325,7 +1392,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1354,9 +1421,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_remove_rule
+    ) -> ApiResponse[PixelControllerDeletePixel200Response]:
+        """Delete an automation rule
 
+        Deletes rule `id` if it belongs to the account. Deleting an id the account does not own is a silent no-op that still returns `{deleted:true}`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1391,7 +1459,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1421,8 +1489,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_remove_rule
+        """Delete an automation rule
 
+        Deletes rule `id` if it belongs to the account. Deleting an id the account does not own is a silent no-op that still returns `{deleted:true}`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1457,7 +1526,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PixelControllerDeletePixel200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1498,10 +1567,19 @@ class OptimizationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1538,9 +1616,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """optimization_controller_set_rule_enabled
+    ) -> AudienceAutomationRule:
+        """Enable or disable an automation rule
 
+        Sets `enabled` from the request body on rule `id` without deleting it. Returns the updated rule. If the rule does not exist or is not owned by the account, the response is 400 \"rule not found\".  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1575,7 +1654,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AudienceAutomationRule",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1604,9 +1683,10 @@ class OptimizationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """optimization_controller_set_rule_enabled
+    ) -> ApiResponse[AudienceAutomationRule]:
+        """Enable or disable an automation rule
 
+        Sets `enabled` from the request body on rule `id` without deleting it. Returns the updated rule. If the rule does not exist or is not owned by the account, the response is 400 \"rule not found\".  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1641,7 +1721,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AudienceAutomationRule",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1671,8 +1751,9 @@ class OptimizationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """optimization_controller_set_rule_enabled
+        """Enable or disable an automation rule
 
+        Sets `enabled` from the request body on rule `id` without deleting it. Returns the updated rule. If the rule does not exist or is not owned by the account, the response is 400 \"rule not found\".  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
 
         :param id: (required)
         :type id: str
@@ -1707,7 +1788,7 @@ class OptimizationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "AudienceAutomationRule",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1748,10 +1829,19 @@ class OptimizationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

@@ -17,6 +17,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from adviverse_client.models.combo_controller_create_combo201_response import ComboControllerCreateCombo201Response
+from adviverse_client.models.combo_controller_list_combos200_response import ComboControllerListCombos200Response
+from adviverse_client.models.combo_controller_list_presets200_response import ComboControllerListPresets200Response
 from adviverse_client.models.create_combo_dto import CreateComboDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -54,9 +57,10 @@ class ComboApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """combo_controller_create_combo
+    ) -> ComboControllerCreateCombo201Response:
+        """Provision a combo of placements on a property
 
+        Creates several placements at once under one generated `comboId` and returns a single combined embed snippet to paste before `</body>`. Send either `presetKey` or a custom `units` array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional `namePrefix` and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param property_id: (required)
         :type property_id: str
@@ -94,7 +98,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComboControllerCreateCombo201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -124,9 +128,10 @@ class ComboApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """combo_controller_create_combo
+    ) -> ApiResponse[ComboControllerCreateCombo201Response]:
+        """Provision a combo of placements on a property
 
+        Creates several placements at once under one generated `comboId` and returns a single combined embed snippet to paste before `</body>`. Send either `presetKey` or a custom `units` array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional `namePrefix` and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param property_id: (required)
         :type property_id: str
@@ -164,7 +169,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComboControllerCreateCombo201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -195,8 +200,9 @@ class ComboApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """combo_controller_create_combo
+        """Provision a combo of placements on a property
 
+        Creates several placements at once under one generated `comboId` and returns a single combined embed snippet to paste before `</body>`. Send either `presetKey` or a custom `units` array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional `namePrefix` and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param property_id: (required)
         :type property_id: str
@@ -234,7 +240,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "ComboControllerCreateCombo201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -278,6 +284,13 @@ class ComboApi:
             _body_params = create_combo_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -295,6 +308,8 @@ class ComboApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -331,9 +346,10 @@ class ComboApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """combo_controller_list_combos
+    ) -> ComboControllerListCombos200Response:
+        """List combos on a property
 
+        Groups the property's live placements by `combo_id` (ungrouped placements are omitted) and rebuilds each group's combined snippet. 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param property_id: (required)
         :type property_id: str
@@ -368,7 +384,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComboControllerListCombos200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -397,9 +413,10 @@ class ComboApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """combo_controller_list_combos
+    ) -> ApiResponse[ComboControllerListCombos200Response]:
+        """List combos on a property
 
+        Groups the property's live placements by `combo_id` (ungrouped placements are omitted) and rebuilds each group's combined snippet. 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param property_id: (required)
         :type property_id: str
@@ -434,7 +451,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComboControllerListCombos200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -464,8 +481,9 @@ class ComboApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """combo_controller_list_combos
+        """List combos on a property
 
+        Groups the property's live placements by `combo_id` (ungrouped placements are omitted) and rebuilds each group's combined snippet. 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param property_id: (required)
         :type property_id: str
@@ -500,7 +518,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComboControllerListCombos200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -541,10 +559,19 @@ class ComboApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -580,9 +607,10 @@ class ComboApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """combo_controller_list_presets
+    ) -> ComboControllerListPresets200Response:
+        """List combo layout presets
 
+        Returns the static catalog of combo presets (`standard_combo`, `leaderboard_pop`, `social_push`, `sticky_interstitial`, `full_monetization`), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -614,7 +642,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComboControllerListPresets200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -642,9 +670,10 @@ class ComboApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """combo_controller_list_presets
+    ) -> ApiResponse[ComboControllerListPresets200Response]:
+        """List combo layout presets
 
+        Returns the static catalog of combo presets (`standard_combo`, `leaderboard_pop`, `social_push`, `sticky_interstitial`, `full_monetization`), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -676,7 +705,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComboControllerListPresets200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -705,8 +734,9 @@ class ComboApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """combo_controller_list_presets
+        """List combo layout presets
 
+        Returns the static catalog of combo presets (`standard_combo`, `leaderboard_pop`, `social_push`, `sticky_interstitial`, `full_monetization`), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -738,7 +768,7 @@ class ComboApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComboControllerListPresets200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -776,10 +806,19 @@ class ComboApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

@@ -17,10 +17,15 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
-from typing import Optional, Union
+from typing import List, Optional, Union
 from typing_extensions import Annotated
 from adviverse_client.models.subscribe_webhook_dto import SubscribeWebhookDto
 from adviverse_client.models.update_webhook_dto import UpdateWebhookDto
+from adviverse_client.models.webhook_delivery import WebhookDelivery
+from adviverse_client.models.webhook_delivery_result import WebhookDeliveryResult
+from adviverse_client.models.webhook_endpoint import WebhookEndpoint
+from adviverse_client.models.webhooks_controller_events200_response import WebhooksControllerEvents200Response
+from adviverse_client.models.webhooks_controller_unsubscribe200_response import WebhooksControllerUnsubscribe200Response
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -57,9 +62,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_deliveries
+    ) -> List[WebhookDelivery]:
+        """List recent deliveries
 
+        Lists delivery attempts for one endpoint, newest first. `limit` defaults to 50 (max 200). Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -97,7 +103,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[WebhookDelivery]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -127,9 +133,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_deliveries
+    ) -> ApiResponse[List[WebhookDelivery]]:
+        """List recent deliveries
 
+        Lists delivery attempts for one endpoint, newest first. `limit` defaults to 50 (max 200). Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -167,7 +174,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[WebhookDelivery]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -198,8 +205,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_deliveries
+        """List recent deliveries
 
+        Lists delivery attempts for one endpoint, newest first. `limit` defaults to 50 (max 200). Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -237,7 +245,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[WebhookDelivery]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -283,10 +291,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -322,9 +339,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_events
+    ) -> WebhooksControllerEvents200Response:
+        """List webhook event types
 
+        Returns the event type names a webhook endpoint can subscribe to.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -356,7 +374,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhooksControllerEvents200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -384,9 +402,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_events
+    ) -> ApiResponse[WebhooksControllerEvents200Response]:
+        """List webhook event types
 
+        Returns the event type names a webhook endpoint can subscribe to.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -418,7 +437,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhooksControllerEvents200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -447,8 +466,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_events
+        """List webhook event types
 
+        Returns the event type names a webhook endpoint can subscribe to.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -480,7 +500,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhooksControllerEvents200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -518,10 +538,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -557,9 +586,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_list
+    ) -> List[WebhookEndpoint]:
+        """List webhook endpoints
 
+        Lists the account's webhook subscriptions, newest first. Includes each endpoint's HMAC signing `secret` so the dashboard can show it for verifying the `X-Adviverse-Signature` header.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -591,7 +621,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[WebhookEndpoint]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -619,9 +649,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_list
+    ) -> ApiResponse[List[WebhookEndpoint]]:
+        """List webhook endpoints
 
+        Lists the account's webhook subscriptions, newest first. Includes each endpoint's HMAC signing `secret` so the dashboard can show it for verifying the `X-Adviverse-Signature` header.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -653,7 +684,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[WebhookEndpoint]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -682,8 +713,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_list
+        """List webhook endpoints
 
+        Lists the account's webhook subscriptions, newest first. Includes each endpoint's HMAC signing `secret` so the dashboard can show it for verifying the `X-Adviverse-Signature` header.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -715,7 +747,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[WebhookEndpoint]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -753,10 +785,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -793,9 +834,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_ping
+    ) -> WebhookDeliveryResult:
+        """Send a test ping
 
+        Synchronously delivers a signed `ping` event to the endpoint and reports the result. The attempt is logged as a delivery and retried later if it failed. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -830,7 +872,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookDeliveryResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -859,9 +901,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_ping
+    ) -> ApiResponse[WebhookDeliveryResult]:
+        """Send a test ping
 
+        Synchronously delivers a signed `ping` event to the endpoint and reports the result. The attempt is logged as a delivery and retried later if it failed. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -896,7 +939,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookDeliveryResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -926,8 +969,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_ping
+        """Send a test ping
 
+        Synchronously delivers a signed `ping` event to the endpoint and reports the result. The attempt is logged as a delivery and retried later if it failed. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -962,7 +1006,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookDeliveryResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1003,10 +1047,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1043,9 +1096,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_redeliver
+    ) -> WebhookDeliveryResult:
+        """Redeliver a past webhook
 
+        Re-sends the exact stored payload of a past delivery as a new attempt, with a signature computed from the endpoint's current secret. Returns 400 if the delivery does not belong to this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param delivery_id: (required)
         :type delivery_id: str
@@ -1080,7 +1134,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookDeliveryResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1109,9 +1163,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_redeliver
+    ) -> ApiResponse[WebhookDeliveryResult]:
+        """Redeliver a past webhook
 
+        Re-sends the exact stored payload of a past delivery as a new attempt, with a signature computed from the endpoint's current secret. Returns 400 if the delivery does not belong to this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param delivery_id: (required)
         :type delivery_id: str
@@ -1146,7 +1201,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookDeliveryResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1176,8 +1231,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_redeliver
+        """Redeliver a past webhook
 
+        Re-sends the exact stored payload of a past delivery as a new attempt, with a signature computed from the endpoint's current secret. Returns 400 if the delivery does not belong to this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param delivery_id: (required)
         :type delivery_id: str
@@ -1212,7 +1268,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookDeliveryResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1253,10 +1309,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1293,9 +1358,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_rotate_secret
+    ) -> WebhookEndpoint:
+        """Rotate a webhook signing secret
 
+        Generates a new `whsec_` signing secret. The old secret stops verifying immediately, so update the receiver right away. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1330,7 +1396,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1359,9 +1425,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_rotate_secret
+    ) -> ApiResponse[WebhookEndpoint]:
+        """Rotate a webhook signing secret
 
+        Generates a new `whsec_` signing secret. The old secret stops verifying immediately, so update the receiver right away. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1396,7 +1463,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1426,8 +1493,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_rotate_secret
+        """Rotate a webhook signing secret
 
+        Generates a new `whsec_` signing secret. The old secret stops verifying immediately, so update the receiver right away. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1462,7 +1530,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1503,10 +1571,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1543,9 +1620,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_subscribe
+    ) -> WebhookEndpoint:
+        """Create a webhook endpoint
 
+        Registers `url` to receive the listed `events` (non-empty array). The URL is checked by the SSRF guard (localhost, private and metadata addresses are rejected with 400). A `whsec_` signing secret is generated and returned. Deliveries are JSON `{ event, data, ts }` POSTs signed with HMAC-SHA256 of the body in `X-Adviverse-Signature`; failures are retried with backoff.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param subscribe_webhook_dto: (required)
         :type subscribe_webhook_dto: SubscribeWebhookDto
@@ -1580,7 +1658,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1609,9 +1687,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_subscribe
+    ) -> ApiResponse[WebhookEndpoint]:
+        """Create a webhook endpoint
 
+        Registers `url` to receive the listed `events` (non-empty array). The URL is checked by the SSRF guard (localhost, private and metadata addresses are rejected with 400). A `whsec_` signing secret is generated and returned. Deliveries are JSON `{ event, data, ts }` POSTs signed with HMAC-SHA256 of the body in `X-Adviverse-Signature`; failures are retried with backoff.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param subscribe_webhook_dto: (required)
         :type subscribe_webhook_dto: SubscribeWebhookDto
@@ -1646,7 +1725,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1676,8 +1755,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_subscribe
+        """Create a webhook endpoint
 
+        Registers `url` to receive the listed `events` (non-empty array). The URL is checked by the SSRF guard (localhost, private and metadata addresses are rejected with 400). A `whsec_` signing secret is generated and returned. Deliveries are JSON `{ event, data, ts }` POSTs signed with HMAC-SHA256 of the body in `X-Adviverse-Signature`; failures are retried with backoff.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param subscribe_webhook_dto: (required)
         :type subscribe_webhook_dto: SubscribeWebhookDto
@@ -1712,7 +1792,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1753,6 +1833,13 @@ class WebhooksApi:
             _body_params = subscribe_webhook_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1770,6 +1857,8 @@ class WebhooksApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1806,9 +1895,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_unsubscribe
+    ) -> WebhooksControllerUnsubscribe200Response:
+        """Delete a webhook endpoint
 
+        Deletes the subscription. Unknown or foreign ids are a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1843,7 +1933,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhooksControllerUnsubscribe200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1872,9 +1962,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_unsubscribe
+    ) -> ApiResponse[WebhooksControllerUnsubscribe200Response]:
+        """Delete a webhook endpoint
 
+        Deletes the subscription. Unknown or foreign ids are a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1909,7 +2000,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhooksControllerUnsubscribe200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1939,8 +2030,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_unsubscribe
+        """Delete a webhook endpoint
 
+        Deletes the subscription. Unknown or foreign ids are a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -1975,7 +2067,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhooksControllerUnsubscribe200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2016,10 +2108,19 @@ class WebhooksApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2057,9 +2158,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """webhooks_controller_update
+    ) -> WebhookEndpoint:
+        """Update a webhook endpoint
 
+        Changes an endpoint's `url`, `events` and/or `active` flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -2097,7 +2199,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2127,9 +2229,10 @@ class WebhooksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """webhooks_controller_update
+    ) -> ApiResponse[WebhookEndpoint]:
+        """Update a webhook endpoint
 
+        Changes an endpoint's `url`, `events` and/or `active` flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -2167,7 +2270,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2198,8 +2301,9 @@ class WebhooksApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """webhooks_controller_update
+        """Update a webhook endpoint
 
+        Changes an endpoint's `url`, `events` and/or `active` flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
 
         :param id: (required)
         :type id: str
@@ -2237,7 +2341,7 @@ class WebhooksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "WebhookEndpoint",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2281,6 +2385,13 @@ class WebhooksApi:
             _body_params = update_webhook_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2298,6 +2409,8 @@ class WebhooksApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

@@ -17,7 +17,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.create_portal_config_dto import CreatePortalConfigDto
+from adviverse_client.models.portal_templates_controller_create_config201_response import PortalTemplatesControllerCreateConfig201Response
+from adviverse_client.models.portal_templates_controller_get_config200_response import PortalTemplatesControllerGetConfig200Response
+from adviverse_client.models.portal_templates_controller_list_templates200_response_inner import PortalTemplatesControllerListTemplates200ResponseInner
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
 from adviverse_client.api_response import ApiResponse
@@ -53,9 +57,10 @@ class PortalApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """portal_templates_controller_create_config
+    ) -> PortalTemplatesControllerCreateConfig201Response:
+        """Save a portal template config
 
+        Stores a `config` object for template key `template` and returns its id and the hosted template URL that renders it. Use the URL as an `html5` creative's asset URL (for example on a metaverse portal surface). 400 for an unknown template.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param create_portal_config_dto: (required)
         :type create_portal_config_dto: CreatePortalConfigDto
@@ -90,7 +95,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PortalTemplatesControllerCreateConfig201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -119,9 +124,10 @@ class PortalApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """portal_templates_controller_create_config
+    ) -> ApiResponse[PortalTemplatesControllerCreateConfig201Response]:
+        """Save a portal template config
 
+        Stores a `config` object for template key `template` and returns its id and the hosted template URL that renders it. Use the URL as an `html5` creative's asset URL (for example on a metaverse portal surface). 400 for an unknown template.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param create_portal_config_dto: (required)
         :type create_portal_config_dto: CreatePortalConfigDto
@@ -156,7 +162,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PortalTemplatesControllerCreateConfig201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,8 +192,9 @@ class PortalApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """portal_templates_controller_create_config
+        """Save a portal template config
 
+        Stores a `config` object for template key `template` and returns its id and the hosted template URL that renders it. Use the URL as an `html5` creative's asset URL (for example on a metaverse portal surface). 400 for an unknown template.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param create_portal_config_dto: (required)
         :type create_portal_config_dto: CreatePortalConfigDto
@@ -222,7 +229,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "PortalTemplatesControllerCreateConfig201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -263,6 +270,13 @@ class PortalApi:
             _body_params = create_portal_config_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -280,6 +294,8 @@ class PortalApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -316,9 +332,10 @@ class PortalApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """portal_templates_controller_get_config
+    ) -> PortalTemplatesControllerGetConfig200Response:
+        """Fetch a portal config
 
+        Public endpoint the hosted template calls at runtime to load its saved configuration. 404 if the config id does not exist.  Auth: public, no credentials required.
 
         :param id: (required)
         :type id: str
@@ -353,7 +370,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PortalTemplatesControllerGetConfig200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -382,9 +399,10 @@ class PortalApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """portal_templates_controller_get_config
+    ) -> ApiResponse[PortalTemplatesControllerGetConfig200Response]:
+        """Fetch a portal config
 
+        Public endpoint the hosted template calls at runtime to load its saved configuration. 404 if the config id does not exist.  Auth: public, no credentials required.
 
         :param id: (required)
         :type id: str
@@ -419,7 +437,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PortalTemplatesControllerGetConfig200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -449,8 +467,9 @@ class PortalApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """portal_templates_controller_get_config
+        """Fetch a portal config
 
+        Public endpoint the hosted template calls at runtime to load its saved configuration. 404 if the config id does not exist.  Auth: public, no credentials required.
 
         :param id: (required)
         :type id: str
@@ -485,7 +504,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "PortalTemplatesControllerGetConfig200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -526,6 +545,13 @@ class PortalApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -565,9 +591,10 @@ class PortalApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """portal_templates_controller_list_templates
+    ) -> List[PortalTemplatesControllerListTemplates200ResponseInner]:
+        """List portal experience templates
 
+        Returns the catalog of prebuilt HTML5 portal templates (product-showcase, spin-to-win, 360-viewer, reward-to-play, reward-onchain), each with the config fields it accepts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -599,7 +626,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PortalTemplatesControllerListTemplates200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -627,9 +654,10 @@ class PortalApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """portal_templates_controller_list_templates
+    ) -> ApiResponse[List[PortalTemplatesControllerListTemplates200ResponseInner]]:
+        """List portal experience templates
 
+        Returns the catalog of prebuilt HTML5 portal templates (product-showcase, spin-to-win, 360-viewer, reward-to-play, reward-onchain), each with the config fields it accepts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -661,7 +689,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PortalTemplatesControllerListTemplates200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -690,8 +718,9 @@ class PortalApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """portal_templates_controller_list_templates
+        """List portal experience templates
 
+        Returns the catalog of prebuilt HTML5 portal templates (product-showcase, spin-to-win, 360-viewer, reward-to-play, reward-onchain), each with the config fields it accepts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -723,7 +752,7 @@ class PortalApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[PortalTemplatesControllerListTemplates200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -761,10 +790,19 @@ class PortalApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

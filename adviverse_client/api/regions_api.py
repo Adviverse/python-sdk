@@ -17,7 +17,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
+from typing import List
 from adviverse_client.models.create_region_dto import CreateRegionDto
+from adviverse_client.models.regions_controller_health200_response_inner import RegionsControllerHealth200ResponseInner
+from adviverse_client.models.regions_controller_nearest200_response import RegionsControllerNearest200Response
+from adviverse_client.models.rew_region import RewRegion
 from adviverse_client.models.update_region_dto import UpdateRegionDto
 
 from adviverse_client.api_client import ApiClient, RequestSerialized
@@ -54,9 +58,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """regions_controller_create
+    ) -> RewRegion:
+        """Create a serving region
 
+        Adds a region from `code` (lowercase slug, unique), `name`, `public_endpoint`, `lat`, `lng`, optional `country_codes` (uppercased), `status` (active, draining, disabled; default active) and `priority` (default 100, lower wins). Invalidates the region cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param create_region_dto: (required)
         :type create_region_dto: CreateRegionDto
@@ -91,7 +96,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewRegion",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -120,9 +125,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """regions_controller_create
+    ) -> ApiResponse[RewRegion]:
+        """Create a serving region
 
+        Adds a region from `code` (lowercase slug, unique), `name`, `public_endpoint`, `lat`, `lng`, optional `country_codes` (uppercased), `status` (active, draining, disabled; default active) and `priority` (default 100, lower wins). Invalidates the region cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param create_region_dto: (required)
         :type create_region_dto: CreateRegionDto
@@ -157,7 +163,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewRegion",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -187,8 +193,9 @@ class RegionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """regions_controller_create
+        """Create a serving region
 
+        Adds a region from `code` (lowercase slug, unique), `name`, `public_endpoint`, `lat`, `lng`, optional `country_codes` (uppercased), `status` (active, draining, disabled; default active) and `priority` (default 100, lower wins). Invalidates the region cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param create_region_dto: (required)
         :type create_region_dto: CreateRegionDto
@@ -223,7 +230,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': None,
+            '201': "RewRegion",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -264,6 +271,13 @@ class RegionsApi:
             _body_params = create_region_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -281,6 +295,8 @@ class RegionsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
@@ -316,9 +332,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """regions_controller_health
+    ) -> List[RegionsControllerHealth200ResponseInner]:
+        """Get per-region engine health
 
+        Public. Probes every configured region's engine `/healthz` (1.5s timeout) and reports whether it is up with its indexed campaign and placement counts and version. Unreachable engines report `up: false` with null metrics.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -350,7 +367,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RegionsControllerHealth200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -378,9 +395,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """regions_controller_health
+    ) -> ApiResponse[List[RegionsControllerHealth200ResponseInner]]:
+        """Get per-region engine health
 
+        Public. Probes every configured region's engine `/healthz` (1.5s timeout) and reports whether it is up with its indexed campaign and placement counts and version. Unreachable engines report `up: false` with null metrics.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -412,7 +430,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RegionsControllerHealth200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -441,8 +459,9 @@ class RegionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """regions_controller_health
+        """Get per-region engine health
 
+        Public. Probes every configured region's engine `/healthz` (1.5s timeout) and reports whether it is up with its indexed campaign and placement counts and version. Unreachable engines report `up: false` with null metrics.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -474,7 +493,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RegionsControllerHealth200ResponseInner]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -512,6 +531,13 @@ class RegionsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -551,9 +577,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """regions_controller_list
+    ) -> List[RewRegion]:
+        """List active serving regions
 
+        Public. Returns the active ad-engine regions ordered by priority, served from a 30-second in-memory cache.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -585,7 +612,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewRegion]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -613,9 +640,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """regions_controller_list
+    ) -> ApiResponse[List[RewRegion]]:
+        """List active serving regions
 
+        Public. Returns the active ad-engine regions ordered by priority, served from a 30-second in-memory cache.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -647,7 +675,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewRegion]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -676,8 +704,9 @@ class RegionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """regions_controller_list
+        """List active serving regions
 
+        Public. Returns the active ad-engine regions ordered by priority, served from a 30-second in-memory cache.  Auth: public, no credentials required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -709,7 +738,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[RewRegion]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -747,6 +776,13 @@ class RegionsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -789,9 +825,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """regions_controller_nearest
+    ) -> RegionsControllerNearest200Response:
+        """Resolve the best serving region
 
+        Public and fail-soft; the SDK calls it before auth to choose an engine. Matches `?country=` (ISO alpha-2) against region country lists, else picks the nearest region to `?lat=&lng=`, else the highest-priority region. Falls back to a built-in default region if none are configured or lookup fails.  Auth: public, no credentials required.
 
         :param country: (required)
         :type country: str
@@ -832,7 +869,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RegionsControllerNearest200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -863,9 +900,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """regions_controller_nearest
+    ) -> ApiResponse[RegionsControllerNearest200Response]:
+        """Resolve the best serving region
 
+        Public and fail-soft; the SDK calls it before auth to choose an engine. Matches `?country=` (ISO alpha-2) against region country lists, else picks the nearest region to `?lat=&lng=`, else the highest-priority region. Falls back to a built-in default region if none are configured or lookup fails.  Auth: public, no credentials required.
 
         :param country: (required)
         :type country: str
@@ -906,7 +944,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RegionsControllerNearest200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -938,8 +976,9 @@ class RegionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """regions_controller_nearest
+        """Resolve the best serving region
 
+        Public and fail-soft; the SDK calls it before auth to choose an engine. Matches `?country=` (ISO alpha-2) against region country lists, else picks the nearest region to `?lat=&lng=`, else the highest-priority region. Falls back to a built-in default region if none are configured or lookup fails.  Auth: public, no credentials required.
 
         :param country: (required)
         :type country: str
@@ -980,7 +1019,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RegionsControllerNearest200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1033,6 +1072,13 @@ class RegionsApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1074,9 +1120,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """regions_controller_update
+    ) -> RewRegion:
+        """Update a serving region
 
+        Patches `status`, `public_endpoint`, `priority`, `country_codes` or `name` of the region with UUID `id` and invalidates the cache. 404 if the region does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1114,7 +1161,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewRegion",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1144,9 +1191,10 @@ class RegionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """regions_controller_update
+    ) -> ApiResponse[RewRegion]:
+        """Update a serving region
 
+        Patches `status`, `public_endpoint`, `priority`, `country_codes` or `name` of the region with UUID `id` and invalidates the cache. 404 if the region does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1184,7 +1232,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewRegion",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1215,8 +1263,9 @@ class RegionsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """regions_controller_update
+        """Update a serving region
 
+        Patches `status`, `public_endpoint`, `priority`, `country_codes` or `name` of the region with UUID `id` and invalidates the cache. 404 if the region does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
 
         :param id: (required)
         :type id: str
@@ -1254,7 +1303,7 @@ class RegionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "RewRegion",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1298,6 +1347,13 @@ class RegionsApi:
             _body_params = update_region_dto
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1315,6 +1371,8 @@ class RegionsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(
