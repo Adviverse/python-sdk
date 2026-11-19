@@ -28,6 +28,7 @@ adviverse_client/api/mfa_api.py
 adviverse_client/api/optimization_api.py
 adviverse_client/api/pixel_api.py
 adviverse_client/api/portal_api.py
+adviverse_client/api/property_trust_api.py
 adviverse_client/api/publisher_api.py
 adviverse_client/api/publisher_insights_api.py
 adviverse_client/api/referrals_api.py
@@ -56,6 +57,7 @@ adviverse_client/models/admin_controller_process_payout201_response.py
 adviverse_client/models/admin_controller_quality200_response_inner.py
 adviverse_client/models/admin_controller_rescan201_response.py
 adviverse_client/models/admin_controller_set_status201_response.py
+adviverse_client/models/admin_trust_dto.py
 adviverse_client/models/adv_ad_set_summary.py
 adviverse_client/models/adv_audience.py
 adviverse_client/models/adv_audience_destination.py
@@ -278,6 +280,8 @@ adviverse_client/models/mfa_controller_ranked200_response_inner.py
 adviverse_client/models/modeled_lookalike_dto.py
 adviverse_client/models/moderation_decision_dto.py
 adviverse_client/models/network_settings_dto.py
+adviverse_client/models/niche_classification.py
+adviverse_client/models/niche_score.py
 adviverse_client/models/oauth_discord_dto.py
 adviverse_client/models/oauth_google_dto.py
 adviverse_client/models/oauth_start_dto.py
@@ -309,10 +313,13 @@ adviverse_client/models/portal_templates_controller_list_templates200_response_i
 adviverse_client/models/portal_templates_controller_list_templates200_response_inner_fields_inner.py
 adviverse_client/models/profile_dto.py
 adviverse_client/models/promote_campaign_reporting_controller_summary200_response.py
+adviverse_client/models/property_trust_controller_admin_list200_response_inner.py
+adviverse_client/models/property_trust_controller_admin_set201_response.py
 adviverse_client/models/pub_combo_preset.py
 adviverse_client/models/pub_combo_preset_units_inner.py
 adviverse_client/models/pub_placement.py
 adviverse_client/models/pub_property.py
+adviverse_client/models/pub_property_categories_inner.py
 adviverse_client/models/pub_serving_domain.py
 adviverse_client/models/publisher_controller_disable_signing200_response.py
 adviverse_client/models/publisher_controller_domain_connect201_response.py
@@ -463,6 +470,7 @@ adviverse_client/models/settings_controller_rotate_terminal_token201_response.py
 adviverse_client/models/settings_controller_set_terminal_token_policy200_response.py
 adviverse_client/models/settings_controller_update_network200_response.py
 adviverse_client/models/signup_dto.py
+adviverse_client/models/site_niche.py
 adviverse_client/models/skadnetwork_controller_health200_response.py
 adviverse_client/models/skadnetwork_controller_postback200_response.py
 adviverse_client/models/stats_controller_get200_response.py
@@ -481,6 +489,8 @@ adviverse_client/models/surface_pair_init_dto.py
 adviverse_client/models/tax_form_dto.py
 adviverse_client/models/terminal_switch_dto.py
 adviverse_client/models/track_conversion_dto.py
+adviverse_client/models/trust_event.py
+adviverse_client/models/trust_progress.py
 adviverse_client/models/update_app_dto.py
 adviverse_client/models/update_campaign_dto.py
 adviverse_client/models/update_campaign_group_dto.py
@@ -499,6 +509,7 @@ adviverse_client/models/webhook_delivery.py
 adviverse_client/models/webhook_delivery_result.py
 adviverse_client/models/webhook_endpoint.py
 adviverse_client/models/webhooks_controller_events200_response.py
+adviverse_client/models/webhooks_controller_reveal_secret201_response.py
 adviverse_client/models/webhooks_controller_unsubscribe200_response.py
 adviverse_client/py.typed
 adviverse_client/rest.py

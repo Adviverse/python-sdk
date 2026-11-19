@@ -32,6 +32,7 @@ from adviverse_client.api.metaverse_api import MetaverseApi
 from adviverse_client.api.mfa_api import MfaApi
 from adviverse_client.api.optimization_api import OptimizationApi
 from adviverse_client.api.portal_api import PortalApi
+from adviverse_client.api.property_trust_api import PropertyTrustApi
 from adviverse_client.api.publisher_insights_api import PublisherInsightsApi
 from adviverse_client.api.referrals_api import ReferralsApi
 from adviverse_client.api.regions_api import RegionsApi

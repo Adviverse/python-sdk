@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class PubPlacement(BaseModel):
     """
-    A `placements` row. All columns are returned, including `signing_secret`.
+    A `placements` row. The signing secret itself is never returned here (only from POST /v1/publisher/placements/{id}/signing-secret); `has_signing_secret` says whether one is set.
     """ # noqa: E501
     id: Optional[StrictStr] = None
     property_id: Optional[StrictStr] = None
@@ -48,7 +48,7 @@ class PubPlacement(BaseModel):
     house_share: Optional[StrictStr] = Field(default=None, description="Postgres NUMERIC, serialized as a decimal string")
     house_backfill: Optional[StrictBool] = None
     floor_fallback: Optional[StrictBool] = None
-    signing_secret: Optional[StrictStr] = None
+    has_signing_secret: Optional[StrictBool] = Field(default=None, description="True when a signing secret is set (signed-tag enforcement is on)")
     combo_id: Optional[StrictStr] = None
     combo_label: Optional[StrictStr] = None
     last_active_at: Optional[datetime] = None
@@ -56,7 +56,7 @@ class PubPlacement(BaseModel):
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "property_id", "name", "format", "width", "height", "responsive", "floor_cpm", "floor_soft", "floor_auto", "rev_share", "auction_type", "passback_url", "frequency_cap", "status", "tag_key", "settings", "house_only", "house_share", "house_backfill", "floor_fallback", "signing_secret", "combo_id", "combo_label", "last_active_at", "created_at", "updated_at", "deleted_at"]
+    __properties: ClassVar[List[str]] = ["id", "property_id", "name", "format", "width", "height", "responsive", "floor_cpm", "floor_soft", "floor_auto", "rev_share", "auction_type", "passback_url", "frequency_cap", "status", "tag_key", "settings", "house_only", "house_share", "house_backfill", "floor_fallback", "has_signing_secret", "combo_id", "combo_label", "last_active_at", "created_at", "updated_at", "deleted_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -134,11 +134,6 @@ class PubPlacement(BaseModel):
         if self.frequency_cap is None and "frequency_cap" in self.model_fields_set:
             _dict['frequency_cap'] = None
 
-        # set to None if signing_secret (nullable) is None
-        # and model_fields_set contains the field
-        if self.signing_secret is None and "signing_secret" in self.model_fields_set:
-            _dict['signing_secret'] = None
-
         # set to None if combo_id (nullable) is None
         # and model_fields_set contains the field
         if self.combo_id is None and "combo_id" in self.model_fields_set:
@@ -192,7 +187,7 @@ class PubPlacement(BaseModel):
             "house_share": obj.get("house_share"),
             "house_backfill": obj.get("house_backfill"),
             "floor_fallback": obj.get("floor_fallback"),
-            "signing_secret": obj.get("signing_secret"),
+            "has_signing_secret": obj.get("has_signing_secret"),
             "combo_id": obj.get("combo_id"),
             "combo_label": obj.get("combo_label"),
             "last_active_at": obj.get("last_active_at"),

@@ -39,6 +39,8 @@ class UpdateCampaignDto(BaseModel):
     bid_modifiers: Optional[Dict[str, Any]] = Field(default=None, alias="bidModifiers")
     targeting: Optional[Dict[str, Any]] = None
     house_ad: Optional[StrictBool] = Field(default=None, alias="houseAd")
+    auto_own_placements: Optional[StrictBool] = Field(default=None, alias="autoOwnPlacements")
+    network_expansion: Optional[StrictBool] = Field(default=None, alias="networkExpansion")
     priority_tier: Optional[StrictStr] = Field(default=None, alias="priorityTier")
     delivery_goal: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, alias="deliveryGoal")
     goal_type: Optional[StrictStr] = Field(default=None, alias="goalType")
@@ -51,7 +53,7 @@ class UpdateCampaignDto(BaseModel):
     target_cpa: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, alias="targetCpa")
     target_roas: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, alias="targetRoas")
     utm: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["name", "bidAmount", "budgetTotal", "budgetDaily", "pacing", "startAt", "endAt", "skanAppStoreId", "skanSourceId", "bidModifiers", "targeting", "houseAd", "priorityTier", "deliveryGoal", "goalType", "portfolioFreqCap", "sequenceGroup", "sequenceOrder", "suppressAfterConversion", "holdoutPct", "bidStrategy", "targetCpa", "targetRoas", "utm"]
+    __properties: ClassVar[List[str]] = ["name", "bidAmount", "budgetTotal", "budgetDaily", "pacing", "startAt", "endAt", "skanAppStoreId", "skanSourceId", "bidModifiers", "targeting", "houseAd", "autoOwnPlacements", "networkExpansion", "priorityTier", "deliveryGoal", "goalType", "portfolioFreqCap", "sequenceGroup", "sequenceOrder", "suppressAfterConversion", "holdoutPct", "bidStrategy", "targetCpa", "targetRoas", "utm"]
 
     @field_validator('priority_tier')
     def priority_tier_validate_enum(cls, value):
@@ -146,6 +148,8 @@ class UpdateCampaignDto(BaseModel):
             "bidModifiers": obj.get("bidModifiers"),
             "targeting": obj.get("targeting"),
             "houseAd": obj.get("houseAd"),
+            "autoOwnPlacements": obj.get("autoOwnPlacements"),
+            "networkExpansion": obj.get("networkExpansion"),
             "priorityTier": obj.get("priorityTier"),
             "deliveryGoal": obj.get("deliveryGoal"),
             "goalType": obj.get("goalType"),

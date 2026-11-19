@@ -2439,7 +2439,7 @@ class PublisherApi:
     ) -> List[PubProperty]:
         """List your properties
 
-        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first, each with `trust_progress` toward paid demand (null for CLI properties or when traffic stats are unavailable). Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2502,7 +2502,7 @@ class PublisherApi:
     ) -> ApiResponse[List[PubProperty]]:
         """List your properties
 
-        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first, each with `trust_progress` toward paid demand (null for CLI properties or when traffic stats are unavailable). Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2565,7 +2565,7 @@ class PublisherApi:
     ) -> RESTResponseType:
         """List your properties
 
-        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+        Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first, each with `trust_progress` toward paid demand (null for CLI properties or when traffic stats are unavailable). Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4868,7 +4868,7 @@ class PublisherApi:
     ) -> PubProperty:
         """Update a property
 
-        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4939,7 +4939,7 @@ class PublisherApi:
     ) -> ApiResponse[PubProperty]:
         """Update a property
 
-        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5010,7 +5010,7 @@ class PublisherApi:
     ) -> RESTResponseType:
         """Update a property
 
-        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str

@@ -28,7 +28,7 @@ class IdentityControllerResolve201Response(BaseModel):
     IdentityControllerResolve201Response
     """ # noqa: E501
     canonical_id: Optional[StrictStr] = Field(default=None, alias="canonicalId")
-    unified_id: Optional[StrictStr] = Field(default=None, alias="unifiedId")
+    unified_id: Optional[StrictStr] = Field(default=None, description="Per-advertiser id for advertisers; the global email-derived id (or null) for admins", alias="unifiedId")
     consent_state: Optional[StrictStr] = Field(default=None, alias="consentState")
     signals: Optional[List[IdentityControllerResolve201ResponseSignalsInner]] = Field(default=None, description="Signals actually linked from this request (all supplied by the caller).")
     __properties: ClassVar[List[str]] = ["canonicalId", "unifiedId", "consentState", "signals"]

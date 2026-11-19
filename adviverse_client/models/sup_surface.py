@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class SupSurface(BaseModel):
     """
-    A `surfaces` row plus its placement `tag_key`.
+    A `surfaces` row plus its placement `tag_key`. Player credentials (`poll_token`, `pairing_token`) are never returned.
     """ # noqa: E501
     id: Optional[StrictStr] = None
     placement_id: Optional[StrictStr] = None
@@ -42,12 +42,11 @@ class SupSurface(BaseModel):
     audience_multiplier: Optional[StrictStr] = Field(default=None, description="Postgres NUMERIC, serialized as a decimal string")
     status: Optional[StrictStr] = None
     pairing_code: Optional[StrictStr] = None
-    poll_token: Optional[StrictStr] = None
     last_heartbeat_at: Optional[datetime] = None
     tag_key: Optional[StrictStr] = None
     created_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "placement_id", "account_id", "world_integration_id", "shop_id", "world", "surface_type", "pos_x", "pos_y", "pos_z", "width_m", "height_m", "audience_multiplier", "status", "pairing_code", "poll_token", "last_heartbeat_at", "tag_key", "created_at"]
+    __properties: ClassVar[List[str]] = ["id", "placement_id", "account_id", "world_integration_id", "shop_id", "world", "surface_type", "pos_x", "pos_y", "pos_z", "width_m", "height_m", "audience_multiplier", "status", "pairing_code", "last_heartbeat_at", "tag_key", "created_at"]
 
     @field_validator('surface_type')
     def surface_type_validate_enum(cls, value):
@@ -160,11 +159,6 @@ class SupSurface(BaseModel):
         if self.pairing_code is None and "pairing_code" in self.model_fields_set:
             _dict['pairing_code'] = None
 
-        # set to None if poll_token (nullable) is None
-        # and model_fields_set contains the field
-        if self.poll_token is None and "poll_token" in self.model_fields_set:
-            _dict['poll_token'] = None
-
         # set to None if last_heartbeat_at (nullable) is None
         # and model_fields_set contains the field
         if self.last_heartbeat_at is None and "last_heartbeat_at" in self.model_fields_set:
@@ -202,7 +196,6 @@ class SupSurface(BaseModel):
             "audience_multiplier": obj.get("audience_multiplier"),
             "status": obj.get("status"),
             "pairing_code": obj.get("pairing_code"),
-            "poll_token": obj.get("poll_token"),
             "last_heartbeat_at": obj.get("last_heartbeat_at"),
             "tag_key": obj.get("tag_key"),
             "created_at": obj.get("created_at")

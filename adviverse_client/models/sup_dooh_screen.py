@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class SupDoohScreen(BaseModel):
     """
-    A `dooh_screens` row plus its placement `tag_key`.
+    A `dooh_screens` row plus its placement `tag_key`. Player credentials (`poll_token`, `pairing_token`) are never returned.
     """ # noqa: E501
     id: Optional[StrictStr] = None
     placement_id: Optional[StrictStr] = None
@@ -42,8 +42,6 @@ class SupDoohScreen(BaseModel):
     audience_multiplier: Optional[StrictStr] = Field(default=None, description="Postgres NUMERIC, serialized as a decimal string")
     status: Optional[StrictStr] = None
     pairing_code: Optional[StrictStr] = None
-    poll_token: Optional[StrictStr] = None
-    pairing_token: Optional[StrictStr] = None
     paired_at: Optional[datetime] = None
     last_heartbeat_at: Optional[datetime] = None
     player_version: Optional[StrictStr] = None
@@ -51,7 +49,7 @@ class SupDoohScreen(BaseModel):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "placement_id", "account_id", "venue_name", "venue_type", "orientation", "resolution_w", "resolution_h", "lat", "lng", "timezone", "loop_seconds", "audience_multiplier", "status", "pairing_code", "poll_token", "pairing_token", "paired_at", "last_heartbeat_at", "player_version", "tag_key", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = ["id", "placement_id", "account_id", "venue_name", "venue_type", "orientation", "resolution_w", "resolution_h", "lat", "lng", "timezone", "loop_seconds", "audience_multiplier", "status", "pairing_code", "paired_at", "last_heartbeat_at", "player_version", "tag_key", "created_at", "updated_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -164,16 +162,6 @@ class SupDoohScreen(BaseModel):
         if self.pairing_code is None and "pairing_code" in self.model_fields_set:
             _dict['pairing_code'] = None
 
-        # set to None if poll_token (nullable) is None
-        # and model_fields_set contains the field
-        if self.poll_token is None and "poll_token" in self.model_fields_set:
-            _dict['poll_token'] = None
-
-        # set to None if pairing_token (nullable) is None
-        # and model_fields_set contains the field
-        if self.pairing_token is None and "pairing_token" in self.model_fields_set:
-            _dict['pairing_token'] = None
-
         # set to None if paired_at (nullable) is None
         # and model_fields_set contains the field
         if self.paired_at is None and "paired_at" in self.model_fields_set:
@@ -221,8 +209,6 @@ class SupDoohScreen(BaseModel):
             "audience_multiplier": obj.get("audience_multiplier"),
             "status": obj.get("status"),
             "pairing_code": obj.get("pairing_code"),
-            "poll_token": obj.get("poll_token"),
-            "pairing_token": obj.get("pairing_token"),
             "paired_at": obj.get("paired_at"),
             "last_heartbeat_at": obj.get("last_heartbeat_at"),
             "player_version": obj.get("player_version"),

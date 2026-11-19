@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,9 +29,9 @@ class IdentityControllerGet200ResponseIdentity(BaseModel):
     """ # noqa: E501
     canonical_id: Optional[StrictStr] = None
     unified_id: Optional[StrictStr] = None
-    household_id: Optional[StrictStr] = None
+    household_id: Optional[StrictStr] = Field(default=None, description="Admins only")
     consent_state: Optional[StrictStr] = None
-    attributes: Optional[Dict[str, Any]] = None
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Admins only")
     first_seen: Optional[datetime] = None
     last_seen: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}

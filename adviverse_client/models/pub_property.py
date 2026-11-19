@@ -20,6 +20,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from adviverse_client.models.pub_property_categories_inner import PubPropertyCategoriesInner
+from adviverse_client.models.trust_progress import TrustProgress
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,7 +34,15 @@ class PubProperty(BaseModel):
     kind: Optional[StrictStr] = None
     name: Optional[StrictStr] = None
     domain: Optional[StrictStr] = Field(default=None, description="Hostname, CLI slug, or app bundle id")
-    category: Optional[StrictInt] = None
+    category: Optional[StrictInt] = Field(default=None, description="Site-niche id (GET /v1/site-niches); null when unknown")
+    category_source: Optional[StrictStr] = None
+    categories: Optional[List[PubPropertyCategoriesInner]] = None
+    classified_at: Optional[datetime] = None
+    classify_error: Optional[StrictStr] = None
+    trust_tier: Optional[StrictStr] = Field(default=None, description="unverified = CPA-only demand; promoted automatically once proven clean")
+    trust_locked: Optional[StrictBool] = Field(default=None, description="An admin pinned the trust tier; automatic changes are off")
+    verified_at: Optional[datetime] = None
+    trust_progress: Optional[TrustProgress] = None
     verification_status: Optional[StrictStr] = None
     verification_method: Optional[StrictStr] = None
     verification_token: Optional[StrictStr] = None
@@ -53,7 +63,27 @@ class PubProperty(BaseModel):
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "publisher_id", "kind", "name", "domain", "category", "verification_status", "verification_method", "verification_token", "status", "quality_score", "cross_fill", "serving_domain", "serving_domain_verified", "serving_domain_checked_at", "bundle_id", "store_url", "platform", "app_store_id", "app_ads_txt", "skadnetwork_ids", "ctv_meta", "created_at", "updated_at", "deleted_at"]
+    __properties: ClassVar[List[str]] = ["id", "publisher_id", "kind", "name", "domain", "category", "category_source", "categories", "classified_at", "classify_error", "trust_tier", "trust_locked", "verified_at", "trust_progress", "verification_status", "verification_method", "verification_token", "status", "quality_score", "cross_fill", "serving_domain", "serving_domain_verified", "serving_domain_checked_at", "bundle_id", "store_url", "platform", "app_store_id", "app_ads_txt", "skadnetwork_ids", "ctv_meta", "created_at", "updated_at", "deleted_at"]
+
+    @field_validator('category_source')
+    def category_source_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['auto', 'manual']):
+            raise ValueError("must be one of enum values ('auto', 'manual')")
+        return value
+
+    @field_validator('trust_tier')
+    def trust_tier_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['unverified', 'trusted']):
+            raise ValueError("must be one of enum values ('unverified', 'trusted')")
+        return value
 
     @field_validator('verification_status')
     def verification_status_validate_enum(cls, value):
@@ -116,6 +146,16 @@ class PubProperty(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in categories (list)
+        _items = []
+        if self.categories:
+            for _item_categories in self.categories:
+                if _item_categories:
+                    _items.append(_item_categories.to_dict())
+            _dict['categories'] = _items
+        # override the default output from pydantic by calling `to_dict()` of trust_progress
+        if self.trust_progress:
+            _dict['trust_progress'] = self.trust_progress.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -130,6 +170,21 @@ class PubProperty(BaseModel):
         # and model_fields_set contains the field
         if self.category is None and "category" in self.model_fields_set:
             _dict['category'] = None
+
+        # set to None if classified_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.classified_at is None and "classified_at" in self.model_fields_set:
+            _dict['classified_at'] = None
+
+        # set to None if classify_error (nullable) is None
+        # and model_fields_set contains the field
+        if self.classify_error is None and "classify_error" in self.model_fields_set:
+            _dict['classify_error'] = None
+
+        # set to None if verified_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.verified_at is None and "verified_at" in self.model_fields_set:
+            _dict['verified_at'] = None
 
         # set to None if verification_method (nullable) is None
         # and model_fields_set contains the field
@@ -194,6 +249,14 @@ class PubProperty(BaseModel):
             "name": obj.get("name"),
             "domain": obj.get("domain"),
             "category": obj.get("category"),
+            "category_source": obj.get("category_source"),
+            "categories": [PubPropertyCategoriesInner.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None,
+            "classified_at": obj.get("classified_at"),
+            "classify_error": obj.get("classify_error"),
+            "trust_tier": obj.get("trust_tier"),
+            "trust_locked": obj.get("trust_locked"),
+            "verified_at": obj.get("verified_at"),
+            "trust_progress": TrustProgress.from_dict(obj["trust_progress"]) if obj.get("trust_progress") is not None else None,
             "verification_status": obj.get("verification_status"),
             "verification_method": obj.get("verification_method"),
             "verification_token": obj.get("verification_token"),

@@ -815,7 +815,7 @@ class ConversionsApi:
     ) -> ConversionsControllerTrackRefund201Response:
         """Report a refund or chargeback for an order
 
-        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
+        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`. Requires the advertiser API key (scope `write`) or session, and only touches that advertiser’s own orders (admins may pass `advertiserId`). Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param refund_dto: (required)
         :type refund_dto: RefundDto
@@ -882,7 +882,7 @@ class ConversionsApi:
     ) -> ApiResponse[ConversionsControllerTrackRefund201Response]:
         """Report a refund or chargeback for an order
 
-        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
+        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`. Requires the advertiser API key (scope `write`) or session, and only touches that advertiser’s own orders (admins may pass `advertiserId`). Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param refund_dto: (required)
         :type refund_dto: RefundDto
@@ -949,7 +949,7 @@ class ConversionsApi:
     ) -> RESTResponseType:
         """Report a refund or chargeback for an order
 
-        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
+        Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`. Requires the advertiser API key (scope `write`) or session, and only touches that advertiser’s own orders (admins may pass `advertiserId`). Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
 
         :param refund_dto: (required)
         :type refund_dto: RefundDto
@@ -1049,6 +1049,8 @@ class ConversionsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
         ]
 
         return self.api_client.param_serialize(

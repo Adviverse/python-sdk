@@ -32,8 +32,10 @@ class WebhookEndpoint(BaseModel):
     events: List[StrictStr]
     active: StrictBool
     created_at: Optional[datetime] = Field(default=None, description="Not returned on create.")
-    secret: StrictStr = Field(description="HMAC-SHA256 signing secret (whsec_...).")
-    __properties: ClassVar[List[str]] = ["id", "url", "events", "active", "created_at", "secret"]
+    secret: Optional[StrictStr] = Field(default=None, description="HMAC-SHA256 signing secret (whsec_...). Returned only by create and rotate-secret.")
+    has_secret: Optional[StrictBool] = Field(default=None, description="List/update only: whether a signing secret is set.")
+    secret_hint: Optional[StrictStr] = Field(default=None, description="List/update only: last 4 characters of the secret.")
+    __properties: ClassVar[List[str]] = ["id", "url", "events", "active", "created_at", "secret", "has_secret", "secret_hint"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,6 +76,11 @@ class WebhookEndpoint(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if secret_hint (nullable) is None
+        # and model_fields_set contains the field
+        if self.secret_hint is None and "secret_hint" in self.model_fields_set:
+            _dict['secret_hint'] = None
+
         return _dict
 
     @classmethod
@@ -91,7 +98,9 @@ class WebhookEndpoint(BaseModel):
             "events": obj.get("events"),
             "active": obj.get("active"),
             "created_at": obj.get("created_at"),
-            "secret": obj.get("secret")
+            "secret": obj.get("secret"),
+            "has_secret": obj.get("has_secret"),
+            "secret_hint": obj.get("secret_hint")
         })
         return _obj
 
