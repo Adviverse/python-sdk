@@ -1,0 +1,26 @@
+name: release
+on:
+  push: { tags: ['v*'] }
+permissions:
+  contents: write       # GitHub release
+  id-token: write       # OIDC: provenance signing + registry trusted publishing
+  attestations: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: |
+          pip install build
+          python -m build
+          pip install dist/*.whl
+          python -c 'import adviverse, adviverse_client'
+      - uses: actions/attest-build-provenance@v2
+        with: { subject-path: 'dist/*' }
+      - uses: softprops/action-gh-release@v2
+        with: { files: 'dist/*' }
+      # Enable after adding this repo as a trusted publisher on pypi.org.
+      - if: vars.PYPI_PUBLISH == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
