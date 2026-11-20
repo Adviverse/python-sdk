@@ -18,10 +18,10 @@ from typing_extensions import Annotated
 
 from pydantic import StrictStr
 from typing import List
-from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
 from adviverse_client.models.api_key import ApiKey
 from adviverse_client.models.api_key_created import ApiKeyCreated
 from adviverse_client.models.brand_safety_dto import BrandSafetyDto
+from adviverse_client.models.compliance_controller_complete201_response import ComplianceControllerComplete201Response
 from adviverse_client.models.create_key_dto import CreateKeyDto
 from adviverse_client.models.create_terminal_token_dto import CreateTerminalTokenDto
 from adviverse_client.models.network_settings_dto import NetworkSettingsDto
@@ -351,7 +351,7 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Set campaign brand-safety controls
 
         Stores brand-safety settings (`categories`, `keywords`, `domains`, `sensitivity`, free-form `options`) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
@@ -392,7 +392,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -422,7 +422,7 @@ class SettingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Set campaign brand-safety controls
 
         Stores brand-safety settings (`categories`, `keywords`, `domains`, `sensitivity`, free-form `options`) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
@@ -463,7 +463,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -534,7 +534,7 @@ class SettingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -49,6 +49,8 @@ class PubProperty(BaseModel):
     status: Optional[StrictStr] = None
     quality_score: Optional[StrictStr] = Field(default=None, description="Postgres NUMERIC, serialized as a decimal string")
     cross_fill: Optional[StrictBool] = None
+    contextual_without_consent: Optional[StrictBool] = Field(default=None, description="Ads before consent (resolved: property consent config, else account default)")
+    enhanced_capping: Optional[StrictBool] = Field(default=None, description="Enhanced frequency capping (resolved like contextual_without_consent)")
     serving_domain: Optional[StrictStr] = None
     serving_domain_verified: Optional[StrictBool] = None
     serving_domain_checked_at: Optional[datetime] = None
@@ -63,7 +65,7 @@ class PubProperty(BaseModel):
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "publisher_id", "kind", "name", "domain", "category", "category_source", "categories", "classified_at", "classify_error", "trust_tier", "trust_locked", "verified_at", "trust_progress", "verification_status", "verification_method", "verification_token", "status", "quality_score", "cross_fill", "serving_domain", "serving_domain_verified", "serving_domain_checked_at", "bundle_id", "store_url", "platform", "app_store_id", "app_ads_txt", "skadnetwork_ids", "ctv_meta", "created_at", "updated_at", "deleted_at"]
+    __properties: ClassVar[List[str]] = ["id", "publisher_id", "kind", "name", "domain", "category", "category_source", "categories", "classified_at", "classify_error", "trust_tier", "trust_locked", "verified_at", "trust_progress", "verification_status", "verification_method", "verification_token", "status", "quality_score", "cross_fill", "contextual_without_consent", "enhanced_capping", "serving_domain", "serving_domain_verified", "serving_domain_checked_at", "bundle_id", "store_url", "platform", "app_store_id", "app_ads_txt", "skadnetwork_ids", "ctv_meta", "created_at", "updated_at", "deleted_at"]
 
     @field_validator('category_source')
     def category_source_validate_enum(cls, value):
@@ -263,6 +265,8 @@ class PubProperty(BaseModel):
             "status": obj.get("status"),
             "quality_score": obj.get("quality_score"),
             "cross_fill": obj.get("cross_fill"),
+            "contextual_without_consent": obj.get("contextual_without_consent"),
+            "enhanced_capping": obj.get("enhanced_capping"),
             "serving_domain": obj.get("serving_domain"),
             "serving_domain_verified": obj.get("serving_domain_verified"),
             "serving_domain_checked_at": obj.get("serving_domain_checked_at"),

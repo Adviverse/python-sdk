@@ -24,7 +24,7 @@ from adviverse_client.models.admin_controller_config200_response_inner import Ad
 from adviverse_client.models.admin_controller_process_payout201_response import AdminControllerProcessPayout201Response
 from adviverse_client.models.admin_controller_quality200_response_inner import AdminControllerQuality200ResponseInner
 from adviverse_client.models.admin_controller_rescan201_response import AdminControllerRescan201Response
-from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
+from adviverse_client.models.compliance_controller_complete201_response import ComplianceControllerComplete201Response
 from adviverse_client.models.moderation_decision_dto import ModerationDecisionDto
 from adviverse_client.models.set_account_status_dto import SetAccountStatusDto
 from adviverse_client.models.set_config_dto import SetConfigDto
@@ -327,7 +327,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Add a fraud blocklist entry
 
         Adds a `kind` (`ip`, `domain`, `asn`, `device`, `user_agent`, `country`, `subnet`) / `value` pair with an optional `reason`. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -365,7 +365,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -394,7 +394,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Add a fraud blocklist entry
 
         Adds a `kind` (`ip`, `domain`, `asn`, `device`, `user_agent`, `country`, `subnet`) / `value` pair with an optional `reason`. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -432,7 +432,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -499,7 +499,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1329,7 +1329,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Confirm a manual deposit
 
         Marks a manual deposit received and credits the advertiser ledger. `ref` is the bank/provider reference (defaults to `manual:<id>`). Idempotent: `ok` is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1367,7 +1367,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1396,7 +1396,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Confirm a manual deposit
 
         Marks a manual deposit received and credits the advertiser ledger. `ref` is the bank/provider reference (defaults to `manual:<id>`). Idempotent: `ok` is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1434,7 +1434,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1501,7 +1501,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1591,7 +1591,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Confirm a manual payout
 
         For manual (wire) payouts left in `processing`: after ops sends the bank transfer, `paid: true` (default) settles it and releases the held funds, and `paid: false` marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1629,7 +1629,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1658,7 +1658,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Confirm a manual payout
 
         For manual (wire) payouts left in `processing`: after ops sends the bank transfer, `paid: true` (default) settles it and releases the held funds, and `paid: false` marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1696,7 +1696,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1763,7 +1763,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1854,7 +1854,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Approve or reject a moderation item
 
         Applies `decision` (`approved` or `rejected`) with optional `notes` to a queue item. This updates the target: the creative's moderation status, the campaign or sponsored-product campaign's status (`active` or `rejected`), or the property's status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1895,7 +1895,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1925,7 +1925,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Approve or reject a moderation item
 
         Applies `decision` (`approved` or `rejected`) with optional `notes` to a queue item. This updates the target: the creative's moderation status, the campaign or sponsored-product campaign's status (`active` or `rejected`), or the property's status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1966,7 +1966,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2037,7 +2037,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3651,7 +3651,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Set a platform config value
 
         Creates or replaces the config entry `key` (1-200 chars) with `value` (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -3689,7 +3689,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3718,7 +3718,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Set a platform config value
 
         Creates or replaces the config entry `key` (1-200 chars) with `value` (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -3756,7 +3756,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3823,7 +3823,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3927,7 +3927,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Set an account's status
 
         Sets an account's `status` to `active`, `pending`, `suspended`, `banned` or `closed`. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -3968,7 +3968,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3998,7 +3998,7 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Set an account's status
 
         Sets an account's `status` to `active`, `pending`, `suspended`, `banned` or `closed`. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -4039,7 +4039,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4110,7 +4110,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,

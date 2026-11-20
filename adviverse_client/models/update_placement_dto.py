@@ -40,7 +40,8 @@ class UpdatePlacementDto(BaseModel):
     floor_auto: Optional[StrictBool] = Field(default=None, alias="floorAuto")
     floor_soft: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, alias="floorSoft")
     auto_ads: Optional[Dict[str, Any]] = Field(default=None, alias="autoAds")
-    __properties: ClassVar[List[str]] = ["name", "floorCpm", "revShare", "auctionType", "passbackUrl", "status", "houseOnly", "houseShare", "houseBackfill", "floorFallback", "floorAuto", "floorSoft", "autoAds"]
+    frequency_cap: Optional[Dict[str, Any]] = Field(default=None, alias="frequencyCap")
+    __properties: ClassVar[List[str]] = ["name", "floorCpm", "revShare", "auctionType", "passbackUrl", "status", "houseOnly", "houseShare", "houseBackfill", "floorFallback", "floorAuto", "floorSoft", "autoAds", "frequencyCap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,6 +87,11 @@ class UpdatePlacementDto(BaseModel):
         if self.auto_ads is None and "auto_ads" in self.model_fields_set:
             _dict['autoAds'] = None
 
+        # set to None if frequency_cap (nullable) is None
+        # and model_fields_set contains the field
+        if self.frequency_cap is None and "frequency_cap" in self.model_fields_set:
+            _dict['frequencyCap'] = None
+
         return _dict
 
     @classmethod
@@ -110,7 +116,8 @@ class UpdatePlacementDto(BaseModel):
             "floorFallback": obj.get("floorFallback"),
             "floorAuto": obj.get("floorAuto"),
             "floorSoft": obj.get("floorSoft"),
-            "autoAds": obj.get("autoAds")
+            "autoAds": obj.get("autoAds"),
+            "frequencyCap": obj.get("frequencyCap")
         })
         return _obj
 

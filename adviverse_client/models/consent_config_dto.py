@@ -39,7 +39,9 @@ class ConsentConfigDto(BaseModel):
     consent_grant_value: Optional[StrictStr] = Field(default=None, alias="consentGrantValue")
     tcf_purpose: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="tcfPurpose")
     tcf_vendor_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="tcfVendorId")
-    __properties: ClassVar[List[str]] = ["propertyId", "mode", "defaultConsent", "honorGpc", "collectTcf", "collectGpp", "collectGpc", "resendOnChange", "consentSource", "consentKey", "consentGrantValue", "tcfPurpose", "tcfVendorId"]
+    contextual_without_consent: Optional[StrictBool] = Field(default=None, alias="contextualWithoutConsent")
+    enhanced_capping: Optional[StrictBool] = Field(default=None, alias="enhancedCapping")
+    __properties: ClassVar[List[str]] = ["propertyId", "mode", "defaultConsent", "honorGpc", "collectTcf", "collectGpp", "collectGpc", "resendOnChange", "consentSource", "consentKey", "consentGrantValue", "tcfPurpose", "tcfVendorId", "contextualWithoutConsent", "enhancedCapping"]
 
     @field_validator('mode')
     def mode_validate_enum(cls, value):
@@ -121,7 +123,9 @@ class ConsentConfigDto(BaseModel):
             "consentKey": obj.get("consentKey"),
             "consentGrantValue": obj.get("consentGrantValue"),
             "tcfPurpose": obj.get("tcfPurpose"),
-            "tcfVendorId": obj.get("tcfVendorId")
+            "tcfVendorId": obj.get("tcfVendorId"),
+            "contextualWithoutConsent": obj.get("contextualWithoutConsent"),
+            "enhancedCapping": obj.get("enhancedCapping")
         })
         return _obj
 

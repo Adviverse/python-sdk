@@ -18,8 +18,8 @@ from typing_extensions import Annotated
 
 from pydantic import StrictStr
 from typing import List
-from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
 from adviverse_client.models.compliance_consent_config import ComplianceConsentConfig
+from adviverse_client.models.compliance_controller_complete201_response import ComplianceControllerComplete201Response
 from adviverse_client.models.compliance_controller_consent201_response import ComplianceControllerConsent201Response
 from adviverse_client.models.compliance_controller_consent_log200_response_inner import ComplianceControllerConsentLog200ResponseInner
 from adviverse_client.models.compliance_controller_sellers200_response import ComplianceControllerSellers200Response
@@ -309,7 +309,7 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Complete a data-subject request
 
         Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -347,7 +347,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -376,7 +376,7 @@ class ComplianceApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Complete a data-subject request
 
         Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -414,7 +414,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -481,7 +481,7 @@ class ComplianceApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AdminControllerSetStatus201Response",
+            '201': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,

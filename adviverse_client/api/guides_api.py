@@ -18,7 +18,7 @@ from typing_extensions import Annotated
 
 from pydantic import StrictStr
 from typing import List
-from adviverse_client.models.admin_controller_set_status201_response import AdminControllerSetStatus201Response
+from adviverse_client.models.compliance_controller_complete201_response import ComplianceControllerComplete201Response
 from adviverse_client.models.create_guide_dto import CreateGuideDto
 from adviverse_client.models.guide import Guide
 from adviverse_client.models.guides_controller_get200_response import GuidesControllerGet200Response
@@ -1658,7 +1658,7 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AdminControllerSetStatus201Response:
+    ) -> ComplianceControllerComplete201Response:
         """Delete a guide
 
         Deletes the guide and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1696,7 +1696,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AdminControllerSetStatus201Response",
+            '200': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1725,7 +1725,7 @@ class GuidesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AdminControllerSetStatus201Response]:
+    ) -> ApiResponse[ComplianceControllerComplete201Response]:
         """Delete a guide
 
         Deletes the guide and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
@@ -1763,7 +1763,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AdminControllerSetStatus201Response",
+            '200': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1830,7 +1830,7 @@ class GuidesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AdminControllerSetStatus201Response",
+            '200': "ComplianceControllerComplete201Response",
         }
         response_data = self.api_client.call_api(
             *_param,

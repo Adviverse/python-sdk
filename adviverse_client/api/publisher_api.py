@@ -1928,6 +1928,268 @@ class PublisherApi:
 
 
     @validate_call
+    def publisher_controller_get_property(
+        self,
+        id: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PubProperty:
+        """Get one property
+
+        Returns one property (same shape as an item of the list, including `trust_progress` and the resolved consent switches `contextual_without_consent` / `enhanced_capping`). 404 if not found, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+
+        :param id: (required)
+        :type id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._publisher_controller_get_property_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PubProperty",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def publisher_controller_get_property_with_http_info(
+        self,
+        id: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PubProperty]:
+        """Get one property
+
+        Returns one property (same shape as an item of the list, including `trust_progress` and the resolved consent switches `contextual_without_consent` / `enhanced_capping`). 404 if not found, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+
+        :param id: (required)
+        :type id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._publisher_controller_get_property_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PubProperty",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def publisher_controller_get_property_without_preload_content(
+        self,
+        id: StrictStr,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get one property
+
+        Returns one property (same shape as an item of the list, including `trust_progress` and the resolved consent switches `contextual_without_consent` / `enhanced_capping`). 404 if not found, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+
+        :param id: (required)
+        :type id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._publisher_controller_get_property_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PubProperty",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _publisher_controller_get_property_serialize(
+        self,
+        id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'apiKey', 
+            'bearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/publisher/properties/{id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def publisher_controller_list_apps(
         self,
         _request_timeout: Union[
@@ -4578,7 +4840,7 @@ class PublisherApi:
     ) -> PubPlacement:
         """Update a placement
 
-        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve), and `frequencyCap` (`{ impressions, windowSeconds }`; `{}` or `null` removes it). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4649,7 +4911,7 @@ class PublisherApi:
     ) -> ApiResponse[PubPlacement]:
         """Update a placement
 
-        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve), and `frequencyCap` (`{ impressions, windowSeconds }`; `{}` or `null` removes it). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4720,7 +4982,7 @@ class PublisherApi:
     ) -> RESTResponseType:
         """Update a placement
 
-        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve), and `frequencyCap` (`{ impressions, windowSeconds }`; `{}` or `null` removes it). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4868,7 +5130,7 @@ class PublisherApi:
     ) -> PubProperty:
         """Update a property
 
-        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `contextualWithoutConsent` (Ads before consent: unanswered/rejected visitors get contextual ads, no identifier) and `enhancedCapping` (Enhanced frequency capping: outside the EEA/UK/CH, no GPC/opt-out, contextual caps add browser signals and an SDK canvas hash) are written to this property's consent config — the same settings as POST /v1/publisher/consent-config with this propertyId; the rest of that config is kept. `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -4939,7 +5201,7 @@ class PublisherApi:
     ) -> ApiResponse[PubProperty]:
         """Update a property
 
-        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `contextualWithoutConsent` (Ads before consent: unanswered/rejected visitors get contextual ads, no identifier) and `enhancedCapping` (Enhanced frequency capping: outside the EEA/UK/CH, no GPC/opt-out, contextual caps add browser signals and an SDK canvas hash) are written to this property's consent config — the same settings as POST /v1/publisher/consent-config with this propertyId; the rest of that config is kept. `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5010,7 +5272,7 @@ class PublisherApi:
     ) -> RESTResponseType:
         """Update a property
 
-        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `contextualWithoutConsent` (Ads before consent: unanswered/rejected visitors get contextual ads, no identifier) and `enhancedCapping` (Enhanced frequency capping: outside the EEA/UK/CH, no GPC/opt-out, contextual caps add browser signals and an SDK canvas hash) are written to this property's consent config — the same settings as POST /v1/publisher/consent-config with this propertyId; the rest of that config is kept. `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5157,7 +5419,7 @@ class PublisherApi:
     ) -> PublisherControllerVerify201Response:
         """Verify property ownership
 
-        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. File and meta checks add a cache-busting `?adviverse_verify=<ms>` query so a CDN-cached page cannot fail them. A failed check is not an error: it returns `verified: false` with `error` (dns_lookup_failed | token_not_found | http_error | fetch_failed), a human `message`, and `check` (what was fetched or queried and what it answered, including `age` and `cf-cache-status`).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5224,7 +5486,7 @@ class PublisherApi:
     ) -> ApiResponse[PublisherControllerVerify201Response]:
         """Verify property ownership
 
-        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. File and meta checks add a cache-busting `?adviverse_verify=<ms>` query so a CDN-cached page cannot fail them. A failed check is not an error: it returns `verified: false` with `error` (dns_lookup_failed | token_not_found | http_error | fetch_failed), a human `message`, and `check` (what was fetched or queried and what it answered, including `age` and `cf-cache-status`).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str
@@ -5291,7 +5553,7 @@ class PublisherApi:
     ) -> RESTResponseType:
         """Verify property ownership
 
-        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+        Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. File and meta checks add a cache-busting `?adviverse_verify=<ms>` query so a CDN-cached page cannot fail them. A failed check is not an error: it returns `verified: false` with `error` (dns_lookup_failed | token_not_found | http_error | fetch_failed), a human `message`, and `check` (what was fetched or queried and what it answered, including `age` and `cf-cache-status`).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
 
         :param id: (required)
         :type id: str

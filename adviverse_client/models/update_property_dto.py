@@ -31,7 +31,9 @@ class UpdatePropertyDto(BaseModel):
     category: Optional[Union[StrictFloat, StrictInt]] = None
     verification_method: Optional[StrictStr] = Field(default=None, alias="verificationMethod")
     cross_fill: Optional[StrictBool] = Field(default=None, alias="crossFill")
-    __properties: ClassVar[List[str]] = ["name", "domain", "category", "verificationMethod", "crossFill"]
+    contextual_without_consent: Optional[StrictBool] = Field(default=None, alias="contextualWithoutConsent")
+    enhanced_capping: Optional[StrictBool] = Field(default=None, alias="enhancedCapping")
+    __properties: ClassVar[List[str]] = ["name", "domain", "category", "verificationMethod", "crossFill", "contextualWithoutConsent", "enhancedCapping"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +90,9 @@ class UpdatePropertyDto(BaseModel):
             "domain": obj.get("domain"),
             "category": obj.get("category"),
             "verificationMethod": obj.get("verificationMethod"),
-            "crossFill": obj.get("crossFill")
+            "crossFill": obj.get("crossFill"),
+            "contextualWithoutConsent": obj.get("contextualWithoutConsent"),
+            "enhancedCapping": obj.get("enhancedCapping")
         })
         return _obj
 

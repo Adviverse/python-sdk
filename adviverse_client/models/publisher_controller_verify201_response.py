@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from adviverse_client.models.publisher_controller_verify201_response_check import PublisherControllerVerify201ResponseCheck
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +30,10 @@ class PublisherControllerVerify201Response(BaseModel):
     verified: StrictBool
     token: StrictStr
     method: Optional[StrictStr]
-    __properties: ClassVar[List[str]] = ["verified", "token", "method"]
+    error: Optional[StrictStr]
+    message: Optional[StrictStr]
+    check: PublisherControllerVerify201ResponseCheck
+    __properties: ClassVar[List[str]] = ["verified", "token", "method", "error", "message", "check"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,10 +74,23 @@ class PublisherControllerVerify201Response(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of check
+        if self.check:
+            _dict['check'] = self.check.to_dict()
         # set to None if method (nullable) is None
         # and model_fields_set contains the field
         if self.method is None and "method" in self.model_fields_set:
             _dict['method'] = None
+
+        # set to None if error (nullable) is None
+        # and model_fields_set contains the field
+        if self.error is None and "error" in self.model_fields_set:
+            _dict['error'] = None
+
+        # set to None if message (nullable) is None
+        # and model_fields_set contains the field
+        if self.message is None and "message" in self.model_fields_set:
+            _dict['message'] = None
 
         return _dict
 
@@ -89,7 +106,10 @@ class PublisherControllerVerify201Response(BaseModel):
         _obj = cls.model_validate({
             "verified": obj.get("verified"),
             "token": obj.get("token"),
-            "method": obj.get("method")
+            "method": obj.get("method"),
+            "error": obj.get("error"),
+            "message": obj.get("message"),
+            "check": PublisherControllerVerify201ResponseCheck.from_dict(obj["check"]) if obj.get("check") is not None else None
         })
         return _obj
 

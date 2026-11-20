@@ -40,7 +40,9 @@ class ComplianceConsentConfig(BaseModel):
     consent_grant_value: Optional[StrictStr] = Field(default=None, alias="consentGrantValue")
     tcf_purpose: Optional[StrictInt] = Field(default=None, alias="tcfPurpose")
     tcf_vendor_id: Optional[StrictInt] = Field(default=None, alias="tcfVendorId")
-    __properties: ClassVar[List[str]] = ["publisherId", "propertyId", "mode", "defaultConsent", "honorGpc", "collectTcf", "collectGpp", "collectGpc", "resendOnChange", "consentSource", "consentKey", "consentGrantValue", "tcfPurpose", "tcfVendorId"]
+    contextual_without_consent: Optional[StrictBool] = Field(default=None, description="Ads always load: visitors who have not answered (or rejected) the CMP get contextual ads with no identifier; personalized still waits for consent. Same as the page flag window.ADVIVERSE_MIN_AC = 0.", alias="contextualWithoutConsent")
+    enhanced_capping: Optional[StrictBool] = Field(default=None, description="Enhanced frequency capping: outside the EEA/UK, for visitors with no opt-out signal (GPC, US-privacy opt-out), contextual frequency caps also use browser signals and an SDK canvas hash (daily-rotating, per-site, never stored on the device). Off: caps use IP + user agent only and unusual contextual traffic is not served. Declare it in your privacy policy if you turn it on.", alias="enhancedCapping")
+    __properties: ClassVar[List[str]] = ["publisherId", "propertyId", "mode", "defaultConsent", "honorGpc", "collectTcf", "collectGpp", "collectGpc", "resendOnChange", "consentSource", "consentKey", "consentGrantValue", "tcfPurpose", "tcfVendorId", "contextualWithoutConsent", "enhancedCapping"]
 
     @field_validator('mode')
     def mode_validate_enum(cls, value):
@@ -146,7 +148,9 @@ class ComplianceConsentConfig(BaseModel):
             "consentKey": obj.get("consentKey"),
             "consentGrantValue": obj.get("consentGrantValue"),
             "tcfPurpose": obj.get("tcfPurpose"),
-            "tcfVendorId": obj.get("tcfVendorId")
+            "tcfVendorId": obj.get("tcfVendorId"),
+            "contextualWithoutConsent": obj.get("contextualWithoutConsent"),
+            "enhancedCapping": obj.get("enhancedCapping")
         })
         return _obj
 
