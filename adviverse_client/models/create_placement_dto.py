@@ -27,7 +27,8 @@ class CreatePlacementDto(BaseModel):
     """
     CreatePlacementDto
     """ # noqa: E501
-    property_id: StrictStr = Field(alias="propertyId")
+    property_id: Optional[StrictStr] = Field(default=None, alias="propertyId")
+    app_id: Optional[StrictStr] = Field(default=None, alias="appId")
     name: StrictStr
     format: StrictStr
     width: Optional[Union[StrictFloat, StrictInt]] = None
@@ -43,7 +44,7 @@ class CreatePlacementDto(BaseModel):
     house_share: Optional[Union[Annotated[float, Field(le=1, strict=True, ge=0)], Annotated[int, Field(le=1, strict=True, ge=0)]]] = Field(default=None, alias="houseShare")
     house_backfill: Optional[StrictBool] = Field(default=None, alias="houseBackfill")
     floor_fallback: Optional[StrictBool] = Field(default=None, alias="floorFallback")
-    __properties: ClassVar[List[str]] = ["propertyId", "name", "format", "width", "height", "responsive", "floorCpm", "revShare", "auctionType", "passbackUrl", "frequencyCap", "settings", "houseOnly", "houseShare", "houseBackfill", "floorFallback"]
+    __properties: ClassVar[List[str]] = ["propertyId", "appId", "name", "format", "width", "height", "responsive", "floorCpm", "revShare", "auctionType", "passbackUrl", "frequencyCap", "settings", "houseOnly", "houseShare", "houseBackfill", "floorFallback"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,6 +98,7 @@ class CreatePlacementDto(BaseModel):
 
         _obj = cls.model_validate({
             "propertyId": obj.get("propertyId"),
+            "appId": obj.get("appId"),
             "name": obj.get("name"),
             "format": obj.get("format"),
             "width": obj.get("width"),

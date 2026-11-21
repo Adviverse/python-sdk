@@ -34,7 +34,8 @@ class CreateAppDto(BaseModel):
     app_store_id: Optional[StrictStr] = Field(default=None, alias="appStoreId")
     category: Optional[Union[StrictFloat, StrictInt]] = None
     ctv_meta: Optional[Dict[str, Any]] = Field(default=None, alias="ctvMeta")
-    __properties: ClassVar[List[str]] = ["kind", "name", "bundleId", "platform", "storeUrl", "appStoreId", "category", "ctvMeta"]
+    developer_property_id: Optional[StrictStr] = Field(default=None, alias="developerPropertyId")
+    __properties: ClassVar[List[str]] = ["kind", "name", "bundleId", "platform", "storeUrl", "appStoreId", "category", "ctvMeta", "developerPropertyId"]
 
     @field_validator('kind')
     def kind_validate_enum(cls, value):
@@ -108,7 +109,8 @@ class CreateAppDto(BaseModel):
             "storeUrl": obj.get("storeUrl"),
             "appStoreId": obj.get("appStoreId"),
             "category": obj.get("category"),
-            "ctvMeta": obj.get("ctvMeta")
+            "ctvMeta": obj.get("ctvMeta"),
+            "developerPropertyId": obj.get("developerPropertyId")
         })
         return _obj
 

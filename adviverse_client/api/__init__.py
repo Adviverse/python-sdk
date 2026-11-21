@@ -7,6 +7,7 @@ from adviverse_client.api.auth_api import AuthApi
 from adviverse_client.api.combo_api import ComboApi
 from adviverse_client.api.compliance_api import ComplianceApi
 from adviverse_client.api.conversions_api import ConversionsApi
+from adviverse_client.api.device_auth_api import DeviceAuthApi
 from adviverse_client.api.edge_api import EdgeApi
 from adviverse_client.api.finance_api import FinanceApi
 from adviverse_client.api.health_api import HealthApi

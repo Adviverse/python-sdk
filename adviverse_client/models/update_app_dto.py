@@ -32,7 +32,8 @@ class UpdateAppDto(BaseModel):
     ctv_meta: Optional[Dict[str, Any]] = Field(default=None, alias="ctvMeta")
     store_url: Optional[StrictStr] = Field(default=None, alias="storeUrl")
     platform: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["appAdsTxt", "skadnetworkIds", "ctvMeta", "storeUrl", "platform"]
+    developer_property_id: Optional[StrictStr] = Field(default=None, alias="developerPropertyId")
+    __properties: ClassVar[List[str]] = ["appAdsTxt", "skadnetworkIds", "ctvMeta", "storeUrl", "platform", "developerPropertyId"]
 
     @field_validator('platform')
     def platform_validate_enum(cls, value):
@@ -90,6 +91,11 @@ class UpdateAppDto(BaseModel):
                 if _item_app_ads_txt:
                     _items.append(_item_app_ads_txt.to_dict())
             _dict['appAdsTxt'] = _items
+        # set to None if developer_property_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.developer_property_id is None and "developer_property_id" in self.model_fields_set:
+            _dict['developerPropertyId'] = None
+
         return _dict
 
     @classmethod
@@ -106,7 +112,8 @@ class UpdateAppDto(BaseModel):
             "skadnetworkIds": obj.get("skadnetworkIds"),
             "ctvMeta": obj.get("ctvMeta"),
             "storeUrl": obj.get("storeUrl"),
-            "platform": obj.get("platform")
+            "platform": obj.get("platform"),
+            "developerPropertyId": obj.get("developerPropertyId")
         })
         return _obj
 

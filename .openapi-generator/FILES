@@ -14,6 +14,7 @@ adviverse_client/api/combo_api.py
 adviverse_client/api/compliance_api.py
 adviverse_client/api/conversions_api.py
 adviverse_client/api/deals_api.py
+adviverse_client/api/device_auth_api.py
 adviverse_client/api/dooh_api.py
 adviverse_client/api/edge_api.py
 adviverse_client/api/exports_api.py
@@ -215,6 +216,13 @@ adviverse_client/models/deals_controller_lookup_advertiser200_response.py
 adviverse_client/models/deals_controller_preview_claim200_response.py
 adviverse_client/models/deals_controller_status201_response.py
 adviverse_client/models/deposit_dto.py
+adviverse_client/models/device_approve_dto.py
+adviverse_client/models/device_auth_controller_approve201_response.py
+adviverse_client/models/device_auth_controller_code200_response.py
+adviverse_client/models/device_auth_controller_describe200_response.py
+adviverse_client/models/device_auth_controller_token200_response.py
+adviverse_client/models/device_code_dto.py
+adviverse_client/models/device_token_dto.py
 adviverse_client/models/dooh_controller_list200_response_inner.py
 adviverse_client/models/dooh_controller_save_setup201_response.py
 adviverse_client/models/dooh_setup_dto.py
@@ -466,7 +474,7 @@ adviverse_client/models/settings_controller_bid_rec200_response.py
 adviverse_client/models/settings_controller_create_terminal_token201_response.py
 adviverse_client/models/settings_controller_create_terminal_token201_response_switch.py
 adviverse_client/models/settings_controller_list_terminal_tokens200_response_inner.py
-adviverse_client/models/settings_controller_revoke_key200_response.py
+adviverse_client/models/settings_controller_revoke_current_key200_response.py
 adviverse_client/models/settings_controller_rotate_terminal_token201_response.py
 adviverse_client/models/settings_controller_set_terminal_token_policy200_response.py
 adviverse_client/models/settings_controller_update_network200_response.py
@@ -506,6 +514,7 @@ adviverse_client/models/update_screen_dto.py
 adviverse_client/models/update_surface_dto.py
 adviverse_client/models/update_webhook_dto.py
 adviverse_client/models/verification_controller_categories200_response_inner.py
+adviverse_client/models/verify_app_dto.py
 adviverse_client/models/webhook_delivery.py
 adviverse_client/models/webhook_delivery_result.py
 adviverse_client/models/webhook_endpoint.py

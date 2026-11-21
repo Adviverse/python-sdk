@@ -27,11 +27,12 @@ class ApiKeyCreated(BaseModel):
     """
     ApiKeyCreated
     """ # noqa: E501
+    id: Optional[StrictStr] = Field(default=None, description="The key id (for DELETE /v1/keys/{id}).")
     key: StrictStr = Field(description="Full key, shown only once.")
     prefix: StrictStr
     scopes: List[StrictStr]
     expires_at: Optional[datetime] = Field(alias="expiresAt")
-    __properties: ClassVar[List[str]] = ["key", "prefix", "scopes", "expiresAt"]
+    __properties: ClassVar[List[str]] = ["id", "key", "prefix", "scopes", "expiresAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,6 +90,7 @@ class ApiKeyCreated(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "key": obj.get("key"),
             "prefix": obj.get("prefix"),
             "scopes": obj.get("scopes"),

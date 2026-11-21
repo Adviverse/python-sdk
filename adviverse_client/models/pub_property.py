@@ -61,11 +61,12 @@ class PubProperty(BaseModel):
     app_ads_txt: Optional[List[Dict[str, Any]]] = None
     skadnetwork_ids: Optional[List[StrictStr]] = None
     ctv_meta: Optional[Dict[str, Any]] = None
+    developer_property_id: Optional[StrictStr] = Field(default=None, description="Apps: the website property whose /app-ads.txt verifies the app")
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "publisher_id", "kind", "name", "domain", "category", "category_source", "categories", "classified_at", "classify_error", "trust_tier", "trust_locked", "verified_at", "trust_progress", "verification_status", "verification_method", "verification_token", "status", "quality_score", "cross_fill", "contextual_without_consent", "enhanced_capping", "serving_domain", "serving_domain_verified", "serving_domain_checked_at", "bundle_id", "store_url", "platform", "app_store_id", "app_ads_txt", "skadnetwork_ids", "ctv_meta", "created_at", "updated_at", "deleted_at"]
+    __properties: ClassVar[List[str]] = ["id", "publisher_id", "kind", "name", "domain", "category", "category_source", "categories", "classified_at", "classify_error", "trust_tier", "trust_locked", "verified_at", "trust_progress", "verification_status", "verification_method", "verification_token", "status", "quality_score", "cross_fill", "contextual_without_consent", "enhanced_capping", "serving_domain", "serving_domain_verified", "serving_domain_checked_at", "bundle_id", "store_url", "platform", "app_store_id", "app_ads_txt", "skadnetwork_ids", "ctv_meta", "developer_property_id", "created_at", "updated_at", "deleted_at"]
 
     @field_validator('category_source')
     def category_source_validate_enum(cls, value):
@@ -228,6 +229,11 @@ class PubProperty(BaseModel):
         if self.app_store_id is None and "app_store_id" in self.model_fields_set:
             _dict['app_store_id'] = None
 
+        # set to None if developer_property_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.developer_property_id is None and "developer_property_id" in self.model_fields_set:
+            _dict['developer_property_id'] = None
+
         # set to None if deleted_at (nullable) is None
         # and model_fields_set contains the field
         if self.deleted_at is None and "deleted_at" in self.model_fields_set:
@@ -277,6 +283,7 @@ class PubProperty(BaseModel):
             "app_ads_txt": obj.get("app_ads_txt"),
             "skadnetwork_ids": obj.get("skadnetwork_ids"),
             "ctv_meta": obj.get("ctv_meta"),
+            "developer_property_id": obj.get("developer_property_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "deleted_at": obj.get("deleted_at")

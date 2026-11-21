@@ -27,7 +27,7 @@ class PublisherControllerVerify201ResponseCheck(BaseModel):
     PublisherControllerVerify201ResponseCheck
     """ # noqa: E501
     method: Optional[StrictStr]
-    target: StrictStr = Field(description="URL fetched (file/meta) or DNS name queried (dns)")
+    target: StrictStr = Field(description="URL fetched (file/meta/app-ads.txt/store listing) or DNS name queried (dns)")
     status: Optional[StrictInt] = None
     final_url: Optional[StrictStr] = Field(default=None, alias="finalUrl")
     age: Optional[StrictStr] = None
